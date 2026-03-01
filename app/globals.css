@@ -1,26 +1,33 @@
 @import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "mytheme";
+  default: true;
+  /* set as default */
+  prefersdark: true;
+  /* set as default dark mode (prefers-color-scheme:dark) */
+  color-scheme: light;
+  /* color of browser-provided UI */
+
+  --color-primary: '#22c55e';
+  --color-secondary: '#06b6d4';
+  --color-accent: '#00cdb7';
+  --color-neutral: '#6b7280';
+  --color-base-100: '#1f2937';
+  --color-info: '#0085ff';
+  --color-success: '#16a34a';
+  --color-warning: '#ec5e00';
+  --color-error: '#be0024';
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --primary: '#22c55e';
+  --secondary: '#06b6d4';
+  --accent: '#00cdb7';
+  --neutral: '#6b7280';
+  --base-100: '#1f2937';
+  --info: '#0085ff';
+  --success: '#16a34a';
+  --warning: '#ec5e00';
+  --error: '#be0024';
 }
