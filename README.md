@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MusicMe Frontend
 
-## Getting Started
+MusicMe is a social media platform creating for sharing music.
 
-First, run the development server:
+## Build status
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+[![Netlify Status](https://api.netlify.com/api/v1/badges/11f2eb04-ba01-4a40-97af-abde670b7dcd/deploy-status)](https://app.netlify.com/sites/music-me-app/deploys)
+
+## Getting started
+
+To start this project you will need access to the backend repo (private)
+<br>
+Make sure you have [docker](https://www.docker.com/) installed
+
+To build the containers run
+
+```shell
+npm run docker:build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To start the container run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```shell
+npm run docker:run
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Built with
 
-## Learn More
+-   [![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](https://react.dev/)
+-   [![TailwindCSS](https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+-   [![DaisyUI](https://img.shields.io/badge/DaisyUI-5A0EF8?logo=daisyui&logoColor=fff)](https://daisyui.com/)
+-   [![Postgres](https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+-   [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)](https://www.typescriptlang.org/)
+-   [![Spotify API](https://img.shields.io/badge/Spotify-1ED760?logo=spotify&logoColor=white)](https://developer.spotify.com/documentation/web-api)
 
-To learn more about Next.js, take a look at the following resources:
+## Roadmap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   [x] Switch to UUID for profile ids
+-   [ ] Feed page
+-   [ ] Better analytics - last login, more analytics for song
+-   [ ] Option to pick top song
+-   [ ] Create publically accessible pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Functionality
 
-## Deploy on Vercel
+-   User can share songs
+-   User can view other users shares / reviews
+-   Users can like a song
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Optional funcitonality
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   Users can view favorite artists shows coming out
+
+## Contact
+
+Thomas Mazzag - tom.mazzag@gmail.com <br>
+<a href="https://linkedin.com/in/thomas-mazzag" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="thomas-mazzag" height="30" width="40" /></a>
+
+## App flow
+
+-   User is first greeted on the welcome page where they can sign in
+-   User is then redirected to success page which is a callback page
+-   User is finally admitted to main platform
