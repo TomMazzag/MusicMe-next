@@ -37,9 +37,17 @@ export default function AboutPage() {
             discover new music, gain and share insights into their music taste.
           </p>
         </TextTile>
-        <ImageTile src={''} />
+        <ImageTile
+          src={
+            'https://img.freepik.com/free-photo/lavender-field-sunset-near-valensole_268835-3910.jpg?semt=ais_rp_progressive&w=740&q=80'
+          }
+        />
 
-        <ImageTile src={''} />
+        <ImageTile
+          src={
+            'https://img.freepik.com/free-photo/lavender-field-sunset-near-valensole_268835-3910.jpg?semt=ais_rp_progressive&w=740&q=80'
+          }
+        />
         <TextTile title="Why use our platform?">
           <p>Our platform is a way to give your opinion on songs and give them a rating</p>
           <br />
@@ -73,7 +81,11 @@ export default function AboutPage() {
             <li>Song suggestions using AI/ML</li>
           </ul>
         </TextTile>
-        <ImageTile src={''} />
+        <ImageTile
+          src={
+            'https://img.freepik.com/free-photo/lavender-field-sunset-near-valensole_268835-3910.jpg?semt=ais_rp_progressive&w=740&q=80'
+          }
+        />
       </div>
 
       <footer className="md:mt-10">

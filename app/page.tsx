@@ -1,3 +1,4 @@
+import { LoginButton } from '@MusicMe/components/Login/LoginButton';
 import Image from 'next/image';
 
 export default function Home() {
@@ -12,13 +13,13 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col gap-6 text-center">
-            <button className="btn btn-outline btn-primary">Click here to begin</button>
+            <LoginButton />
 
             <div className="w-full mt-8">
               <p className="pb-2 opacity-75">
                 Dont have an account? <br></br> Sign up for the beta below!
               </p>
-              <button className="btn btn-outline w-full">Sign up for the beta</button>
+              <button className="btn btn-outline btn-accent w-full">Sign up for the beta</button>
             </div>
           </div>
           <a href="/about" className="text-accent">
