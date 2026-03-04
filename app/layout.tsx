@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'MusicMe',
   description:
     'MusicMe: A social media platform for sharing music taste, discovering new tunes, and connecting with fellow music lovers. Join the beta today!',
+  verification: {
+    google: '5jbi-eFUsvsUfAQUhKbYR7G4DO1K2AQH7sWiCc1YFWY',
+  },
 };
 
 export default function RootLayout({
