@@ -19,7 +19,9 @@ export default function Home() {
               <p className="pb-2 opacity-75">
                 Dont have an account? <br></br> Sign up for the beta below!
               </p>
-              <button className="btn btn-outline btn-accent w-full">Sign up for the beta</button>
+              <a href="/register" className="text-accent">
+                <button className="btn btn-outline btn-accent w-full">Sign up for the beta</button>
+              </a>
             </div>
           </div>
           <a href="/about" className="text-accent">
@@ -27,13 +29,15 @@ export default function Home() {
           </a>
         </div>
 
-        <Image
-          src="/platform.webp"
-          alt="Platform image"
-          width={1920}
-          height={1080}
-          className="h-full border-l-4 border-accent object-cover object-right hidden md:block"
-        />
+        <div className="overflow-hidden">
+          <Image
+            src="/platform.webp"
+            alt="Platform image"
+            width={1920}
+            height={1080}
+            className="h-full border-l-4 border-accent object-cover object-left hidden md:block"
+          />
+        </div>
       </div>
     </div>
   );
