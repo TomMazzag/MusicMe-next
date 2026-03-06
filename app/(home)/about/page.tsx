@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { HighlightText } from '@MusicMe/components/Util/TextComponents';
 import { Metadata } from 'next';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   description:
@@ -37,17 +38,9 @@ export default function AboutPage() {
             discover new music, gain and share insights into their music taste.
           </p>
         </TextTile>
-        <ImageTile
-          src={
-            'https://img.freepik.com/free-photo/lavender-field-sunset-near-valensole_268835-3910.jpg?semt=ais_rp_progressive&w=740&q=80'
-          }
-        />
+        <ImageTile src={'/exampleProfilePage.webp'} width={2880} height={1550} />
 
-        <ImageTile
-          src={
-            'https://img.freepik.com/free-photo/lavender-field-sunset-near-valensole_268835-3910.jpg?semt=ais_rp_progressive&w=740&q=80'
-          }
-        />
+        <ImageTile src={'/profileAnalytics.webp'} width={2270} height={1530} />
         <TextTile title="Why use our platform?">
           <p>Our platform is a way to give your opinion on songs and give them a rating</p>
           <br />
@@ -81,11 +74,7 @@ export default function AboutPage() {
             <li>Song suggestions using AI/ML</li>
           </ul>
         </TextTile>
-        <ImageTile
-          src={
-            'https://img.freepik.com/free-photo/lavender-field-sunset-near-valensole_268835-3910.jpg?semt=ais_rp_progressive&w=740&q=80'
-          }
-        />
+        <ImageTile src={'/discover.webp'} width={3802} height={1064} />
       </div>
 
       <footer className="md:mt-10">
@@ -121,12 +110,14 @@ const TextTile = ({ title, children }: TextTileProps) => {
 
 interface ImageTileProps {
   src: string;
+  width: number;
+  height: number;
 }
 
-const ImageTile = ({ src }: ImageTileProps) => {
+const ImageTile = ({ src, width, height }: ImageTileProps) => {
   return (
     <div className="flex items-center md:mx-14 my-6 md:px-10  py-2 md:py-6 rounded-xl border border-accent">
-      <img src={src} alt="" />
+      <Image src={src} alt="" width={width} height={height} />
     </div>
   );
 };
