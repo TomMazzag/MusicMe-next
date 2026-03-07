@@ -1,15 +1,15 @@
 services:
   backend:
     build:
-      context: ../Projects/MusicMe.nosync/MusicMe-Backend
+      context: ../musicme-backend-hono
     ports:
       - "3000:3000"
     env_file:
-      - ../Projects/MusicMe.nosync/MusicMe-Backend/.env
+      - ../musicme-backend-hono/.env
     volumes:
-      - ../Projects/MusicMe.nosync/MusicMe-Backend:/app  
+      - ../musicme-backend-hono:/src  
       - /app/node_modules 
-    command: ["npm", "run", "dev"]
+    command: ["npm", "run", "start"]
 
   frontend:
     build:
