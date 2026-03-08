@@ -8,10 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "docker:build": "docker compose up --build -d",
+    "docker:rebuild-backend": "docker-compose build backend",
     "docker:rebuild": "docker-compose build --no-cache",
     "docker:run": "docker compose up"
   },
   "dependencies": {
+    "@types/spotify-api": "^0.0.25",
     "daisyui": "^5.5.19",
     "next": "16.1.6",
     "posthog-js": "^1.358.0",

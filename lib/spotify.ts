@@ -11,7 +11,6 @@ export const generateSpotifyToken = async (code: string, state: string): Promise
     const response = await fetch(`${BACKEND_URL}/auth/callback?code=${code}&state=${state}`, { method: 'GET' });
     if (response.status === 200) {
       let data = await response.json();
-      console.log('Success', data);
       return data;
     } else {
       throw new Error(`Failed to get spotify token, status code: ${response.status}`);
