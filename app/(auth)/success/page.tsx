@@ -2,10 +2,10 @@
 
 import { LoginButton } from '@MusicMe/components/Login/LoginButton';
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { PropagateLoader } from 'react-spinners';
 
-export default function Success() {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
   const state = searchParams.get('state');
@@ -35,5 +35,13 @@ export default function Success() {
       <p>Redirecting...</p>
       <PropagateLoader color="lightgreen" style={{ display: 'inherit', position: 'relative', left: '-7px' }} />
     </div>
+  );
+}
+
+export default function Success() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuccessContent />
+    </Suspense>
   );
 }
