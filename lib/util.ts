@@ -12,3 +12,11 @@ export function pluraliseAndReturnString(count: number, singular: string, plural
     // console.log(count, typeof count, count === 1, singular, word);
     return word;
 }
+
+export function shortenString(str: string, maxLength: number) {
+  if (str.length <= maxLength) {
+    return str;
+  } else {
+    return str.slice(0, maxLength) + '...';
+  }
+}

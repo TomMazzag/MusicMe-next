@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 import { BACKEND_URL } from './util';
 
 interface SpotifyTokenResponse {
@@ -19,4 +20,20 @@ export const generateSpotifyToken = async (code: string, state: string): Promise
     console.error('Error generating spotify token', err);
     throw err;
   }
+};
+
+export const getPlaylists = async (userId: string) => {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('access_token')?.value;
+  if (!accessToken) {
+    throw new Error('No access token found in cookies');
+  }
+  const result = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists?offset=0&limit=50`, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  const data = await result.json();
+  
+  const publicPlaylists = data.items.filter((item: SpotifyApi.PlaylistObjectFull) => item.public === true);
+  return publicPlaylists;
 };

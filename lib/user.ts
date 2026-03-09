@@ -14,6 +14,7 @@ export const getAccountDetailsUsersAccount = async (): Promise<Profile.User> => 
   });
 
   if (!response.ok) {
+    console.log('Failed to fetch account details', { status: response.status, statusText: response.statusText });
     if (response.status === 401) {
       redirect('/');
     }

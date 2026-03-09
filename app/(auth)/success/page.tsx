@@ -11,10 +11,17 @@ function SuccessContent() {
   const state = searchParams.get('state');
 
   useEffect(() => {
-    if (code && state) {
-      const redirectUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/callback?code=${code}&state=${state}`;
-      window.location.href = redirectUrl;
+    async function handleCallback() {
+      if (!code || !state) return;
+
+      await fetch(`/api/auth/callback?code=${code}&state=${state}`, {
+        credentials: 'include',
+      });
+
+      window.location.href = '/account';
     }
+
+    handleCallback();
   }, [code, state]);
 
   if (!code || !state) {
