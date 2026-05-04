@@ -3,7 +3,7 @@ import { BACKEND_URL_SERVER } from '@MusicMe/lib/util';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest): Promise<Profile.User> {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   const res = await fetch(`${BACKEND_URL_SERVER}/user/account`, {
     method: 'GET',
     credentials: 'include',
@@ -20,8 +20,8 @@ export async function GET(req: NextRequest): Promise<Profile.User> {
     throw new Error('Failed to fetch account details', { cause: res });
   }
 
-    const data = await res.json();
-    const response = NextResponse.json(data, { status: res.status });
+  const data = await res.json();
+  const response = NextResponse.json(data, { status: res.status });
 
-    return response as unknown as Profile.User;
+  return response
 };
