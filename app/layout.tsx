@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Script from 'next/script';
+import { UserProvider } from '@MusicMe/context/UserContext';
 
 export const metadata: Metadata = {
   title: 'MusicMe',
@@ -21,7 +22,9 @@ export default function RootLayout({
       <head>
         <Script src="https://kit.fontawesome.com/b3cfe25c7d.js" crossOrigin="anonymous" strategy="afterInteractive" />
       </head>
-      <body>{children}</body>
+      <body>
+        <UserProvider>{children}</UserProvider>
+      </body>
     </html>
   );
 }
