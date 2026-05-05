@@ -1,4 +1,3 @@
-import { Profile } from '@MusicMe/types/Profile';
 import { BACKEND_URL_SERVER } from '@MusicMe/lib/util';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';

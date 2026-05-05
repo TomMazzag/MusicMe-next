@@ -7,6 +7,7 @@ type UserContextType = {
   user: Profile.User | null;
   loading: boolean;
   error: Error | null;
+  userNotFound: boolean;
 };
 
 const UserContext = createContext<UserContextType | null>(null);
@@ -15,16 +16,23 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<Profile.User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const [userNotFound, setUserNotFound] = useState(false);
 
   useEffect(() => {
     fetch('/api/user/account')
       .then((res) => res.json())
-      .then((userData) => setUser(userData.userDetails))
+      .then((userData) => {
+        if (userData.length === 0) {
+          setUserNotFound(true);
+          return;
+        }
+        setUser(userData.userDetails);
+      })
       .catch(setError)
       .finally(() => setLoading(false));
   }, []);
 
-  return <UserContext.Provider value={{ user, loading, error }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, loading, error, userNotFound }}>{children}</UserContext.Provider>;
 }
 
 export function useUser() {
