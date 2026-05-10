@@ -1,8 +1,8 @@
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useUser } from '@MusicMe/context/UserContext';
-import { Profile } from '@MusicMe/types/Profile';
 import { useState } from 'react';
+import { LogoutLink } from './LogoutButton';
 
 export const UserProfileButton = () => {
   const { user, loading, userNotFound } = useUser();
@@ -61,7 +61,7 @@ export const UserProfileButton = () => {
           <a href="/account/settings">Settings</a>
         </li>
         <li>
-          <a href="/">Logout</a>
+          <LogoutLink />
         </li>
       </ul>
     </>

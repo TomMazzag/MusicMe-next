@@ -1,7 +1,6 @@
 import { Profile } from '@MusicMe/types/Profile';
 import { BACKEND_URL_SERVER } from './util';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 export const getAccountDetailsUsersAccount = async (): Promise<Profile.User> => {
   const cookieStore = await cookies();
@@ -15,9 +14,6 @@ export const getAccountDetailsUsersAccount = async (): Promise<Profile.User> => 
 
   if (!response.ok) {
     console.log('Failed to fetch account details', { status: response.status, statusText: response.statusText });
-    if (response.status === 401) {
-      redirect('/');
-    }
     throw new Error('Failed to fetch account details', { cause: response });
   }
 
