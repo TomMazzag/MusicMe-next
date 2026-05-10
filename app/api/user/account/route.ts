@@ -1,5 +1,4 @@
 import { BACKEND_URL_SERVER } from '@MusicMe/lib/util';
-import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
@@ -13,9 +12,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   if (!res.ok) {
     console.log('Failed to fetch account details', { status: res.status, statusText: res.statusText });
-    if (res.status === 401) {
-      redirect('/');
-    }
     throw new Error('Failed to fetch account details', { cause: res });
   }
 

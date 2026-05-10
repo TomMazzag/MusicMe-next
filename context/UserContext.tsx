@@ -28,7 +28,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         }
         setUser(userData.userDetails);
       })
-      .catch(setError)
+      .catch((err) => {
+        setError(err);
+        setUserNotFound(true);
+      })
       .finally(() => setLoading(false));
   }, []);
 

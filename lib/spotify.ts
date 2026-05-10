@@ -33,7 +33,7 @@ export const getPlaylists = async (userId: string) => {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
   const data = await result.json();
-  
+
   const publicPlaylists = data.items.filter((item: SpotifyApi.PlaylistObjectFull) => item.public === true);
   return publicPlaylists;
 };
