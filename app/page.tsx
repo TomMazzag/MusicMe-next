@@ -2,7 +2,6 @@ import { LoginButton } from '@MusicMe/components/Login/LoginButton';
 import Image from 'next/image';
 
 export default function Home() {
-  const SPOTIFY_CLIENT_ID = '5c9346c993f3470284a7ae8623242385';
   return (
     <div className="h-screen">
       <div className="flex md:grid md:grid-cols-2 h-full overflow-hidden justify-center">
