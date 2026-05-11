@@ -1,8 +1,11 @@
+'use client';
+
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useUser } from '@MusicMe/context/UserContext';
 import { useState } from 'react';
 import { LogoutLink } from './LogoutButton';
+import Image from 'next/image';
 
 export const UserProfileButton = () => {
   const { user, loading, userNotFound } = useUser();
@@ -36,18 +39,18 @@ export const UserProfileButton = () => {
           {!imgLoaded && (
             <FontAwesomeIcon
               icon={faCircleUser}
-              className="absolute inset-0 text-[2.5rem]"
+              className="absolute inset-0 text-[2.5rem] opacity-20"
               style={{ width: '2.5rem', height: '2.5rem', margin: 0 }}
             />
           )}
           {user && (
-            <img
-              src={user?.profile_picture_url}
+            <Image
+              src={user.profile_picture_url}
               alt={'User profile image'}
               onLoad={() => setImgLoaded(true)}
-              className={`absolute w-full h-full object-cover transition-opacity duration-300 rounded-full ${
-                imgLoaded ? 'opacity-100' : 'opacity-50'
-              }`}
+              width={40}
+              height={40}
+              className={`absolute object-cover transition-opacity duration-300 rounded-full ${imgLoaded ? 'opacity-100' : 'opacity-50'}`}
             />
           )}
         </div>

@@ -6,7 +6,7 @@ const SPOTIFY_ROUTES = ['/account'];
 
 const SPOTIFY_EXPIRES_COOKIE_NAME = 'spotify_expires_at';
 
-export default async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const isProtectedPath = PROTECTED_PATHS.some((path) => pathname.startsWith(path));
   const isSpotifyRoute = SPOTIFY_ROUTES.some((path) => pathname.startsWith(path));
