@@ -9,6 +9,12 @@
   color-scheme: light;
   /* color of browser-provided UI */
 
+  --color-base-100: #1f2937;
+  --color-base-200: oklch(23.26% 0.014 253.1);
+  --color-base-300: oklch(21.15% 0.012 254.09);
+  --color-base-content: lab(97.3754% -1.86676 -10.6283);
+
+
   --color-primary: '#22c55e';
   --color-secondary: '#06b6d4';
   --color-accent: '#00cdb7';
