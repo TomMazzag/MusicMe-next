@@ -20,3 +20,8 @@ export function shortenString(str: string, maxLength: number) {
     return str.slice(0, maxLength) + '...';
   }
 }
+
+export const DEFAULT_GET_OPTIONS: RequestInit = {
+  method: 'GET',
+  credentials: 'include',
+};

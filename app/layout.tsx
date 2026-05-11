@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Script from 'next/script';
 import { UserProvider } from '@MusicMe/context/UserContext';
+import { Providers } from '@MusicMe/proviers/QueryClientProvider';
 
 export const metadata: Metadata = {
   title: 'MusicMe',
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   verification: {
     google: '5jbi-eFUsvsUfAQUhKbYR7G4DO1K2AQH7sWiCc1YFWY',
   },
+  
 };
 
 export default function RootLayout({
@@ -21,9 +23,22 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script src="https://kit.fontawesome.com/b3cfe25c7d.js" crossOrigin="anonymous" strategy="afterInteractive" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'MusicMe',
+              url: 'https://music-me-next.vercel.app/',
+            }),
+          }}
+        />
       </head>
       <body>
-        <UserProvider>{children}</UserProvider>
+        <Providers>
+          <UserProvider>{children}</UserProvider>
+        </Providers>
       </body>
     </html>
   );
