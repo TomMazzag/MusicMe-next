@@ -1,7 +1,9 @@
-import { ReactNode } from 'react';
-import { HighlightText } from '@MusicMe/components/Util/TextComponents';
 import { Metadata } from 'next';
 import Image from 'next/image';
+import WhatIsMusicMe from './components/WhatIsMusicMe';
+import WhyUsePlatform from './components/WhyUsePlatform';
+import Footer from './components/Footer';
+import FutureGoals from './components/FutureGoals';
 
 export const metadata: Metadata = {
   description:
@@ -31,82 +33,22 @@ export default function AboutPage() {
         </ul>
       </nav>
 
-      <div className="p-4 md:grid md:grid-cols-2 flex-1">
-        <TextTile title="What is MusicMe?">
-          <p>
-            MusicMe is an online social media platform aimed at allow users to share their music taste with others,
-            discover new music, gain and share insights into their music taste.
-          </p>
-        </TextTile>
-        <ImageTile src={'/exampleProfilePage.webp'} width={2880} height={1550} />
+      <WhatIsMusicMe />
+      <WhyUsePlatform />
+      <FutureGoals />
 
-        <ImageTile src={'/profileAnalytics.webp'} width={2270} height={1530} />
-        <TextTile title="Why use our platform?">
-          <p>Our platform is a way to give your opinion on songs and give them a rating</p>
-          <br />
-          <p>
-            In the start we will aim to create as many new features as users feel necessary. We want to create a
-            platform for the music community
-          </p>
-          <br />
-          <p>Some of the things were actively working on are:</p>
-          <ul className="ml-3 list-disc">
-            <li>
-              <HighlightText bold={true}>Dedicated pages</HighlightText> for genres where you can find out about events
-              happening neaby, new trending music for a specific genre and some of the top reccomended songs recently
-              for a genre
-            </li>
-            <li>
-              Showing you <HighlightText bold={true}>live analytics</HighlightText> of what the top searched songs on
-              the platform are each day as well as the top artists and top reviews and providing you as much insight
-              into these songs as possible
-            </li>
-          </ul>
-        </TextTile>
-
-        <TextTile title="Future goals">
-          <p>As mentioned above we will be happy to listen to any product requests from users</p>
-          <br />
-          <p>Some of the goals we already have planned are:</p>
-          <ul className="ml-3 list-disc">
-            <li>Support for apple music</li>
-            <li>Greater profile analytics</li>
-            <li>Song suggestions using AI/ML</li>
-          </ul>
-        </TextTile>
-        <ImageTile src={'/discover.webp'} width={3802} height={1064} />
+      <div className='flex justify-center my-5'>
+        <a href="/discover">
+          <button className="border-2 border-accent rounded-md px-4 py-2 hover:bg-accent hover:text-base-100 transition-colors duration-300 hover:cursor-pointer">
+            Take a look at our discover page
+          </button>
+        </a>
       </div>
 
-      <footer className="md:mt-10">
-        <div className="bg-base-300 flex justify-between px-10 py-8">
-          Created by Thomas Mazzag
-          <div aria-label="links" className="flex gap-2">
-            <a href="https://www.linkedin.com/in/thomas-mazzag/" className="linkedin" target="_blank">
-              <i className="fa-brands fa-linkedin fa-2xl" aria-hidden="true"></i>
-            </a>
-            <a href="https://github.com/TomMazzag" className="github" target="_blank">
-              <i className="fa-brands fa-github fa-2xl" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
-
-interface TextTileProps {
-  title: string;
-  children?: ReactNode;
-}
-
-const TextTile = ({ title, children }: TextTileProps) => {
-  return (
-    <div className="bg-base-300 px-10 py-6 rounded-xl md:mx-14 my-6">
-      <h1 className="text-accent text-3xl mb-2">{title}</h1>
-      {children}
-    </div>
-  );
-};
 
 interface ImageTileProps {
   src: string;
@@ -114,9 +56,9 @@ interface ImageTileProps {
   height: number;
 }
 
-const ImageTile = ({ src, width, height }: ImageTileProps) => {
+export const ImageTile = ({ src, width, height }: ImageTileProps) => {
   return (
-    <div className="flex items-center md:mx-14 my-6 md:px-10  py-2 md:py-6 rounded-xl border border-accent">
+    <div className="flex items-center md:mx-14 my-6 md:px-10  py-2 md:py-6 rounded-xl border border-accent bg-base-100">
       <Image src={src} alt="" width={width} height={height} />
     </div>
   );
