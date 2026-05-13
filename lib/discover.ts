@@ -9,7 +9,7 @@ export const getTopViewedTracks = async () => {
 };
 
 export const getTopReviews = async () => {
-  const response = await fetch(`${BACKEND_URL}/rating/top}`, DEFAULT_GET_OPTIONS);
+  const response = await fetch(`${BACKEND_URL}/rating/top`, DEFAULT_GET_OPTIONS);
 
   let data = await response.json();
   return data;

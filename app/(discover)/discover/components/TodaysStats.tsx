@@ -26,7 +26,7 @@ export default function TodaysStats() {
     queryFn: async () =>
       getTopReviews().then((data) => {
         console.log(data);
-        return data;
+        return data.songsData || [];
       }),
   });
 
