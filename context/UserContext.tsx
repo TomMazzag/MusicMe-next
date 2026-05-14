@@ -19,6 +19,12 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [userNotFound, setUserNotFound] = useState(false);
 
   useEffect(() => {
+    const hasSession = document.cookie.includes('spotify_session=true');
+    if (!hasSession) {
+      setLoading(false);
+      return;
+    }
+
     fetch('/api/user/account')
       .then((res) => res.json())
       .then((userData) => {

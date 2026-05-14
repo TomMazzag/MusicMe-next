@@ -12,13 +12,24 @@ function SuccessContent() {
 
   useEffect(() => {
     async function handleCallback() {
-      if (!code || !state) return;
+      try {
+        const response = await fetch(`/api/auth/callback?code=${code}&state=${state}`, {
+          credentials: 'include',
+        });
 
-      await fetch(`/api/auth/callback?code=${code}&state=${state}`, {
-        credentials: 'include',
-      });
+        if (response.status === 308) {
+          const data = await response.json();
+          window.location.href = data.redirectPath;
+          return;
+        }
 
-      window.location.href = '/account';
+        if (response.status === 200) {
+          console.log('Redirecting to account');
+          window.location.href = '/account';
+        }
+      } catch (err) {
+        console.error('Fetch error:', err);
+      }
     }
 
     handleCallback();
