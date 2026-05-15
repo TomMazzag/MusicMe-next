@@ -3,7 +3,6 @@
 import { useState } from 'react';
 
 import { Profile } from '../../types/Profile';
-import { followOrUnfollowUser } from '@MusicMe/lib/userConnection';
 
 export const UserProfileTile = ({
   user_id,
@@ -16,7 +15,14 @@ export const UserProfileTile = ({
   const [following, setFollowing] = useState(is_following);
 
   const followUser = async () => {
-    followOrUnfollowUser(user_id);
+    fetch(`/api/user/follow`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ follow_id: user_id }),
+    });
     setFollowing(!following);
   };
 

@@ -1,7 +1,6 @@
 'use client';
 
 import { useUser } from '@MusicMe/context/UserContext';
-import { getFollowers, getFollowing } from '@MusicMe/lib/userConnection';
 import { Profile } from '@MusicMe/types/Profile';
 import { useEffect, useState } from 'react';
 import { UserProfileTile } from '../User/UserProfileTile';
@@ -20,18 +19,18 @@ export default function Connection({ connectionType, userId }: ConnectionProps) 
   const [connections, setConnections] = useState([]);
   const [user, setUser] = useState<User>();
   const currentUserId = useUser().user?.user_id;
-  const dataFunction = connectionType === 'following' ? getFollowing : getFollowers;
 
   useEffect(() => {
     if (!userId) {
       return console.log('User ID is unavailable, fetching connections...');
     }
-    dataFunction(userId).then((data) => {
-      console.log(data);
-      setConnections(data.friends);
-      setUser(data.user);
-    });
-  }, []);
+    fetch(`/api/user/connection?userId=${userId}&type=${connectionType}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setConnections(data.friends);
+        setUser(data.user);
+      });
+  }, [connectionType, userId]);
 
   return (
     <div className="flex items-center p-5 md:p-10 flex-col">
