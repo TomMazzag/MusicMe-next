@@ -6,8 +6,10 @@ import SecondStage from './components/SecondStage';
 import ThirdStage from './components/ThirdStage';
 import { useQuery } from '@tanstack/react-query';
 import { ScaleLoader } from 'react-spinners';
+import CreateAccountError from './components/CreateAccountError';
+import { createAccount } from '@MusicMe/lib/account';
 
-export interface FormData {
+export interface CreateAccountFormData {
   fullName: string;
   username: string;
   email: string;
@@ -24,11 +26,11 @@ interface SpotifyProfile {
   images: { url: string }[];
 }
 
-export type UpdateFormDataFunction = (field: keyof FormData, value: string | boolean | string[] | null) => void;
+export type UpdateFormDataFunction = (field: keyof CreateAccountFormData, value: string | boolean | string[] | null) => void;
 
 export default function CreateAccount() {
   const [stage, setStage] = useState(1);
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<CreateAccountFormData>({
     fullName: '',
     username: '',
     email: '',
@@ -73,28 +75,29 @@ export default function CreateAccount() {
     setStage((prev) => Math.max(prev - 1, 1));
   }
 
+  function handleSubmit() {
+    createAccount(formData)
+      .then(() => {
+        window.location.href = '/account';
+      })
+      .catch((err) => {
+        console.error('Account creation error:', err);
+        return <CreateAccountError />;
+      });
+  }
+
   if (spotifyProfileError) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen gap-12">
-        <h1 className="text-[4rem]">
-          <span className="bg-linear-to-r from-[#4cd7f6] to-[#4be277] bg-clip-text text-transparent">MusicMe</span>
-        </h1>
-        <p className="text-red-500">Failed to load Spotify profile.</p>
-        <p>
-          Please make sure you're logged in with Spotify and <a href="/" className='underline text-accent'>try again.</a>
-        </p>
-      </div>
-    );
+    return <CreateAccountError />;
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-12">
+    <div className="flex flex-col items-center justify-center h-screen gap-8 md:gap-12">
       <h1 className="text-[4rem]">
         <span className="bg-linear-to-r from-[#4cd7f6] to-[#4be277] bg-clip-text text-transparent">MusicMe</span>
       </h1>
 
       <div
-        className="bg-base-300 p-4 rounded-lg w-1/2 h-2/3 flex flex-col items-center"
+        className="bg-base-300 p-4 rounded-lg w-[90%] h-[70%] lg:w-1/2 lg:h-2/3 flex flex-col items-center"
         style={{ boxShadow: '0 0 5px rgba(76, 215, 246, 0.5), 0 0 30px rgba(75, 226, 119, 0.3)' }}
       >
         <div className="flex-1 w-full flex justify-center pt-4">
@@ -112,8 +115,8 @@ export default function CreateAccount() {
           <button className="btn" onClick={handlePrevious}>
             Previous
           </button>
-          <button className="btn btn-accent" onClick={handleNext}>
-            Next
+          <button className="btn btn-accent" onClick={stage === 3 ? handleSubmit : handleNext}>
+            {stage === 3 ? 'Submit' : 'Next'}
           </button>
         </div>
       </div>

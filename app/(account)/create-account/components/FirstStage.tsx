@@ -1,16 +1,16 @@
 import { faAt, faMailBulk, faUser } from '@fortawesome/free-solid-svg-icons';
 import InputField from '@MusicMe/components/Input/InputField';
-import { FormData, UpdateFormDataFunction } from '../page';
+import { CreateAccountFormData, UpdateFormDataFunction } from '../page';
 import Toggle from '@MusicMe/components/Input/Toggle';
 
 interface FirstStageProps {
-  formData: FormData;
+  formData: CreateAccountFormData;
   updateFormData: UpdateFormDataFunction;
 }
 
 export default function FirstStage({ formData, updateFormData }: FirstStageProps) {
   return (
-    <div className="flex flex-col gap-6 w-1/2">
+    <div className="flex flex-col gap-6 w-full lg:w-1/2">
       <InputField
         label="Full name"
         placeholder="Enter your full name"

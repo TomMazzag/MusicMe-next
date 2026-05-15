@@ -1,6 +1,6 @@
 'use client';
 
-import { FormData, UpdateFormDataFunction } from '../page';
+import { CreateAccountFormData, UpdateFormDataFunction } from '../page';
 import { getAllGenres } from '@MusicMe/lib/discover';
 import { useQuery } from '@tanstack/react-query';
 import { ScaleLoader } from 'react-spinners';
@@ -8,7 +8,7 @@ import { ProfileBadges } from '@MusicMe/app/(discover)/discover/components/Genre
 import clsx from 'clsx';
 
 interface ThirdStageProps {
-  formData: FormData;
+  formData: CreateAccountFormData;
   updateFormData: UpdateFormDataFunction;
 }
 
@@ -22,15 +22,11 @@ export default function ThirdStage({ formData, updateFormData }: ThirdStageProps
     staleTime: 1000 * 60 * 60 * 24,
   });
 
-  if (genresLoading) {
-    return <ScaleLoader color={'#22c55e'} />;
-  }
-
   function toggleGenre(genreKey: string) {
     if (formData.favoriteGenres.includes(genreKey)) {
       updateFormData(
         'favoriteGenres',
-        formData.favoriteGenres.filter((key) => key !== genreKey)
+        formData.favoriteGenres.filter((key) => key !== genreKey),
       );
     } else {
       updateFormData('favoriteGenres', [...formData.favoriteGenres, genreKey]);
@@ -40,7 +36,8 @@ export default function ThirdStage({ formData, updateFormData }: ThirdStageProps
   return (
     <div className="w-full text-center">
       <h2 className="text-2xl mb-2">Select your favorite genres</h2>
-      <p className="text-base-content/70 mb-10">Select your favourite genres below</p>
+      <p className="text-base-content/70 mb-10">This can be changed at any time</p>
+      {genresLoading && <ScaleLoader color={'#22c55e'} />}
       <div className="grid grid-cols-3 gap-4">
         {genres &&
           genres.map((genre) => (
