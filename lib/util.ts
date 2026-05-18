@@ -9,7 +9,6 @@ export const BACKEND_URL_SERVER =
  */
 export function pluraliseAndReturnString(count: number, singular: string, plural?: string) {
     const word = count === 1 ? singular : plural || singular + 's';
-    // console.log(count, typeof count, count === 1, singular, word);
     return word;
 }
 

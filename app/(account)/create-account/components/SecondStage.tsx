@@ -12,7 +12,6 @@ export default function SecondStage({ formData, updateFormData }: SecondStagePro
 
   const handleFile = async (file: File) => {
     const fileUploadRequest = await uploadNewProfilePic(file);
-    console.log(fileUploadRequest);
     if (fileUploadRequest.success) {
       updateFormData('profilePicture', fileUploadRequest.url );
     }

@@ -49,10 +49,8 @@ export default function TodaysStats() {
                       imageUrl: track.album.images[0].url,
                       value1: track.name,
                       value2: track.artists[0].name,
-                      clickableUrl: track.href,
                       trackId: track.id,
                     }}
-                    onClickHandler={() => {}}
                   />
                   <div className="flex" title="Track views">
                     <ChartNoAxesColumnIncreasing />

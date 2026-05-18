@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
-import { BACKEND_URL } from './util';
+import { BACKEND_URL, BACKEND_URL_SERVER } from './util';
+import { Song } from '@MusicMe/types/Song';
 
 interface SpotifyTokenResponse {
   access_token: string;
@@ -36,4 +37,22 @@ export const getPlaylists = async (userId: string) => {
 
   const publicPlaylists = data.items.filter((item: SpotifyApi.PlaylistObjectFull) => item.public === true);
   return publicPlaylists;
+};
+
+export const getSong = async (songId: string) => {
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore
+    .getAll()
+    .map((cookie) => `${cookie.name}=${cookie.value}`)
+    .join('; ');
+  const response = await fetch(`${BACKEND_URL_SERVER}/song/${songId}`, {
+    method: 'GET',
+    headers: {
+      cookie: cookieHeader,
+    },
+  });
+
+  let data = await response.json();
+
+  return data as Song;
 };
