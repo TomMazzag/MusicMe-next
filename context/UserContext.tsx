@@ -19,7 +19,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [userNotFound, setUserNotFound] = useState(false);
 
   useEffect(() => {
-    const hasSession = document.cookie.includes('spotify_session=true');
+    const hasSession = document.cookie.includes('session_exists=true');
     if (!hasSession) {
       setLoading(false);
       return;
@@ -35,6 +35,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         setUser(userData.userDetails);
       })
       .catch((err) => {
+        console.log('Error fetching user account', error)
         setError(err);
         setUserNotFound(true);
       })

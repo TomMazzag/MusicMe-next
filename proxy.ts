@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { BACKEND_URL_SERVER } from './lib/util';
 
 const PROTECTED_PATHS = ['/account'];
-const SPOTIFY_ROUTES = ['/account', '/create-account', '/song/'];
+const SPOTIFY_ROUTES = ['/account', '/create-account', '/song/', '/search'];
 
 const SPOTIFY_EXPIRES_COOKIE_NAME = 'spotify_expires_at';
 
