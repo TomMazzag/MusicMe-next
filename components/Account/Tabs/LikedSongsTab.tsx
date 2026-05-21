@@ -1,28 +1,32 @@
-export const LikedSongsTab = ({ likedSongs }: any) => {
-    if (likedSongs.length === 0) {
-        return <p className="pb-10">No liked songs</p>;
-    }
+import { ScaleLoader } from 'react-spinners';
 
-    return (
-        <>
-            {likedSongs.map((song: any, index: number) => (
-                <div className="result-tile w-full px-3 md:w-[90%] mb-10 " key={index}>
-                    <a href={`/songs/${song.id}`} className="flex gap-5 items-center grow pr-2 md:pr-0">
-                        <img src={song.image} alt="" />
-                        <div className="result-text">
-                            <h3>{song.name}</h3>
-                            <p className="text opacity-60">{song.artists[0].name}</p>
-                        </div>
-                        <div className="repost text-center hidden md:block">
-                            <i className="fa-solid fa-share"></i>
-                            <p>Repost</p>
-                        </div>
-                    </a>
-                    <a href={song.url} target="_blank">
-                        <i className="fa-brands fa-spotify fa-2xl px-2"></i>
-                    </a>
-                </div>
-            ))}
-        </>
-    );
+interface LikedSongsProps {
+  likedSongs: any;
+  isLoading: boolean;
+}
+
+export const LikedSongsTab = ({ likedSongs, isLoading }: LikedSongsProps) => {
+  if (likedSongs.length === 0) {
+    return <p className="pb-10">No liked songs</p>;
+  }
+
+  if (isLoading) {
+    return <ScaleLoader color={'#22c55e'} />;
+  }
+
+  return (
+    <div className="grid grid-cols-3 md:px-16 gap-y-8 gap-x-4">
+      {likedSongs.map((song: any, index: number) => (
+        <div className="flex md:items-center justify-center w-full" key={index}>
+          <a href={`/song/${song.id}`} className="flex flex-col lg:flex-row gap-5 items-center grow md:pr-0">
+            <img src={song.image} alt={`Image for ${song.name}`} className="h-20 lg:h-30" />
+            <div className="md:grow text-center md:text-start">
+              <h3>{song.name}</h3>
+              <p className="text opacity-60">{song.artists[0].name}</p>
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+  );
 };

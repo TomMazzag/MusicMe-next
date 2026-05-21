@@ -21,8 +21,8 @@ export const Tablist = ({ activeTab, setActiveTab, tabContent }: TablistProps) =
         </a>
         <a
           role="tab"
-          className={`tab cursor-not-allowed ${activeTab === 'Liked' ? 'tab-active [--tab-bg:var(--a)]' : ''}`}
-          //   onClick={() => setActiveTab('Liked')}
+          className={`tab ${activeTab === 'Liked' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
+          onClick={() => setActiveTab('Liked')}
         >
           Liked songs
         </a>

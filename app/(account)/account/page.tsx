@@ -16,7 +16,7 @@ export default async function AccountPage() {
           <ProfileImageAndNumbers profile={user} />
         </div>
 
-        <TabSection playlists={playlists} likedSongs={[]} />
+        <TabSection playlists={playlists} />
       </div>
     </>
   );
