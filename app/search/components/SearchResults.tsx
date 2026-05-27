@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Category } from './SearchClientSide';
 import { TrackResult } from './Result/TrackResult';
 import AccountResult from './Result/AccountResult';
+import { useDebouncedValue } from '@MusicMe/lib/debounce';
 
 interface SearchResultsParams {
   category: Category;
@@ -13,31 +14,31 @@ interface SearchResultsParams {
 const TEMP_DISABLED_CATEGORIES: Category[] = ['Album', 'Artist'];
 
 export default function SearchResults({ query, category }: SearchResultsParams) {
+  const debouncedQuery = useDebouncedValue(query, 500);
   const { data: result, isLoading } = useQuery({
-    queryKey: ['searchResult', query, category],
+    queryKey: ['searchResult', debouncedQuery, category],
     queryFn: async () => {
       if (query.length === 0 || TEMP_DISABLED_CATEGORIES.includes(category)) {
         return [];
       }
 
       if (query.length > 1 && category !== 'Username') {
-        const req = await fetch(`/api/spotify/search?category=${category}&query=${query}`);
+        const req = await fetch(`/api/song/search?category=${category}&query=${query}`);
         const data = await req.json();
-        const transformedCategory = category.toLowerCase() + 's';
-        return data[transformedCategory].items;
+        return data;
       }
 
       if (category === 'Username') {
         const req = await fetch(`/api/user/search?username=${query}`);
         const data = await req.json();
-        return data.request
+        return data.request;
       }
 
       return [];
     },
   });
 
-  console.log(result);
+  console.log(result)
 
   return (
     <div className="flex flex-col gap-12 mb-10 w-full items-center md:w-[70%]">
@@ -50,7 +51,7 @@ export default function SearchResults({ query, category }: SearchResultsParams) 
         </>
       )}
       {result &&
-        result.length >= 1 &&
+        result.items.length >= 1 &&
         (() => {
           switch (category) {
             case 'Track':

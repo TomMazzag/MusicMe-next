@@ -5,14 +5,22 @@ import { UserProvider } from '@MusicMe/context/UserContext';
 import { Providers } from '@MusicMe/proviers/QueryClientProvider';
 import { BASE_URL } from '@MusicMe/lib/util';
 
+const TITLE = 'MusicMe';
+const DESCRIPTION =
+  'MusicMe: A social media platform for sharing music taste, discovering new tunes, and connecting with fellow music lovers. Join the beta today!';
+
 export const metadata: Metadata = {
-  title: 'MusicMe',
-  description:
-    'MusicMe: A social media platform for sharing music taste, discovering new tunes, and connecting with fellow music lovers. Join the beta today!',
+  title: TITLE,
+  description: DESCRIPTION,
   verification: {
     google: '5jbi-eFUsvsUfAQUhKbYR7G4DO1K2AQH7sWiCc1YFWY',
   },
   metadataBase: new URL(BASE_URL),
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: BASE_URL
+  },
 };
 
 export default function RootLayout({

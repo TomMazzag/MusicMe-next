@@ -2,18 +2,31 @@ import { Navbar } from '@MusicMe/components/Navbar/Navbar';
 import { addSongView } from '@MusicMe/lib/song';
 import { getSong } from '@MusicMe/lib/spotify';
 import SongLikes from './components/SongLikes';
+import { getSongMB, MUSIC_BRAINZ_SOURCE } from '@MusicMe/lib/musicBrainz';
 
 type Props = {
   params: Promise<{
     songId: string;
   }>;
+  searchParams?: Promise<{
+    [key: string]: string | string[] | undefined;
+  }>;
 };
 
-export default async function SongPage({ params }: Props) {
+export default async function SongPage({ params, searchParams }: Props) {
   const { songId } = await params;
+  const source = (await searchParams)?.source;
   await addSongView(songId);
+  let songData;
+
+  if (source && source === MUSIC_BRAINZ_SOURCE) {
+    songData = await getSongMB(songId);
+    console.log('MBZ', songData)
+  } else {
+    songData = await getSong(songId);
+  }
+
   
-  const songData = await getSong(songId);
   const song = songData.spotifyData
 
   return (

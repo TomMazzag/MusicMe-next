@@ -26,3 +26,4 @@ export const DEFAULT_GET_OPTIONS: RequestInit = {
 };
 
 export const BASE_URL = 'https://music-me-next.vercel.app';
+export const MUSIC_BRAINZ_UA = `MusicMe/1.0.0 ${BASE_URL}`
