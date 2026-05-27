@@ -8,45 +8,71 @@ import FutureGoals from './components/FutureGoals';
 export const metadata: Metadata = {
   description:
     'Find out more about the MusicMe platform. Learn about how you can share music, our long term goals and why you should use our platform.',
+  alternates: {
+    canonical: '/about',
+  },
 };
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <nav className="navbar border-b-2 border-accent">
-        <div className="flex-1">
-          <a href="/" className="btn btn-ghost text-xl md:text-4xl">
-            MusicMe
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WegPage',
+            name: 'MusicMe About',
+            url: 'https://music-me-next.vercel.app/about',
+            isPartOf: {
+              '@type': 'WebSite',
+              name: 'MusicMe',
+              url: 'https://music-me-next.vercel.app/',
+            },
+            about: {
+              '@type': 'Organization',
+              name: 'MusicMe',
+              url: 'https://music-me-next.vercel.app/',
+            },
+          }),
+        }}
+      />
+      <div className="flex flex-col min-h-screen">
+        <nav className="navbar border-b-2 border-accent">
+          <div className="flex-1">
+            <a href="/" className="btn btn-ghost text-xl md:text-4xl">
+              MusicMe
+            </a>
+          </div>
+          <ul className="flex-none gap-2 inline-flex list-none">
+            <li>
+              <a href="/" className="btn btn-sm md:btn-md btn-ghost md:text-xl">
+                Login
+              </a>
+            </li>
+            <li>
+              <a href="/register" className="btn btn-sm md:btn-md btn-ghost md:text-xl">
+                Sign up for the beta
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <WhatIsMusicMe />
+        <WhyUsePlatform />
+        <FutureGoals />
+
+        <div className="flex justify-center my-5">
+          <a href="/discover">
+            <button className="border-2 border-accent rounded-md px-4 py-2 hover:bg-accent hover:text-base-100 transition-colors duration-300 hover:cursor-pointer">
+              Take a look at our discover page
+            </button>
           </a>
         </div>
-        <ul className="flex-none gap-2 inline-flex list-none">
-          <li>
-            <a href="/" className="btn btn-sm md:btn-md btn-ghost md:text-xl">
-              Login
-            </a>
-          </li>
-          <li>
-            <a href="/register" className="btn btn-sm md:btn-md btn-ghost md:text-xl">
-              Sign up for the beta
-            </a>
-          </li>
-        </ul>
-      </nav>
 
-      <WhatIsMusicMe />
-      <WhyUsePlatform />
-      <FutureGoals />
-
-      <div className='flex justify-center my-5'>
-        <a href="/discover">
-          <button className="border-2 border-accent rounded-md px-4 py-2 hover:bg-accent hover:text-base-100 transition-colors duration-300 hover:cursor-pointer">
-            Take a look at our discover page
-          </button>
-        </a>
+        <Footer />
       </div>
-
-      <Footer />
-    </div>
+    </>
   );
 }
 

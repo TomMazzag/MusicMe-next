@@ -1,4 +1,13 @@
 import { HighlightText } from "@MusicMe/components/Util/TextComponents";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  description:
+    'Sign up for MusicMe to explore tracks, create playlists, save favourites, and discover new music every day.',
+  alternates: {
+    canonical: '/register',
+  },
+};
 
 export default function BetaSignUp() {
     return (

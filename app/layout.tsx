@@ -3,6 +3,7 @@ import './globals.css';
 import Script from 'next/script';
 import { UserProvider } from '@MusicMe/context/UserContext';
 import { Providers } from '@MusicMe/proviers/QueryClientProvider';
+import { BASE_URL } from '@MusicMe/lib/util';
 
 export const metadata: Metadata = {
   title: 'MusicMe',
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   verification: {
     google: '5jbi-eFUsvsUfAQUhKbYR7G4DO1K2AQH7sWiCc1YFWY',
   },
-  
+  metadataBase: new URL(BASE_URL),
 };
 
 export default function RootLayout({
@@ -26,12 +27,20 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebSite',
-              name: 'MusicMe',
-              url: 'https://music-me-next.vercel.app/',
-            }),
+            __html: JSON.stringify([
+              {
+                '@context': 'https://schema.org',
+                '@type': 'WebSite',
+                name: 'MusicMe',
+                url: 'https://music-me-next.vercel.app/',
+              },
+              {
+                '@context': 'https://schema.org',
+                '@type': 'Organization',
+                name: 'MusicMe',
+                url: 'https://music-me-next.vercel.app/',
+              },
+            ]),
           }}
         />
       </head>
