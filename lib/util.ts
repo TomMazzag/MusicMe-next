@@ -24,3 +24,5 @@ export const DEFAULT_GET_OPTIONS: RequestInit = {
   method: 'GET',
   credentials: 'include',
 };
+
+export const BASE_URL = 'https://music-me-next.vercel.app';
