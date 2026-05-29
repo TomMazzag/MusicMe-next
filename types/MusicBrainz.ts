@@ -10,8 +10,13 @@ interface Recording {
   score: number;
   title: string;
   'artist-credit': ArtistCredit[];
+  releases: Release[]
 }
 
 interface ArtistCredit {
   name: string
+}
+
+interface Release {
+  id: string
 }

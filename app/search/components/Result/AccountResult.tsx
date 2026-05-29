@@ -1,9 +1,9 @@
 import { Profile } from '@MusicMe/types/Profile';
 
-export default function AccountResult({ result }: { result: Profile.Public[] }) {
+export default function AccountResult({ result }: { result: { items: Profile.Public[] } }) {
   return (
     <>
-      {result.map((user, index: number) => (
+      {result.items.map((user, index: number) => (
         <a href={`/user/${user.user_id}`} key={index}>
           <div className="flex items-center gap-10 px-8 py-1">
             <img src={user.profile_picture_url} alt="" className="rounded-[50%] w-32 h-32 object-cover" />
