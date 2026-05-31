@@ -12,13 +12,13 @@ interface ConnectionProps {
 }
 
 interface User {
-  full_name: string;
+  fullName: string;
 }
 
 export default function Connection({ connectionType, userId }: ConnectionProps) {
   const [connections, setConnections] = useState([]);
   const [user, setUser] = useState<User>();
-  const currentUserId = useUser().user?.user_id;
+  const currentUserId = useUser().user?.userId;
 
   useEffect(() => {
     if (!userId) {
@@ -37,19 +37,19 @@ export default function Connection({ connectionType, userId }: ConnectionProps) 
       {user && connections ? (
         <>
           <p className="text text-l md:text-2xl">
-            Showing {connectionType} for {user.full_name}
+            Showing {connectionType} for {user.fullName}
           </p>
 
           <div className="flex flex-col w-full gap-3 py-5 md:w-[50%]">
             {connections.length > 0 ? (
               connections.map((connection: Profile.Conneciton) => (
                 <UserProfileTile
-                  key={connection.user_id}
-                  user_id={connection.user_id}
-                  full_name={connection.full_name}
-                  profile_picture_url={connection.profile_picture_url}
+                  key={connection.userId}
+                  userId={connection.userId}
+                  fullName={connection.fullName}
+                  profilePictureUrl={connection.profilePictureUrl}
                   username={connection.username}
-                  is_following={connection.is_following}
+                  isFollowing={connection.isFollowing}
                   currentUserId={currentUserId!}
                 />
               ))

@@ -33,13 +33,13 @@ export default function SongLikes({ initialUserLiked, initialLikes, songId }: So
       <button onClick={handleLikeToggle}>
         <i
           className={clsx([
-            'transition-transform duration-300',
+            'transition-transform duration-300 cursor-pointer',
             popping && 'scale-130',
             userHasLiked ? 'fa-solid fa-heart' : 'fa-regular fa-heart',
           ])}
         ></i>
       </button>
-      <p className="text text-xl">
+      <p className="text text-xl min-w-16 text-start">
         {likes} {likes === 1 ? 'Like' : 'Likes'}
       </p>
     </>

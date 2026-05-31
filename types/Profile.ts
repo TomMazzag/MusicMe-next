@@ -1,14 +1,14 @@
 export namespace Profile {
   interface BaseProfile {
-    full_name: string;
-    profile_picture_url: string;
+    fullName: string;
+    profilePictureUrl: string;
     followers: number;
     following: number;
-    liked_song_count: number;
-    user_id: string;
-    review_count: number;
+    likedSongCount: number;
+    userId: string;
+    reviewCount: number;
     username: string;
-    spotify_id: string;
+    spotifyId: string;
   }
 
   export interface User extends BaseProfile {
@@ -18,11 +18,11 @@ export namespace Profile {
   export interface Public extends BaseProfile {}
 
   export interface Conneciton {
-    user_id: string;
-    full_name: string;
-    profile_picture_url: string;
+    userId: string;
+    fullName: string;
+    profilePictureUrl: string;
     username: string;
-    is_following: boolean;
+    isFollowing: boolean;
     currentUserId: string;
   }
 

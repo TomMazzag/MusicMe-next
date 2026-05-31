@@ -44,12 +44,12 @@ export default function ThirdStage({ formData, updateFormData }: ThirdStageProps
             <button
               className={clsx([
                 'hover:opacity-100 transition-transform active:scale-[1.1]',
-                formData.favoriteGenres.includes(genre.genre_key) ? 'opacity-100' : 'opacity-20',
+                formData.favoriteGenres.includes(genre.genreKey) ? 'opacity-100' : 'opacity-20',
               ])}
-              onClick={() => toggleGenre(genre.genre_key)}
-              key={genre.genre_key}
+              onClick={() => toggleGenre(genre.genreKey)}
+              key={genre.genreKey}
             >
-              <div className="flex justify-center">{ProfileBadges[genre.genre_key].component}</div>
+              <div className="flex justify-center">{ProfileBadges[genre.genreKey].component}</div>
             </button>
           ))}
       </div>

@@ -42,7 +42,7 @@ export default async function SongPage({ params, searchParams }: Props) {
             </h2>
             <div className="flex justify-center w-full gap-3">
               <SongLikes initialUserLiked={songData.userHasLiked} initialLikes={songData.likes} songId={song.id} />
-              <div className="flex gap-2 items-center ml-6" title="Views today">
+              <div className="flex gap-2 items-center" title="Views today">
                 <i className="fa-solid fa-eye" aria-label="Eye icon"></i>
                 <p className="text text-xl" aria-label="song views">
                   {songData.views}

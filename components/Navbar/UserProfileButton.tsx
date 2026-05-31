@@ -45,7 +45,7 @@ export const UserProfileButton = () => {
           )}
           {user && (
             <Image
-              src={user.profile_picture_url}
+              src={user.profilePictureUrl}
               alt={'User profile image'}
               onLoad={() => setImgLoaded(true)}
               width={40}

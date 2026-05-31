@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default async function AccountPage() {
   const user = await getAccountDetailsUsersAccount();
-  const playlists = await getPlaylists(user.spotify_id);
+  const playlists = await getPlaylists(user.spotifyId);
 
   return (
     <>
