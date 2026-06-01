@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { DiscoverSection } from './components/DiscoverSection';
 import TodaysStats from './components/TodaysStats';
 import Genres from './components/Genre/Genres';
+import NewReleases from './components/NewReleases';
 
 export const metadata: Metadata = {
   title: 'MusicMe | Discover',
@@ -41,7 +42,7 @@ export default function Discover() {
           <Genres />
         </DiscoverSection>
         <DiscoverSection sectionTitle="New Releases">
-          <>This section is coming soon!</>
+          <NewReleases />
         </DiscoverSection>
       </div>
     </>

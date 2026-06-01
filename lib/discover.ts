@@ -1,5 +1,7 @@
 import { Genre } from '@MusicMe/types/Genre';
 import { BACKEND_URL, BACKEND_URL_SERVER, DEFAULT_GET_OPTIONS } from './util';
+import { Promoter } from '@MusicMe/types/Promoter';
+import { Artist } from '@MusicMe/types/Artist';
 
 export const getTopViewedTracks = async () => {
   const response = await fetch(`${BACKEND_URL}/song/views/top`, DEFAULT_GET_OPTIONS);
@@ -26,5 +28,5 @@ export const getGenreByKey = async (genreKey: string) => {
   const response = await fetch(`${BACKEND_URL_SERVER}/genre/${genreKey}`, { method: 'GET' });
 
   let data = await response.json();
-  return data as { genre: Genre };
+  return data as { genre: Genre, promoters: Promoter[], artists: Artist[] };
 };
