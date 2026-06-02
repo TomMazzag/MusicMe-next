@@ -39,7 +39,7 @@ export default function SongLikes({ initialUserLiked, initialLikes, songId }: So
           ])}
         ></i>
       </button>
-      <p className="text text-xl min-w-16 text-start">
+      <p className="text lg:text-xl min-w-16 text-start">
         {likes} {likes === 1 ? 'Like' : 'Likes'}
       </p>
     </>

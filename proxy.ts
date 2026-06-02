@@ -2,9 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { BACKEND_URL_SERVER } from './lib/util';
 
 const PROTECTED_PATHS = ['/account'];
-const SPOTIFY_ROUTES = ['/account', '/create-account', '/song/', '/search'];
+const SPOTIFY_ROUTES = ['/account', '/create-account', '/song/', '/search', '/admn'];
 
 const SPOTIFY_EXPIRES_COOKIE_NAME = 'spotify_expires_at';
+
+const ADMIN_PATHS = ['/admn'];
 
 export default async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -33,6 +35,14 @@ export default async function proxy(req: NextRequest) {
     }
   }
 
+  if (ADMIN_PATHS.some((path) => pathname.startsWith(path))) {
+    const isAdmin = await checkIsAdmin(req);
+    if (!isAdmin) {
+      const homepage = new URL('/', req.url);
+      return NextResponse.redirect(homepage);
+    }
+  }
+
   return NextResponse.next();
 }
 
@@ -52,4 +62,22 @@ async function refreshToken(req: NextRequest) {
 
   const cookies = res.headers.getSetCookie();
   return cookies;
+}
+
+async function checkIsAdmin(req: NextRequest) {
+  const cookie = req.headers.get('cookie') || '';
+
+  const res = await fetch(`${BACKEND_URL_SERVER}/user/check_admin`, {
+    method: 'GET',
+    headers: {
+      cookie,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to check admin status', { cause: res });
+  }
+
+  const data = await res.json();
+  return data.isAdmin;
 }

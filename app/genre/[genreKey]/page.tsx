@@ -20,7 +20,7 @@ export default async function GenrePage({ params }: Props) {
     <>
       <Navbar />
       <div
-        className={clsx('w-full h-[60vh] flex flex-col justify-center px-16 gap-4')}
+        className={clsx('w-full h-[50vh] md:h-[60vh] flex flex-col justify-center px-16 gap-4')}
         style={{ backgroundColor: `${hexColour}30` }}
       >
         <h1 className="text-4xl font-bold">{genre.genreName}</h1>
@@ -31,7 +31,7 @@ export default async function GenrePage({ params }: Props) {
           </button>
         </div>
       </div>
-      <div className='flex flex-col gap-6 p-4 mb-4'>
+      <div className='flex flex-col gap-6 p-4 mb-4 w-full'>
         <Promoters promoters={promoters} />
         <TopArtists artists={artists} genreHexColour={hexColour} />
         <NewReleases />

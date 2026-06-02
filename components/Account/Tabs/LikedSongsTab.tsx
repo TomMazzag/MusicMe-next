@@ -21,8 +21,8 @@ export const LikedSongsTab = ({ likedSongs, isLoading }: LikedSongsProps) => {
           <a href={`/song/${song.id}`} className="flex flex-col lg:flex-row gap-5 items-center grow md:pr-0">
             <img src={song.image} alt={`Image for ${song.name}`} className="h-20 lg:h-30" />
             <div className="md:grow text-center md:text-start">
-              <h3>{song.name}</h3>
-              <p className="text opacity-60">{song.artists[0].name}</p>
+              <h3 className='text-sm lg:text-base'>{song.name}</h3>
+              <p className="text opacity-60 text-sm">{song.artists[0].name}</p>
             </div>
           </a>
         </div>

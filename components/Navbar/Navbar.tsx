@@ -10,7 +10,7 @@ export const Navbar = () => {
           MusicMe
         </a>
       </div>
-      <div className="mobile-menu md:hidden">
+      <div className="flex items-center md:hidden">
         <ul className="menu menu-horizontal rounded-box">
           <li>
             <a href="/feed">
