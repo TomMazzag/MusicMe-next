@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
@@ -15,6 +16,11 @@ export default function SearchClientSide() {
   const searchParams = useSearchParams();
   const category = (searchParams.get('category') as Category) || 'Track';
   const query = searchParams.get('query') || '';
+  const [inputValue, setInputValue] = useState(query);
+
+  useEffect(() => {
+    updateSearchParameter('query', inputValue);
+  }, [inputValue]);
 
   const updateSearchParameter = (parameter: Params, value: string) => {
     const newParams = new URLSearchParams(searchParams);
@@ -24,8 +30,8 @@ export default function SearchClientSide() {
 
   return (
     <>
-      <SearchBar category={category} query={query} updateSearchParameter={updateSearchParameter} />
-      <SearchResults category={category} query={query} />
+      <SearchBar category={category} query={inputValue} updateSearchParameter={updateSearchParameter} setInputValue={setInputValue} />
+      <SearchResults category={category} query={inputValue} />
     </>
   );
 }

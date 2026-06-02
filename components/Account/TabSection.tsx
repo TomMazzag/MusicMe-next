@@ -1,7 +1,6 @@
 'use client';
 
 import { ActiveTab } from '@MusicMe/types/Profile';
-import { Tablist } from './Tablist';
 import { PlaylistsTab } from './Tabs/PlaylistTab';
 import { LikedSongsTab } from './Tabs/LikedSongsTab';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -14,13 +13,13 @@ interface TabSectionProps {
 export const TabSection = ({ playlists }: TabSectionProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  
+
   const { data: likedSongs, isLoading: likedSongsLoading } = useQuery({
     queryKey: ['likedSongs'],
     queryFn: async () => {
       const req = await fetch('/api/song/liked_songs');
       const data = await req.json();
-      return data.likedSongs
+      return data.likedSongs;
     },
   });
 
@@ -34,19 +33,37 @@ export const TabSection = ({ playlists }: TabSectionProps) => {
     router.push(`?${params.toString()}`);
   };
 
-  let tabContent;
+  return (
+    <>
+      <div role="tablist" className="tabs tabs-box mb-2 md:mb-10">
+        <a
+          role="tab"
+          className={`tab ${activeTab === 'Playlists' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
+          onClick={() => setActiveTab('Playlists')}
+        >
+          Playlists
+        </a>
+        <a
+          role="tab"
+          className={`tab ${activeTab === 'Liked' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
+          onClick={() => setActiveTab('Liked')}
+        >
+          Liked songs
+        </a>
+        <a
+          role="tab"
+          className={`tab ${activeTab === 'Analytics' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
+          onClick={() => setActiveTab('Analytics')}
+        >
+          Analytics
+        </a>
+      </div>
 
-  switch (activeTab) {
-    case 'Playlists':
-      tabContent = <PlaylistsTab playlists={playlists} />;
-      break;
-    case 'Liked':
-      tabContent = <LikedSongsTab likedSongs={likedSongs || []} isLoading={likedSongsLoading} />;
-      break;
-    case 'Analytics':
-      tabContent = <>Analytics section coming soon</>;
-      break;
-  }
-
-  return <Tablist activeTab={activeTab} setActiveTab={setActiveTab} tabContent={tabContent} />;
+      <div>
+        <PlaylistsTab playlists={playlists} hidden={activeTab !== 'Playlists'} />
+        <LikedSongsTab likedSongs={likedSongs || []} isLoading={likedSongsLoading} hidden={activeTab !== 'Liked'} />
+        <div className={`${activeTab === 'Analytics' ? 'flex' : 'hidden'}`}>Analytics section coming soon</div>
+      </div>
+    </>
+  );
 };

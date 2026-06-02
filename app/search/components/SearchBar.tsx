@@ -4,9 +4,10 @@ interface SearchBarParams {
   category: Category;
   query: string;
   updateSearchParameter: UpdateSearchParameter;
+  setInputValue: (value: string) => void;
 }
 
-export default function SearchBar({ category, query, updateSearchParameter }: SearchBarParams) {
+export default function SearchBar({ category, query, updateSearchParameter, setInputValue }: SearchBarParams) {
   return (
     <div className="h-12.5 flex items-center justify-center border rounded-[30px] w-[90%] md:w-[60%]">
       <div className="dropdown dropdown-hover">
@@ -52,7 +53,7 @@ export default function SearchBar({ category, query, updateSearchParameter }: Se
         value={query}
         className="grow px-5 py-1"
         onChange={(e) => {
-          updateSearchParameter('query', e.target.value);
+          setInputValue(e.target.value);
         }}
       />
 
