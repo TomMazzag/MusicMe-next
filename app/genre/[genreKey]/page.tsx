@@ -19,9 +19,17 @@ export default async function GenrePage({ params }: Props) {
   return (
     <>
       <Navbar />
+      {genre.image && <link rel="preload" as="image" href={genre.image} fetchPriority="high" />}
       <div
         className={clsx('w-full h-[50vh] md:h-[60vh] flex flex-col justify-center px-16 gap-4')}
-        style={{ backgroundColor: `${hexColour}30` }}
+        style={{
+          backgroundColor: `${hexColour}30`,
+          ...(genre.image && {
+            backgroundImage: `url(${genre.image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }),
+        }}
       >
         <h1 className="text-4xl font-bold">{genre.genreName}</h1>
         <p className="max-w-100 opacity-70">{genre.shortDescription}</p>
@@ -31,7 +39,7 @@ export default async function GenrePage({ params }: Props) {
           </button>
         </div>
       </div>
-      <div className='flex flex-col gap-6 p-4 mb-4 w-full'>
+      <div className="flex flex-col gap-6 p-4 mb-4 w-full">
         <Promoters promoters={promoters} />
         <TopArtists artists={artists} genreHexColour={hexColour} />
         <NewReleases />
