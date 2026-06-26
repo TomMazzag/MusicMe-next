@@ -24,7 +24,7 @@ export default function Genres() {
       ) : !genres ? (
         <>Error collecting genres</>
       ) : (
-        <div className="flex gap-8 overflow-x-scroll overflow-y-hidden pb-4">
+        <div className="flex gap-8 overflow-x-scroll p-4">
           {genres.map((genre) => (
             <GenreTile genre={genre} key={genre.genreKey}></GenreTile>
           ))}

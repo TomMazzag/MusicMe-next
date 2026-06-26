@@ -30,8 +30,8 @@ export default function NewReleases() {
           tracks && (
             <ul className="flex gap-8">
               {tracks.map((track) => (
-                <li className="flex flex-col items-center gap-4 justify-between text-center" key={track.id}>
-                  <img src={track.imageUrl} alt={track.name} className="w-30 h-30 rounded-md" />
+                <li className="flex flex-col items-center gap-4 justify-between text-center group" key={track.id}>
+                  <img src={track.imageUrl} alt={track.name} className="w-30 h-30 rounded-md group-hover:scale-105 transition-transform" />
                   <div className="flex flex-col">
                     <h3 className="font-bold">{track.name}</h3>
                     <p className="text-sm opacity-70">

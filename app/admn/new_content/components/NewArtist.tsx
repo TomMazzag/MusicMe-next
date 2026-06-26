@@ -31,7 +31,7 @@ export default function NewArtist({ genres }: Props) {
   const { data: atrists } = useQuery({
     queryKey: ['artist', artistSearch],
     queryFn: () =>
-      fetch(`/api/artist/search?query=${artistSearch}`).then(async (data) => {
+      fetch(`/api/spotify/search?query=${artistSearch}&type=artist`).then(async (data) => {
         if (!data.ok) {
           return [];
         }

@@ -4,9 +4,13 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const searchParams = req.nextUrl.searchParams;
   const query = searchParams.get('query');
+  const type = searchParams.get('type');
 
   if (!query) {
     return NextResponse.json({ message: 'Missing query' }, { status: 400 });
+  }
+  if (!type) {
+    return NextResponse.json({ message: 'Missing type' }, { status: 400 });
   }
 
   const cookieStore = await cookies();
@@ -16,7 +20,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ message: 'Spotify token missing' }, { status: 403 });
   }
 
-  const url = `https://api.spotify.com/v1/search?q=${query}&type=artist`;
+  const url = `https://api.spotify.com/v1/search?q=${query}&type=${type}`;
   let encodedURI = encodeURI(url);
 
   const searchRequest = await fetch(encodedURI, {
@@ -24,8 +28,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     headers: { Authorization: `Bearer ${spotifyToken}` },
   });
   const data = await searchRequest.json();
-  console.log('Spotify search result:', data);
-  const result = data.artists;
+  const result = data[type.toLowerCase() + 's'];
 
   return NextResponse.json(result, { status: 200 });
 }
