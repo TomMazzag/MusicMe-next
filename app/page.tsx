@@ -25,9 +25,11 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <a href="/about" className="text-accent">
-            About
-          </a>
+          <div className="flex gap-8">
+            <HomepageLink link="/about" title="About" />
+            <HomepageLink link="/discover" title="Discover" />
+            <HomepageLink link="/search" title="Search" />
+          </div>
         </div>
 
         <div className="overflow-hidden">
@@ -41,5 +43,13 @@ export default function Home() {
         </div>
       </div>
     </div>
+  );
+}
+
+function HomepageLink({ link, title }: { link: string; title: string }) {
+  return (
+    <a href={link} className="text-accent hover:text-[#4be277] transition-colors duration-700">
+      {title}
+    </a>
   );
 }

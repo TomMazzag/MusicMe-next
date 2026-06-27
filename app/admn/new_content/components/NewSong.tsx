@@ -4,18 +4,20 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import InputField from '@MusicMe/components/Input/InputField';
 import { faCalendar, faIdBadge, faImage, faRankingStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useQuery } from '@tanstack/react-query';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface ArtistsInput {
-  id: string
-  position?: number
+  id: string;
+  position?: number;
 }
 
 interface FormData {
   selectedGenres: string[];
   name: string;
   image: string;
-  releaseDate: number | null;
-  artists: ArtistsInput[]
+  releaseDate: string | null;
+  artists: ArtistsInput[];
+  platforms?: { spotifyId?: string };
 }
 
 const initialFormData: FormData = {
@@ -23,8 +25,8 @@ const initialFormData: FormData = {
   name: '',
   image: '',
   releaseDate: null,
-  artists: []
-}
+  artists: [],
+};
 
 export default function NewSong() {
   const [songSearch, setSongSearch] = useState('');
@@ -45,27 +47,29 @@ export default function NewSong() {
     staleTime: 1000 * 60 * 60 * 24,
   });
 
-//   function toggleGenre(genreKey: string) {
-//     if (formData.selectedGenres.includes(genreKey)) {
-//       setFormData({ ...formData, selectedGenres: formData.selectedGenres.filter((key) => key !== genreKey) });
-//     } else {
-//       setFormData({ ...formData, selectedGenres: [...formData.selectedGenres, genreKey] });
-//     }
-//   }
+  //   function toggleGenre(genreKey: string) {
+  //     if (formData.selectedGenres.includes(genreKey)) {
+  //       setFormData({ ...formData, selectedGenres: formData.selectedGenres.filter((key) => key !== genreKey) });
+  //     } else {
+  //       setFormData({ ...formData, selectedGenres: [...formData.selectedGenres, genreKey] });
+  //     }
+  //   }
 
   async function handleSubmit() {
     setIsSubmitting(true);
+    const { name, image, releaseDate, selectedGenres, artists, platforms} = formData
     await fetch('/api/admin/song/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: formData.name,
-        imageUrl: formData.image,
-        releaseDate: formData.releaseDate,
-        genres: formData.selectedGenres,
-        artistsIds: formData.artists,
+        name,
+        imageUrl: image,
+        releaseDate,
+        genres: selectedGenres,
+        artistsIds: artists,
+        platforms
       }),
     });
     setIsSubmitting(false);
@@ -89,6 +93,7 @@ export default function NewSong() {
                     ...formData,
                     name: song.name,
                     image: song.album.images[0]?.url || '',
+                    platforms: { spotifyId: song.id },
                   });
                 }}
               >
@@ -115,13 +120,14 @@ export default function NewSong() {
           setState={(image) => setFormData({ ...formData, image })}
         />
         <ArtistInputField formData={formData} setFormData={setFormData} />
-        <InputField
-          label="Release date"
-          icon={faCalendar}
-          currentState={String(formData.releaseDate || '')}
-          setState={(updatedData) =>
-            setFormData({ ...formData, releaseDate: updatedData ? parseInt(updatedData) : null })
-          }
+        <label className="label">
+          <FontAwesomeIcon icon={faCalendar} className="mr-2" />
+          <span className="label-text">Release date</span>
+        </label>
+        <input
+          type="date"
+          onChange={(e) => setFormData({ ...formData, releaseDate: e.target.value })}
+          className="input input-bordered w-full border-accent"
         />
       </div>
       <button
@@ -136,29 +142,25 @@ export default function NewSong() {
 }
 
 interface ArtistInputFieldProps {
-    formData: FormData;
-    setFormData: Dispatch<SetStateAction<FormData>>
+  formData: FormData;
+  setFormData: Dispatch<SetStateAction<FormData>>;
 }
 
-export function ArtistInputField({formData, setFormData}: ArtistInputFieldProps) {
-    return (
-      <div className="grid grid-cols-[80%_20%] gap-2">
-        <InputField
-          label="Artist id"
-          icon={faIdBadge}
-          currentState={formData.artists[0]?.id || ''}
-          setState={(updatedData) =>
-            setFormData({ ...formData, artists: [{id: updatedData}] })
-          }
-        />
-        <InputField
-          label="Pos"
-          icon={faRankingStar}
-          currentState={formData.artists[0]?.position ? String(formData.artists[0]?.position) : ''}
-          setState={(updatedData) =>
-            setFormData({ ...formData, releaseDate: updatedData ? parseInt(updatedData) : null })
-          }
-        />
-      </div>
-    );
+export function ArtistInputField({ formData, setFormData }: ArtistInputFieldProps) {
+  return (
+    <div className="grid grid-cols-[80%_20%] gap-2">
+      <InputField
+        label="Artist id"
+        icon={faIdBadge}
+        currentState={formData.artists[0]?.id || ''}
+        setState={(updatedData) => setFormData({ ...formData, artists: [{ id: updatedData }] })}
+      />
+      <InputField
+        label="Pos"
+        icon={faRankingStar}
+        currentState={formData.artists[0]?.position ? String(formData.artists[0]?.position) : ''}
+        setState={(updatedData) => console.log(updatedData)}
+      />
+    </div>
+  );
 }

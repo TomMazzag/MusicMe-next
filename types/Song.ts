@@ -1,3 +1,5 @@
+import { Artist } from "./Artist";
+
 export interface Song {
   name: string;
   likes: number;
@@ -11,10 +13,13 @@ export interface SongV2 {
   likes: number;
   userHasLiked: boolean;
   views: number;
-  songData: {
-    id: string;
-    name: string;
-    imageUrl?: string;
-    releaseDate?: string;
-  }
+  songData: SongData
+}
+
+export interface SongData {
+  id: string;
+  name: string;
+  imageUrl?: string;
+  releaseDate?: string;
+  artists: Artist[]
 }

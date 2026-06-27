@@ -6,7 +6,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar bg-base-100 border-b-2 border-accent">
       <div className="flex-1">
-        <a href="/account" className="btn btn-ghost text-4xl">
+        <a href="/discover" className="btn btn-ghost text-4xl">
           MusicMe
         </a>
       </div>

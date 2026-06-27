@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "docker:build": "docker compose up --build -d",
-    "docker:rebuild-backend": "docker-compose build backend",
-    "docker:rebuild": "docker-compose build --no-cache",
-    "docker:run": "docker compose up",
+    "docker:build": "docker compose -f docker-compose.local.yml up --build -d",
+    "docker:rebuild-backend": "docker-compose -f docker-compose.local.yml build backend",
+    "docker:rebuild": "docker-compose -f docker-compose.local.yml build --no-cache",
+    "docker:run": "docker compose -f docker-compose.local.yml up",
     "prepare": "husky"
   },
   "dependencies": {

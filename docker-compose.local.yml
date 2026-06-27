@@ -8,8 +8,8 @@ services:
       - ../musicme-backend-hono/.env
     volumes:
       - ../musicme-backend-hono:/src  
-      - /app/node_modules 
-    command: ["npm", "run", "start"]
+      - /src/node_modules 
+    command: ["npm", "run", "dev"]
 
   frontend:
     build:
