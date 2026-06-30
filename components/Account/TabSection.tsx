@@ -5,6 +5,7 @@ import { PlaylistsTab } from './Tabs/PlaylistTab';
 import { LikedSongsTab } from './Tabs/LikedSongsTab';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 
 interface TabSectionProps {
   playlists: SpotifyApi.PlaylistObjectFull[] | undefined;
@@ -23,11 +24,19 @@ export const TabSection = ({ playlists }: TabSectionProps) => {
     },
   });
 
-  const activeTab: ActiveTab | null = searchParams.get('activeTab')
-    ? (searchParams.get('activeTab') as ActiveTab)
-    : 'Playlists';
+  const paramTab = searchParams.get('activeTab') as ActiveTab | null;
+  const [activeTab, setActiveTabState] = useState<ActiveTab>(paramTab ?? 'Playlists');
+
+  useEffect(() => {
+    const param = searchParams.get('activeTab') as ActiveTab | null;
+    if (param && param !== activeTab) {
+      setActiveTabState(param);
+    }
+  }, [searchParams]);
 
   const setActiveTab = (newTab: ActiveTab) => {
+    setActiveTabState(newTab);
+
     const params = new URLSearchParams(searchParams.toString());
     params.set('activeTab', newTab);
     router.push(`?${params.toString()}`);
