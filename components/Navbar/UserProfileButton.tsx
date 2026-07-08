@@ -2,16 +2,17 @@
 
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useUser } from '@MusicMe/context/UserContext';
+
 import { useState } from 'react';
 import { LogoutLink } from './LogoutButton';
 import Image from 'next/image';
+import { useUser } from '@clerk/nextjs';
 
 export const UserProfileButton = () => {
-  const { user, loading, userNotFound } = useUser();
+  const {user} = useUser()
   const [imgLoaded, setImgLoaded] = useState(false);
 
-  if (!loading && userNotFound) {
+  if (!user) {
     return (
       <>
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle border-0">
@@ -45,7 +46,7 @@ export const UserProfileButton = () => {
           )}
           {user && (
             <Image
-              src={user.profilePictureUrl}
+              src={user.imageUrl}
               alt={'User profile image'}
               onLoad={() => setImgLoaded(true)}
               width={40}

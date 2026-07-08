@@ -20,14 +20,20 @@ export const uploadNewProfilePic = async (file: File) => {
   return {...data, success: true};
 };
 
-export const createAccount = async (accountData: CreateAccountFormData) => {
+export const createAccount = async (accountData: CreateAccountFormData, clerkId: string) => {
+  const {showPublicPlaylists, favoriteGenres} = accountData
+  const requiredData = {
+    showPublicPlaylists,
+    favoriteGenres,
+    clerkId
+  };
   const response = await fetch(`${BACKEND_URL}/user/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     credentials: 'include',
-    body: JSON.stringify(accountData),
+    body: JSON.stringify(requiredData),
   });
 
   if (!response.ok) {

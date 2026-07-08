@@ -1,71 +1,70 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import FirstStage from './components/FirstStage';
 import SecondStage from './components/SecondStage';
 import ThirdStage from './components/ThirdStage';
-import { useQuery } from '@tanstack/react-query';
 import { ScaleLoader } from 'react-spinners';
 import CreateAccountError from './components/CreateAccountError';
 import { createAccount } from '@MusicMe/lib/account';
+import { useReverification, useUser } from '@clerk/nextjs';
 
 export interface CreateAccountFormData {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   username: string;
-  email: string;
   showPublicPlaylists: boolean;
   favoriteGenres: string[];
   profilePicture: string | null;
   id: string;
 }
 
-interface SpotifyProfile {
-  display_name: string;
-  email: string;
-  id: string;
-  images: { url: string }[];
-}
-
-export type UpdateFormDataFunction = (field: keyof CreateAccountFormData, value: string | boolean | string[] | null) => void;
+export type UpdateFormDataFunction = (
+  field: keyof CreateAccountFormData,
+  value: string | boolean | string[] | null,
+) => void;
 
 export default function CreateAccount() {
   const [stage, setStage] = useState(1);
   const [formData, setFormData] = useState<CreateAccountFormData>({
-    fullName: '',
+    firstName: '',
+    lastName: '',
     username: '',
-    email: '',
     showPublicPlaylists: false,
     favoriteGenres: [],
     profilePicture: null,
     id: '',
   });
 
-  const { isLoading: spotifyProfileLoading, error: spotifyProfileError } = useQuery({
-    queryKey: ['profile'],
-    queryFn: async (): Promise<SpotifyProfile> => {
-      const result = await fetch('/api/user/spotify/account', {
-        method: 'GET',
-        credentials: 'include',
+  const { user, isLoaded } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        ...formData,
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        username: user.username || '',
+        id: user.id,
+        profilePicture: user.imageUrl || null,
       });
-      if (!result.ok) {
-        throw new Error('Failed to fetch Spotify profile');
-      }
-      const data = (await result.json()) as SpotifyProfile;
-      setFormData((prev) => ({
-        ...prev,
-        fullName: data.display_name,
-        email: data.email,
-        profilePicture: data.images && data.images.length > 0 ? data.images[0].url : null,
-        id: data.id,
-      }));
-      return data;
-    },
-    retry: false,
-  });
+    }
+  }, [user]);
 
   const updateFormData: UpdateFormDataFunction = useCallback((field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   }, []);
+
+  const updateProfile = useReverification((data) => user?.update(data));
+
+  if (isLoaded == false) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <ScaleLoader color={'#22c55e'} />
+      </div>
+    );
+  }
+  if (!user) return <CreateAccountError />;
 
   function handleNext() {
     setStage((prev) => Math.min(prev + 1, 3));
@@ -75,8 +74,9 @@ export default function CreateAccount() {
     setStage((prev) => Math.max(prev - 1, 1));
   }
 
-  function handleSubmit() {
-    createAccount(formData)
+  async function handleSubmit() {
+    updateProfile({ username: formData.username, firstName: formData.firstName, lastName: formData.lastName });
+    createAccount(formData, user!.id)
       .then(() => {
         window.location.href = '/account';
       })
@@ -84,10 +84,6 @@ export default function CreateAccount() {
         console.error('Account creation error:', err);
         return <CreateAccountError />;
       });
-  }
-
-  if (spotifyProfileError) {
-    return <CreateAccountError />;
   }
 
   return (
@@ -101,15 +97,11 @@ export default function CreateAccount() {
         style={{ boxShadow: '0 0 5px rgba(76, 215, 246, 0.5), 0 0 30px rgba(75, 226, 119, 0.3)' }}
       >
         <div className="flex-1 w-full flex justify-center pt-4">
-          {spotifyProfileLoading ? (
-            <ScaleLoader color={'#22c55e'} />
-          ) : (
-            <>
-              {stage === 1 && <FirstStage formData={formData} updateFormData={updateFormData} />}
-              {stage === 2 && <SecondStage formData={formData} updateFormData={updateFormData} />}
-              {stage === 3 && <ThirdStage formData={formData} updateFormData={updateFormData} />}
-            </>
+          {stage === 1 && <FirstStage formData={formData} updateFormData={updateFormData} />}
+          {stage === 2 && (
+            <SecondStage formData={formData} updateFormData={updateFormData} setProfileImage={user.setProfileImage} />
           )}
+          {stage === 3 && <ThirdStage formData={formData} updateFormData={updateFormData} />}
         </div>
         <div className="flex justify-between w-full px-4">
           <button className="btn" onClick={handlePrevious}>

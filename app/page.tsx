@@ -1,4 +1,4 @@
-import { LoginButton } from '@MusicMe/components/Login/LoginButton';
+import { SignInButton } from '@clerk/nextjs';
 import Image from 'next/image';
 
 export default function Home() {
@@ -14,7 +14,11 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col gap-6 text-center">
-            <LoginButton />
+            <SignInButton forceRedirectUrl="/post-auth">
+              <button className="btn btn-outline btn-primary">
+                Click here to begin
+              </button>
+            </SignInButton>
 
             <div className="w-full mt-8">
               <p className="pb-2 opacity-75">
