@@ -7,7 +7,7 @@ import { getAccountDetailsUsersAccount } from '@MusicMe/lib/user';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'MusicMe | Account',
+  title: 'Zenekio | Account',
   robots: {
     index: false,
     follow: false,

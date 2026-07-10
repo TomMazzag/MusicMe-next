@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
-import WhatIsMusicMe from './components/WhatIsMusicMe';
+import WhatIsZenekio from './components/WhatIsZenekio';
 import WhyUsePlatform from './components/WhyUsePlatform';
 import Footer from './components/Footer';
 import FutureGoals from './components/FutureGoals';
 
 export const metadata: Metadata = {
   description:
-    'Find out more about the MusicMe platform. Learn about how you can share music, our long term goals and why you should use our platform.',
+    'Find out more about the Zenekio platform. Learn about how you can share music, our long term goals and why you should use our platform.',
   alternates: {
     canonical: '/about',
   },
@@ -22,17 +22,17 @@ export default function AboutPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WegPage',
-            name: 'MusicMe About',
-            url: 'https://music-me-next.vercel.app/about',
+            name: 'Zenekio About',
+            url: 'https://zenekio.co.uk/about',
             isPartOf: {
               '@type': 'WebSite',
-              name: 'MusicMe',
-              url: 'https://music-me-next.vercel.app/',
+              name: 'Zenekio',
+              url: 'https://zenekio.co.uk/',
             },
             about: {
               '@type': 'Organization',
-              name: 'MusicMe',
-              url: 'https://music-me-next.vercel.app/',
+              name: 'Zenekio',
+              url: 'https://zenekio.co.uk/',
             },
           }),
         }}
@@ -41,7 +41,7 @@ export default function AboutPage() {
         <nav className="navbar border-b-2 border-accent">
           <div className="flex-1">
             <a href="/" className="btn btn-ghost text-xl md:text-4xl">
-              MusicMe
+              Zenekio
             </a>
           </div>
           <ul className="flex-none gap-2 inline-flex list-none">
@@ -58,7 +58,7 @@ export default function AboutPage() {
           </ul>
         </nav>
 
-        <WhatIsMusicMe />
+        <WhatIsZenekio />
         <WhyUsePlatform />
         <FutureGoals />
 

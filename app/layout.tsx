@@ -5,9 +5,9 @@ import { UserProvider } from '@MusicMe/context/UserContext';
 import { Providers } from '@MusicMe/proviers/QueryClientProvider';
 import { BASE_URL } from '@MusicMe/lib/util';
 
-const TITLE = 'MusicMe';
+const TITLE = 'Zenekio';
 const DESCRIPTION =
-  'MusicMe: A social media platform for sharing music taste, discovering new tunes, and connecting with fellow music lovers. Join the beta today!';
+  'Zenekio: A social media platform for sharing music taste, discovering new tunes, and connecting with fellow music lovers. Join the beta today!';
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -39,14 +39,14 @@ export default function RootLayout({
               {
                 '@context': 'https://schema.org',
                 '@type': 'WebSite',
-                name: 'MusicMe',
-                url: 'https://music-me-next.vercel.app/',
+                name: 'Zenekio',
+                url: 'https://zenekio.co.uk/',
               },
               {
                 '@context': 'https://schema.org',
                 '@type': 'Organization',
-                name: 'MusicMe',
-                url: 'https://music-me-next.vercel.app/',
+                name: 'Zenekio',
+                url: 'https://zenekio.co.uk/',
               },
             ]),
           }}

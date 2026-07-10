@@ -76,7 +76,7 @@ export default function CreateAccount() {
 
   async function handleSubmit() {
     updateProfile({ username: formData.username, firstName: formData.firstName, lastName: formData.lastName });
-    createAccount(formData, user!.id)
+    createAccount(formData)
       .then(() => {
         window.location.href = '/account';
       })

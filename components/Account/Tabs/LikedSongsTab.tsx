@@ -9,7 +9,7 @@ interface LikedSongsProps {
 
 export const LikedSongsTab = ({ likedSongs, isLoading, hidden }: LikedSongsProps) => {
   if (likedSongs.length === 0) {
-    return <p className="pb-10">No liked songs</p>;
+    return <p className={clsx("pb-10", hidden ? 'hidden' : '')}>No liked songs</p>;
   }
 
   if (isLoading) {

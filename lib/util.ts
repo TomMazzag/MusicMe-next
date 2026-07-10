@@ -25,5 +25,5 @@ export const DEFAULT_GET_OPTIONS: RequestInit = {
   credentials: 'include',
 };
 
-export const BASE_URL = 'https://music-me-next.vercel.app';
-export const MUSIC_BRAINZ_UA = `MusicMe/1.0.0 ${BASE_URL}`
+export const BASE_URL = 'https://zenekio.co.uk';
+export const MUSIC_BRAINZ_UA = `Zenekio/1.0.0 ${BASE_URL}`;

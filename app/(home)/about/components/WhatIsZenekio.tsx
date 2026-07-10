@@ -2,17 +2,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { ImageTile } from '../page';
 
-export default function WhatIsMusicMe() {
+export default function WhatIsZenekio() {
   return (
-    <section id="what-is-music-me">
+    <section id="what-is-zenekio">
       <div className="flex my-8 px-4 gap-4 lg:gap-0 lg:px-0 lg:my-16 flex-col lg:flex-row">
         <div className="lg:w-1/2 lg:px-12 flex flex-col justify-center gap-4">
           <h1 className="text-[2rem] lg:text-[4rem] leading-none">
             What is{' '}
-            <span className="bg-linear-to-r from-[#4cd7f6] to-[#4be277] bg-clip-text text-transparent">MusicMe?</span>
+            <span className="bg-linear-to-r from-[#4cd7f6] to-[#4be277] bg-clip-text text-transparent">Zenekio?</span>
           </h1>
           <p className="lg:w-5/6 lg:text-xl">
-            MusicMe is an online social media platform aimed at allow users to share their music taste with others,
+            Zenekio is an online social media platform aimed at allow users to share their music taste with others,
             discover new music, gain and share insights into their music taste.
           </p>
           <div className="pl-2">

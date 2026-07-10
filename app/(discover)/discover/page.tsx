@@ -6,7 +6,7 @@ import Genres from './components/Genre/Genres';
 import NewReleases from './components/NewReleases';
 
 export const metadata: Metadata = {
-  title: 'MusicMe | Discover',
+  title: 'Zenekio | Discover',
   description:
     'Discover trending music for this week based on whats popular on the platform. Find new music based on your music taste. Explore new genres and find new artists to listen to.',
   alternates: {
@@ -23,12 +23,12 @@ export default function Discover() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WegPage',
-            name: 'MusicMe Discover',
-            url: 'https://music-me-next.vercel.app/discover',
+            name: 'Zenekio Discover',
+            url: 'https://zenekio.co.uk/discover',
             isPartOf: {
               '@type': 'WebSite',
-              name: 'MusicMe',
-              url: 'https://music-me-next.vercel.app/',
+              name: 'Zenekio',
+              url: 'https://zenekio.co.uk/',
             },
           }),
         }}

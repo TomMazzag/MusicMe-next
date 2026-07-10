@@ -8,7 +8,7 @@ export default function Home() {
         <div className="flex flex-col justify-evenly items-center">
           <div className="text-center mt-10">
             <h1 className="bg-linear-to-r from-[#4cd7f6] to-[#4be277] bg-clip-text text-transparent text-6xl font-bold mb-4">
-              MusicMe
+              Zenekio
             </h1>
             <p className="text-xl italic">Social media for music</p>
           </div>
