@@ -1,4 +1,4 @@
-import { faAt, faMailBulk, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faAt, faUser } from '@fortawesome/free-solid-svg-icons';
 import InputField from '@MusicMe/components/Input/InputField';
 import { CreateAccountFormData, UpdateFormDataFunction } from '../page';
 import Toggle from '@MusicMe/components/Input/Toggle';
@@ -12,10 +12,17 @@ export default function FirstStage({ formData, updateFormData }: FirstStageProps
   return (
     <div className="flex flex-col gap-6 w-full lg:w-1/2">
       <InputField
-        label="Full name"
-        placeholder="Enter your full name"
-        currentState={formData.fullName}
-        setState={(value) => updateFormData('fullName', value)}
+        label="First name"
+        placeholder="Enter your first name"
+        currentState={formData.firstName}
+        setState={(value) => updateFormData('firstName', value)}
+        icon={faUser}
+      />
+      <InputField
+        label="Last name"
+        placeholder="Enter your last name"
+        currentState={formData.lastName}
+        setState={(value) => updateFormData('lastName', value)}
         icon={faUser}
       />
       <InputField
@@ -24,13 +31,6 @@ export default function FirstStage({ formData, updateFormData }: FirstStageProps
         currentState={formData.username}
         setState={(value) => updateFormData('username', value)}
         icon={faAt}
-      />
-      <InputField
-        label="Email"
-        placeholder="Enter your email"
-        currentState={formData.email}
-        setState={(value) => updateFormData('email', value)}
-        icon={faMailBulk}
       />
       <div className="bg-base-100 p-4 py-2 rounded-sm border border-accent flex items-center justify-between">
         <div>

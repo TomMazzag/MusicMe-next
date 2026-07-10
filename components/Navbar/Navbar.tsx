@@ -7,7 +7,7 @@ export const Navbar = () => {
     <nav className="navbar bg-base-100 border-b-2 border-accent">
       <div className="flex-1">
         <a href="/discover" className="btn btn-ghost text-4xl">
-          MusicMe
+          Zenekio
         </a>
       </div>
       <div className="flex items-center md:hidden">

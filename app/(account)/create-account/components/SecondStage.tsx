@@ -1,20 +1,19 @@
 import { useRef } from 'react';
 import { CreateAccountFormData, UpdateFormDataFunction } from '../page';
-import { uploadNewProfilePic } from '@MusicMe/lib/account';
+import { SetProfileImageParams } from '@clerk/nextjs/types';
 
 interface SecondStageProps {
   formData: CreateAccountFormData;
   updateFormData: UpdateFormDataFunction;
+  setProfileImage: (params: SetProfileImageParams) => Promise<{ publicUrl: string | null }>;
 }
 
-export default function SecondStage({ formData, updateFormData }: SecondStageProps) {
+export default function SecondStage({ formData, updateFormData, setProfileImage }: SecondStageProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = async (file: File) => {
-    const fileUploadRequest = await uploadNewProfilePic(file);
-    if (fileUploadRequest.success) {
-      updateFormData('profilePicture', fileUploadRequest.url );
-    }
+    const fileUpload = await setProfileImage({ file });
+    updateFormData('profilePicture', fileUpload.publicUrl);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

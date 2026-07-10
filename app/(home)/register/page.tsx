@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   description:
-    'Sign up for MusicMe to explore tracks, create playlists, save favourites, and discover new music every day.',
+    'Sign up for Zenekio to explore tracks, create playlists, save favourites, and discover new music every day.',
   alternates: {
     canonical: '/register',
   },
@@ -15,7 +15,7 @@ export default function BetaSignUp() {
             <div className="md:w-100">
                 <div className="text-center mb-20 md:mb-10">
                     <a href="/">
-                        <h1 className="text-6xl font-bold mb-4">MusicMe</h1>
+                        <h1 className="text-6xl font-bold mb-4">Zenekio</h1>
                     </a>
                     <p className="text-xl italic">Social media for music</p>
                 </div>
