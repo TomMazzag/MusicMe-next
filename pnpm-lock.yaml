@@ -50,9 +50,6 @@ importers:
       react-spinners:
         specifier: ^0.17.0
         version: 0.17.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      server:
-        specifier: link:@clerk/nextjs/server
-        version: link:@clerk/nextjs/server
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4
