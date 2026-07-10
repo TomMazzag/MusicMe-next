@@ -7,7 +7,7 @@ import ThirdStage from './components/ThirdStage';
 import { ScaleLoader } from 'react-spinners';
 import CreateAccountError from './components/CreateAccountError';
 import { createAccount } from '@MusicMe/lib/account';
-import { useReverification, useUser } from '@clerk/nextjs';
+import { useAuth, useReverification, useUser } from '@clerk/nextjs';
 
 export interface CreateAccountFormData {
   firstName: string;
@@ -37,6 +37,7 @@ export default function CreateAccount() {
   });
 
   const { user, isLoaded } = useUser();
+  const { getToken } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -76,7 +77,8 @@ export default function CreateAccount() {
 
   async function handleSubmit() {
     updateProfile({ username: formData.username, firstName: formData.firstName, lastName: formData.lastName });
-    createAccount(formData)
+    const token = await getToken();
+    createAccount(formData, token)
       .then(() => {
         window.location.href = '/account';
       })

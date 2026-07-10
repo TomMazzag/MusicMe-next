@@ -1,7 +1,7 @@
 import type { CreateAccountFormData } from "@MusicMe/app/(account)/create-account/page";
 import { BACKEND_URL } from "./util";
 
-export const createAccount = async (accountData: CreateAccountFormData) => {
+export const createAccount = async (accountData: CreateAccountFormData, token: string | null) => {
   const {showPublicPlaylists, favoriteGenres} = accountData
   const requiredData = {
     showPublicPlaylists,
@@ -11,6 +11,7 @@ export const createAccount = async (accountData: CreateAccountFormData) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     },
     credentials: 'include',
     body: JSON.stringify(requiredData),
