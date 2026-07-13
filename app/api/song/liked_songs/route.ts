@@ -1,13 +1,10 @@
+import { authenticatedRequest } from '@MusicMe/lib/backend';
 import { BACKEND_URL_SERVER } from '@MusicMe/lib/util';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
-  const response = await fetch(`${BACKEND_URL_SERVER}/user/songs/liked`, {
+export async function GET(): Promise<NextResponse> {
+  const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/user/songs/liked`, {
     method: 'GET',
-    credentials: 'include',
-    headers: {
-      cookie: req.headers.get('cookie') || '',
-    },
   });
   const data = await response.json();
 

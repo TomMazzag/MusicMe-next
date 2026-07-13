@@ -1,18 +1,17 @@
-import { auth } from '@clerk/nextjs/server';
-import { BACKEND_URL_SERVER } from '@MusicMe/lib/util';
+import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 
 export default async function PostAuth() {
-  const { userId } = await auth();
-  if (!userId) redirect('/sign-in');
+  const user = await currentUser();
 
-  const existingUser = await fetch(`${BACKEND_URL_SERVER}/user/check_exists/${userId}`, { method: 'GET' });
-  const data = await existingUser.json();
-  console.log('!!! existingUser', existingUser.status, data);
+  if (!user) redirect('/');
 
-  if (existingUser.status === 404) {
-    redirect('/create-account');
-  } else {
+  const existingUser = user.publicMetadata?.onboardingComplete === 'true';
+  console.log('!!! existingUser', existingUser);
+
+  if (existingUser) {
     redirect('/account');
+  } else {
+    redirect('/create-account');
   }
 }

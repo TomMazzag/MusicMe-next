@@ -1,3 +1,4 @@
+import { authenticatedRequest } from '@MusicMe/lib/backend';
 import { BACKEND_URL_SERVER } from '@MusicMe/lib/util';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -10,15 +11,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'Missing or invalid userId or type parameter' }, { status: 400 });
   }
 
-  const response = await fetch(`${BACKEND_URL_SERVER}/user/${userId}/${type}`, {
+  const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/user/${userId}/${type}`, {
     method: 'GET',
-    credentials: 'include',
-    headers: {
-      cookie: req.headers.get('cookie') || '',
-    },
   });
 
-  let data = await response.json();
+  const data = await response.json();
 
   return NextResponse.json(data, { status: response.status });
 }
