@@ -1,8 +1,8 @@
-import type { CreateAccountFormData } from "@MusicMe/app/(account)/create-account/page";
-import { BACKEND_URL } from "./util";
+import type { CreateAccountFormData } from '@MusicMe/app/(account)/create-account/page';
+import { BACKEND_URL } from './util';
 
 export const createAccount = async (accountData: CreateAccountFormData, token: string | null) => {
-  const {showPublicPlaylists, favoriteGenres} = accountData
+  const { showPublicPlaylists, favoriteGenres } = accountData;
   const requiredData = {
     showPublicPlaylists,
     favoriteGenres,
@@ -11,7 +11,7 @@ export const createAccount = async (accountData: CreateAccountFormData, token: s
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     credentials: 'include',
     body: JSON.stringify(requiredData),
@@ -19,8 +19,12 @@ export const createAccount = async (accountData: CreateAccountFormData, token: s
 
   if (!response.ok) {
     const errorData = await response.json();
+    if (errorData.error === 'ZodError') {
+      console.log('Zod error: ', errorData.error.message);
+      return { message: 'Failed to create new promoter, validator error', errors: errorData.errors };
+    }
     throw new Error(errorData.message || 'Failed to create account');
   }
 
   return await response.json();
-}
+};

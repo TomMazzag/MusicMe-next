@@ -14,7 +14,6 @@ export default function Settings() {
       <div className="drawer md:drawer-open overflow-hidden">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <ClientSideContainer />
-        
       </div>
     </>
   );

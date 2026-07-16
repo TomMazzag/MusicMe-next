@@ -1,8 +1,9 @@
-'use client';
 
+import { currentUser } from '@clerk/nextjs/server';
 import { UserProfileButton } from './UserProfileButton';
 
-export const Navbar = () => {
+export const Navbar = async () => {
+  const user = await currentUser();
   return (
     <nav className="navbar bg-base-100 border-b-2 border-accent">
       <div className="flex-1">
@@ -24,7 +25,7 @@ export const Navbar = () => {
           </li>
         </ul>
         <div className="dropdown dropdown-end">
-          <UserProfileButton />
+          <UserProfileButton imageUrl={user?.imageUrl} />
         </div>
       </div>
       <div className="flex-none gap-2 hidden md:inline-flex">
@@ -44,7 +45,7 @@ export const Navbar = () => {
           </a>
         </div>
         <div className="dropdown dropdown-end mr-2">
-          <UserProfileButton />
+          <UserProfileButton imageUrl={user?.imageUrl} />
         </div>
       </div>
     </nav>

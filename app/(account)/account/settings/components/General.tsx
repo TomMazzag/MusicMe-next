@@ -1,9 +1,9 @@
-import { UserResource } from '@clerk/nextjs/types';
 import { ScaleLoader } from 'react-spinners';
 import { ImageUpload } from './genral/ImageUpload';
 import InputField from '@MusicMe/components/Input/InputField';
+import { UserDetails } from './ClientSideContainer';
 
-export const General = ({ user, isUserLoaded }: { user: UserResource | null | undefined; isUserLoaded: boolean }) => {
+export const General = ({ user, isUserLoaded }: UserDetails) => {
   if (!isUserLoaded) {
     return <ScaleLoader color={'#22c55e'} />;
   }

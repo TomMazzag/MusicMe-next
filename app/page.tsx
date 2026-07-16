@@ -1,4 +1,4 @@
-import { SignInButton } from '@clerk/nextjs';
+import { Show, SignInButton } from '@clerk/nextjs';
 import Image from 'next/image';
 
 export default function Home() {
@@ -14,11 +14,16 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col gap-6 text-center">
-            <SignInButton forceRedirectUrl="/post-auth">
+            <Show when={'signed-out'}>
+              <SignInButton forceRedirectUrl="/post-auth" mode="modal">
+                <button className="btn btn-outline btn-primary">Click here to begin</button>
+              </SignInButton>
+            </Show>
+            <Show when={'signed-in'}>
               <button className="btn btn-outline btn-primary">
-                Click here to begin
+                <a href="/account">Click here to begin</a>
               </button>
-            </SignInButton>
+            </Show>
 
             <div className="w-full mt-8">
               <p className="pb-2 opacity-75">

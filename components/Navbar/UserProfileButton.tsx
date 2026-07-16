@@ -1,18 +1,10 @@
-'use client';
-
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { useState } from 'react';
 import { LogoutLink } from './LogoutButton';
 import Image from 'next/image';
-import { useUser } from '@clerk/nextjs';
 
-export const UserProfileButton = () => {
-  const {user} = useUser()
-  const [imgLoaded, setImgLoaded] = useState(false);
-
-  if (!user) {
+export const UserProfileButton = ({ imageUrl }: { imageUrl: string | undefined }) => {
+  if (!imageUrl) {
     return (
       <>
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle border-0">
@@ -37,21 +29,13 @@ export const UserProfileButton = () => {
     <>
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle border-0">
         <div className="w-10 h-10 rounded-full relative box-content">
-          {!imgLoaded && (
-            <FontAwesomeIcon
-              icon={faCircleUser}
-              className="absolute inset-0 text-[2.5rem] opacity-20"
-              style={{ width: '2.5rem', height: '2.5rem', margin: 0 }}
-            />
-          )}
-          {user && (
+          {imageUrl && (
             <Image
-              src={user.imageUrl}
+              src={imageUrl}
               alt={'User profile image'}
-              onLoad={() => setImgLoaded(true)}
               width={40}
               height={40}
-              className={`absolute object-cover transition-opacity duration-300 rounded-full ${imgLoaded ? 'opacity-100' : 'opacity-50'}`}
+              className={'w-10 h-10 absolute object-cover rounded-full'}
             />
           )}
         </div>

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Script from 'next/script';
-import { UserProvider } from '@MusicMe/context/UserContext';
 import { Providers } from '@MusicMe/proviers/QueryClientProvider';
 import { BASE_URL } from '@MusicMe/lib/util';
 
@@ -19,7 +18,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
-    url: BASE_URL
+    url: BASE_URL,
+    siteName: 'Zenekio',
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
   },
 };
 
@@ -53,9 +57,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Providers>
-          <UserProvider>{children}</UserProvider>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

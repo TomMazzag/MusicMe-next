@@ -1,10 +1,11 @@
 'use client';
 
-import { useUser } from '@MusicMe/context/UserContext';
+
 import { Profile } from '@MusicMe/types/Profile';
 import { useEffect, useState } from 'react';
 import { UserProfileTile } from '../User/UserProfileTile';
 import { ScaleLoader } from 'react-spinners';
+import { useUser } from '@clerk/nextjs';
 
 interface ConnectionProps {
   connectionType: 'followers' | 'following';
@@ -18,7 +19,7 @@ interface User {
 export default function Connection({ connectionType, userId }: ConnectionProps) {
   const [connections, setConnections] = useState([]);
   const [user, setUser] = useState<User>();
-  const currentUserId = useUser().user?.userId;
+  const currentUserId = useUser().user?.id;
 
   useEffect(() => {
     if (!userId) {
