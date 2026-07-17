@@ -2,18 +2,28 @@ import { Profile } from './Profile';
 
 export interface Review {
   id: number;
-  username: string;
-  profilePictureUrl: string;
-  fullName: string;
-  userId: Profile.Public['userId'];
   comment: string;
   rating: number;
   userHasLiked: boolean;
   likes: number;
+  user: {
+    username: string;
+    profilePictureUrl: string;
+    fullName: string;
+    userId: Profile.Public['userId'];
+  }
 }
 
-export interface TrendingReview extends SpotifyApi.TrackObjectFull {
+export interface TrendingReview {
+  comment: string;
+  rating: number;
   username: string;
   profilePictureUrl: string;
-  comment: string;
+  fullName: string;
+  userId: Profile.Public['userId'];
+  song: {
+    id: string;
+    name: string;
+    imageUrl: string;
+  }
 }

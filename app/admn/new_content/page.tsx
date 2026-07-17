@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 async function getAllGenres() {
   const response = await fetch(`${BACKEND_URL_SERVER}/genre/get_all`, { method: 'GET' });
 
-  let data = await response.json();
+  const data = await response.json();
   return data as { genres: Genre[] };
 }
 

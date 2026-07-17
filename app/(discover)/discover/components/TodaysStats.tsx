@@ -25,8 +25,7 @@ export default function TodaysStats() {
     queryKey: ['review'],
     queryFn: async () =>
       getTopReviews().then((data) => {
-        console.log(data);
-        return data.songsData || [];
+        return data.songData || [];
       }),
   });
 
@@ -79,14 +78,14 @@ export default function TodaysStats() {
         ) : reviews && reviews.length > 0 ? (
           <ul className="flex flex-col gap-4">
             {reviews.map((review) => (
-              <li className="flex items-center gap-4 w-full" key={review.id}>
-                <>
-                  <img src={review.album.images[0].url} alt="" className="h-14 rounded" />
+              <li key={review.song.id}>
+                <a href={`/song/${review.song.id}`} className="flex items-center gap-4 w-full">
+                  <img src={review.song.imageUrl} alt="" className="h-14 rounded" />
                   <div className="flex flex-col text-start">
                     <p>{review.comment}</p>
                     <p className="opacity-60">@{review.username}</p>
                   </div>
-                </>
+                </a>
               </li>
             ))}
           </ul>

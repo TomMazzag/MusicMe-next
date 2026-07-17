@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { BACKEND_URL, BACKEND_URL_SERVER } from './util';
-import { Song } from '@MusicMe/types/Song';
+import { SongV2 } from '@MusicMe/types/Song';
+import { authenticatedRequest } from './backend';
 
 interface SpotifyTokenResponse {
   access_token: string;
@@ -12,7 +13,7 @@ export const generateSpotifyToken = async (code: string, state: string): Promise
   try {
     const response = await fetch(`${BACKEND_URL}/auth/callback?code=${code}&state=${state}`, { method: 'GET' });
     if (response.status === 200) {
-      let data = await response.json();
+      const data = await response.json();
       return data;
     } else {
       throw new Error(`Failed to get spotify token, status code: ${response.status}`);
@@ -39,20 +40,12 @@ export const getPlaylists = async (userId: string) => {
   return publicPlaylists;
 };
 
-export const getSong = async (songId: string) => {
-  const cookieStore = await cookies();
-  const cookieHeader = cookieStore
-    .getAll()
-    .map((cookie) => `${cookie.name}=${cookie.value}`)
-    .join('; ');
-  const response = await fetch(`${BACKEND_URL_SERVER}/song/${songId}`, {
-    method: 'GET',
-    headers: {
-      cookie: cookieHeader,
-    },
+export const getSong = async (songId: string): Promise<SongV2> => {
+  const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/song/${songId}`, {
+    method: 'GET'
   });
 
-  let data = await response.json();
+  const data = await response.json();
 
-  return data as Song;
+  return data;
 };

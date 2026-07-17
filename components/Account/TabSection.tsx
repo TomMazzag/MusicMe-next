@@ -20,7 +20,7 @@ export const TabSection = ({ playlists }: TabSectionProps) => {
     queryFn: async () => {
       const req = await fetch('/api/song/liked_songs');
       const data = await req.json();
-      return data.likedSongs || [];
+      return data.likedSongs;
     },
   });
 

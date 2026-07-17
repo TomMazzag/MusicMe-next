@@ -23,7 +23,7 @@ export async function POST(req: NextRequest, { params }: Params): Promise<NextRe
 
   const response = await fetch(`${BACKEND_URL_SERVER}/like/song/${songId}/toggle`, requestOptions);
 
-  let data = await response.json();
+  const data = await response.json();
 
   return NextResponse.json(data, { status: response.status });
 }

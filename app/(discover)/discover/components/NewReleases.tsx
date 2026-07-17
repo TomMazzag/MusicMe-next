@@ -30,19 +30,21 @@ export default function NewReleases() {
                   className="flex flex-col items-center gap-4 justify-between text-center group shrink-0"
                   key={track.id}
                 >
-                  {track.releaseDate && new Date(track.releaseDate) > new Date() ? (
-                    <UpcomingRelease />
-                  ) : (
-                    <img
-                      src={track.imageUrl}
-                      alt={track.name}
-                      className="w-30 h-30 rounded-md group-hover:scale-105 transition-transform"
-                    />
-                  )}
-                  <div className="flex flex-col">
-                    <h3 className="font-bold">{track.name}</h3>
-                    <p className="text-sm opacity-70">{track.artists.map((artist) => artist.name).join(', ')}</p>
-                  </div>
+                  <a href={`/song/${track.id}`}>
+                    {track.releaseDate && new Date(track.releaseDate) > new Date() ? (
+                      <UpcomingRelease />
+                    ) : (
+                      <img
+                        src={track.imageUrl}
+                        alt={track.name}
+                        className="w-30 h-30 rounded-md group-hover:scale-105 transition-transform"
+                      />
+                    )}
+                    <div className="flex flex-col">
+                      <h3 className="font-bold">{track.name}</h3>
+                      <p className="text-sm opacity-70">{track.artists.map((artist) => artist.name).join(', ')}</p>
+                    </div>
+                  </a>
                 </li>
               ))}
             </ul>
