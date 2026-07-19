@@ -13,3 +13,15 @@ export const getAccountDetailsUsersAccount = async (): Promise<Profile.User> => 
   const data = await response.json();
   return data.userDetails;
 };
+
+export const getAccountDetailsByUuid = async (uuid: string): Promise<Profile.User> => {
+  const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/user/account/${uuid}`, { method: 'GET' });
+
+  if (!response.ok) {
+    console.log('Failed to fetch account details by uuid', { status: response.status, statusText: response.statusText });
+    throw new Error('Failed to fetch account details by uuid', { cause: response });
+  }
+
+  const data = await response.json();
+  return data.userDetails;
+};

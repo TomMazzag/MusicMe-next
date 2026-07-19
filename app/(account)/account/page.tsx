@@ -20,12 +20,17 @@ export default async function AccountPage() {
   const user = await getAccountDetailsUsersAccount();
   // const playlists = await getPlaylists(user.spotifyId);
 
+  user.userId = clerkUser.id;
+  user.username = clerkUser.username ?? '';
+  user.profilePictureUrl = clerkUser.imageUrl;
+  user.fullName = (clerkUser.firstName ?? '') + ' ' + (clerkUser.lastName ?? '');
+
   return (
     <>
       <Navbar />
       <div className="flex flex-col gap-5 items-center mt-10">
         <div className="flex mb-8.75 flex-col">
-          <ProfileImageAndNumbers user={clerkUser} profile={user} />
+          <ProfileImageAndNumbers profile={user} isCurrentUser={true}/>
         </div>
 
         <TabSection playlists={[]} />

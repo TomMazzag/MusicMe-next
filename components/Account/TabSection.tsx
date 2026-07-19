@@ -25,7 +25,7 @@ export const TabSection = ({ playlists }: TabSectionProps) => {
   });
 
   const paramTab = searchParams.get('activeTab') as ActiveTab | null;
-  const [activeTab, setActiveTabState] = useState<ActiveTab>(paramTab ?? 'Playlists');
+  const [activeTab, setActiveTabState] = useState<ActiveTab>(paramTab ?? 'Liked');
 
   useEffect(() => {
     const param = searchParams.get('activeTab') as ActiveTab | null;
@@ -47,17 +47,17 @@ export const TabSection = ({ playlists }: TabSectionProps) => {
       <div role="tablist" className="tabs tabs-box mb-2 md:mb-10">
         <a
           role="tab"
-          className={`tab ${activeTab === 'Playlists' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
-          onClick={() => setActiveTab('Playlists')}
-        >
-          Playlists
-        </a>
-        <a
-          role="tab"
           className={`tab ${activeTab === 'Liked' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
           onClick={() => setActiveTab('Liked')}
         >
           Liked songs
+        </a>
+        <a
+          role="tab"
+          className={`tab ${activeTab === 'Playlists' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
+          onClick={() => setActiveTab('Playlists')}
+        >
+          Playlists
         </a>
         <a
           role="tab"
