@@ -1,9 +1,12 @@
 import { authenticatedRequest } from '@MusicMe/lib/backend';
 import { BACKEND_URL_SERVER } from '@MusicMe/lib/util';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(): Promise<NextResponse> {
-  const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/user/songs/liked`, {
+export async function GET(request: NextRequest): Promise<NextResponse> {
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get('user_id');
+
+  const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/user/songs/liked${userId ? `?user_id=${userId}` : ''}`, {
     method: 'GET',
   });
   const data = await response.json();

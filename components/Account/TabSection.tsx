@@ -6,19 +6,25 @@ import { LikedSongsTab } from './Tabs/LikedSongsTab';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { AnalyticsTab } from './Tabs/Analytics';
 
 interface TabSectionProps {
   playlists: SpotifyApi.PlaylistObjectFull[] | undefined;
+  userId?: string;
+  analytics: {
+    reviewCount: number;
+    likedSongs: number;
+  };
 }
 
-export const TabSection = ({ playlists }: TabSectionProps) => {
+export const TabSection = ({ playlists, userId, analytics }: TabSectionProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const { data: likedSongs, isLoading: likedSongsLoading } = useQuery({
     queryKey: ['likedSongs'],
     queryFn: async () => {
-      const req = await fetch('/api/song/liked_songs');
+      const req = await fetch(`/api/song/liked_songs${userId ? `?user_id=${userId}` : ''}`);
       const data = await req.json();
       return data.likedSongs;
     },
@@ -71,7 +77,7 @@ export const TabSection = ({ playlists }: TabSectionProps) => {
       <div>
         <PlaylistsTab playlists={playlists} hidden={activeTab !== 'Playlists'} />
         <LikedSongsTab likedSongs={likedSongs || []} isLoading={likedSongsLoading} hidden={activeTab !== 'Liked'} />
-        <div className={`${activeTab === 'Analytics' ? 'flex' : 'hidden'}`}>Analytics section coming soon</div>
+        <AnalyticsTab hidden={activeTab !== 'Analytics'} reviewCount={analytics.reviewCount} likedSongs={analytics.likedSongs} />
       </div>
     </>
   );

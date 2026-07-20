@@ -3,15 +3,19 @@ import { BACKEND_URL_SERVER } from '@MusicMe/lib/util';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  const { follow_id } = await req.json();
+  const { followUserId } = await req.json();
 
-  if (!follow_id) {
-    return NextResponse.json({ error: 'Missing follow_id in request body' }, { status: 400 });
+  if (!followUserId) {
+    return NextResponse.json({ error: 'Missing followUserId in request body' }, { status: 400 });
   }
 
+  console.log(followUserId);
   const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/user/follow`, {
     method: 'POST',
-    body: JSON.stringify({ follow_id }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ followUserId }),
   });
 
   const data = await response.json();

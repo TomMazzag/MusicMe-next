@@ -33,7 +33,7 @@ export default async function AccountPage() {
           <ProfileImageAndNumbers profile={user} isCurrentUser={true}/>
         </div>
 
-        <TabSection playlists={[]} />
+        <TabSection playlists={[]} analytics={{ reviewCount: user.reviewCount, likedSongs: user.likedSongCount }} />
       </div>
     </>
   );

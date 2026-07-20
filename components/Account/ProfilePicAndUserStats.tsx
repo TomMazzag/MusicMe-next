@@ -47,7 +47,7 @@ export const ProfileImageAndNumbers = ({ profile, isCurrentUser, isFollowing = f
             </div>
           </div>
           {!isCurrentUser && (
-            <FollowButton isFollowing={isFollowing} />
+            <FollowButton isFollowing={isFollowing} userId={profile.userId} />
           )}
         </div>
       </div>

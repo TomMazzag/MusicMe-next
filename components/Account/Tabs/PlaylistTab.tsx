@@ -1,9 +1,9 @@
 import { shortenString } from '@MusicMe/lib/util';
 
 export const PlaylistsTab = ({ playlists, hidden }: { playlists: SpotifyApi.PlaylistObjectFull[] | undefined; hidden: boolean }) => {
-  return playlists ? (
+  return playlists && playlists.length > 0 ? (
     <div className={`grid mb-20 grid-cols-1 md:grid-cols-3 gap-y-5 gap-x-12.5 text-center ${hidden ? 'hidden' : ''}`}>
-      {playlists.map((playlist: any, index: number) => (
+      {playlists.map((playlist, index: number) => (
         <div key={index} className="playlist-tile text-center">
           <a href={playlist.external_urls.spotify} target="_blank">
             <img
@@ -17,6 +17,6 @@ export const PlaylistsTab = ({ playlists, hidden }: { playlists: SpotifyApi.Play
       ))}
     </div>
   ) : (
-    <>No playlist for this user</>
+    <div className={`${hidden ? 'hidden' : ''}`}>No playlist for this user</div>
   );
 };

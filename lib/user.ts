@@ -14,7 +14,7 @@ export const getAccountDetailsUsersAccount = async (): Promise<Profile.User> => 
   return data.userDetails;
 };
 
-export const getAccountDetailsByUuid = async (uuid: string): Promise<Profile.User> => {
+export const getAccountDetailsByUuid = async (uuid: string): Promise<Profile.User & { isFollowing: boolean, isCurrentUser: boolean }> => {
   const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/user/account/${uuid}`, { method: 'GET' });
 
   if (!response.ok) {
