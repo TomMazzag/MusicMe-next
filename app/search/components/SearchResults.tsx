@@ -46,8 +46,6 @@ export default function SearchResults({ query, category }: SearchResultsParams) 
     },
   });
 
-  console.log(result);
-
   return (
     <div className="flex flex-col gap-12 mb-10 w-full items-center md:w-[70%]">
       {isLoading && (

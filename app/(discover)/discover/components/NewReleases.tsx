@@ -41,8 +41,10 @@ export default function NewReleases() {
                       />
                     )}
                     <div className="flex flex-col">
-                      <h3 className="font-bold">{track.name}</h3>
-                      <p className="text-sm opacity-70">{track.artists.map((artist) => artist.name).join(', ')}</p>
+                      <h3 className="font-bold max-w-30 truncate">{track.name}</h3>
+                      <p className="text-sm opacity-70 max-w-30">
+                        {track.artists.map((artist) => artist.name).join(', ')}
+                      </p>
                     </div>
                   </a>
                 </li>

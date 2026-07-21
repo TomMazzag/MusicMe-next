@@ -1,18 +1,45 @@
+"use client";
+
+import { MBZImportBody } from "@MusicMe/types/MusicBrainz";
+import TrackImageLoader from "./TrackImageLoader";
+import { useRouter } from "next/navigation";
+
 export const TrackResult = ({ result }: { result: {items: SpotifyApi.TrackObjectFull[]} & {source?: string} }) => {
-  const { source } = result;
-  const sourceQueryParam = source ? `?source=${source}` : ''
+  const router = useRouter();
+
+  const musicBrainzClickHandler = async (result: SpotifyApi.TrackObjectFull) => {
+    const body: MBZImportBody = {
+      song: {
+        id: result.id,
+        name: result.name,
+        imageUrl: result.album.images[0].url,
+        releaseDate: result.album.release_date ? result.album.release_date : null,
+        artists: result.artists.map((artist) => ({
+          id: artist.id,
+          name: artist.name,
+        })),
+        platforms: {
+          musicBrainzId: result.id,
+        },
+      },
+    };
+    const returnedId = await fetch('/api/song/mbz/import', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+    if (!returnedId.ok) {
+      throw new Error('Failed to import song');
+    }
+    const data = await returnedId.json();
+    router.push(`/song/${data.songId}`);
+  };
+
   return (
     <>
       {result.items.map((result, index: number) => (
         <div className="flex items-center justify-center w-[90%] pr-1 md:pr-0" key={index}>
-          <a href={`/song/${result.id}${sourceQueryParam}`} className="flex gap-5 items-center grow">
-            <img
-              className="h-30"
-              src={
-                result.album && result.album.images && result.album.images.length > 0 ? result.album.images[0].url : ''
-              }
-              alt=""
-            />
+          <div onClick={() => musicBrainzClickHandler(result)} className="flex gap-5 items-center grow cursor-pointer">
+            <TrackImageLoader imageUrl={result.album.images[0].url} id={result.id} />
             <div className="grow">
               <h3>{result.name}</h3>
               <p className="opacity-55">{result.artists[0].name}</p>
@@ -21,7 +48,7 @@ export const TrackResult = ({ result }: { result: {items: SpotifyApi.TrackObject
               <i className="fa-solid fa-share"></i>
               <p>Repost</p>
             </div>
-          </a>
+          </div>
           {result?.external_urls?.spotify && (
             <a href={result.external_urls.spotify} target="_blank">
               <i className="fa-brands fa-spotify fa-2xl px-2"></i>

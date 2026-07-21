@@ -80,7 +80,7 @@ export default function TodaysStats() {
             {reviews.map((review) => (
               <li key={review.song.id}>
                 <a href={`/song/${review.song.id}`} className="flex items-center gap-4 w-full">
-                  <img src={review.song.imageUrl} alt="" className="h-14 rounded" />
+                  <img src={review.song.imageUrl} alt="" className="h-14 min-w-14 rounded" />
                   <div className="flex flex-col text-start">
                     <p>{review.comment}</p>
                     <p className="opacity-60">@{review.username}</p>

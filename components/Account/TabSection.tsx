@@ -76,7 +76,7 @@ export const TabSection = ({ playlists, userId, analytics }: TabSectionProps) =>
 
       <div>
         <PlaylistsTab playlists={playlists} hidden={activeTab !== 'Playlists'} />
-        <LikedSongsTab likedSongs={likedSongs || []} isLoading={likedSongsLoading} hidden={activeTab !== 'Liked'} />
+        <LikedSongsTab likedSongs={likedSongs} isLoading={likedSongsLoading} hidden={activeTab !== 'Liked'} />
         <AnalyticsTab hidden={activeTab !== 'Analytics'} reviewCount={analytics.reviewCount} likedSongs={analytics.likedSongs} />
       </div>
     </>

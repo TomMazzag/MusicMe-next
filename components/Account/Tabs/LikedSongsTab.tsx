@@ -8,12 +8,12 @@ interface LikedSongsProps {
 }
 
 export const LikedSongsTab = ({ likedSongs, isLoading, hidden }: LikedSongsProps) => {
-  if (likedSongs.length === 0) {
-    return <p className={clsx("pb-10", hidden ? 'hidden' : '')}>No liked songs</p>;
-  }
-
   if (isLoading) {
     return <ScaleLoader color={'#22c55e'} />;
+  }
+
+  if (likedSongs.length === 0) {
+    return <p className={clsx("pb-10", hidden ? 'hidden' : '')}>No liked songs</p>;
   }
 
   return (

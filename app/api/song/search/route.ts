@@ -17,7 +17,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const spotifyToken = cookieStore.get('access_token')?.value;
 
   if (!spotifyToken) {
-    const url = `https://musicbrainz.org/ws/2/recording/?query=recording:${query}&fmt=json`;
+    const url = `https://musicbrainz.org/ws/2/release/?query=release:${query}&fmt=json`;
     const musicBrainzReq = await fetch(url, {
       method: 'GET',
       headers: {
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     if (!musicBrainzReq.ok) {
       return NextResponse.json({ message: 'Error searching for songs' }, { status: 503 });
     }
-    const data = (await musicBrainzReq.json()) as MusicBrainz.RecordingResponse;
+    const data = (await musicBrainzReq.json()) as MusicBrainz.ReleaseResponse;
     const mappedData = convertMusicBrainzRecordingData(data);
     return NextResponse.json({ items: mappedData, source: MUSIC_BRAINZ_SOURCE }, { status: 200 });
   }
