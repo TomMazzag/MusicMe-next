@@ -20,7 +20,6 @@ export default async function AccountPage() {
   const user = await getAccountDetailsUsersAccount();
   // const playlists = await getPlaylists(user.spotifyId);
 
-  user.userId = clerkUser.id;
   user.username = clerkUser.username ?? '';
   user.profilePictureUrl = clerkUser.imageUrl;
   user.fullName = (clerkUser.firstName ?? '') + ' ' + (clerkUser.lastName ?? '');

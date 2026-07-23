@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function TrackImageLoader({ imageUrl, id }: { imageUrl: string; id: string }) {
@@ -16,5 +17,5 @@ export default function TrackImageLoader({ imageUrl, id }: { imageUrl: string; i
     };
     fetchImage();
   }, [id]);
-  return <img className="h-30 w-30" src={image} alt="" />;
+  return <Image height={120} width={120} className="h-30 w-30" src={image} alt="" />;
 }

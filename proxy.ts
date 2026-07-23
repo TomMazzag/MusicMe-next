@@ -1,5 +1,5 @@
-// import { NextRequest, NextResponse } from 'next/server';
-// import { BACKEND_URL_SERVER } from './lib/util';
+import { NextRequest, NextResponse } from 'next/server';
+import { BACKEND_URL_SERVER } from './lib/util';
 import { clerkMiddleware } from '@clerk/nextjs/server';
 
 // const PROTECTED_PATHS = ['/account'];
@@ -7,9 +7,24 @@ import { clerkMiddleware } from '@clerk/nextjs/server';
 
 // const SPOTIFY_EXPIRES_COOKIE_NAME = 'spotify_expires_at';
 
-// const ADMIN_PATHS = ['/admn'];
+const ADMIN_PATHS = ['/admn'];
 
-export default clerkMiddleware();
+export default clerkMiddleware(async (_auth, req) => {
+  const { pathname } = req.nextUrl;
+  if (ADMIN_PATHS.some((path) => pathname.startsWith(path))) {
+    try {
+        const isAdmin = await checkIsAdmin(req);
+        if (!isAdmin) {
+          const homepage = new URL('/', req.url);
+          return NextResponse.redirect(homepage);
+        }
+    } catch (error) {
+        console.error(error);
+        const homepage = new URL('/', req.url);
+        return NextResponse.redirect(homepage);
+    }
+  }
+});
 
 // export default async function proxy(req: NextRequest) {
 //   const { pathname } = req.nextUrl;
@@ -38,14 +53,6 @@ export default clerkMiddleware();
 //     }
 //   }
 
-//   if (ADMIN_PATHS.some((path) => pathname.startsWith(path))) {
-//     const isAdmin = await checkIsAdmin(req);
-//     if (!isAdmin) {
-//       const homepage = new URL('/', req.url);
-//       return NextResponse.redirect(homepage);
-//     }
-//   }
-
 //   return NextResponse.next();
 // }
 
@@ -67,20 +74,20 @@ export default clerkMiddleware();
 //   return cookies;
 // }
 
-// async function checkIsAdmin(req: NextRequest) {
-//   const cookie = req.headers.get('cookie') || '';
+async function checkIsAdmin(req: NextRequest) {
+  const cookie = req.headers.get('cookie') || '';
 
-//   const res = await fetch(`${BACKEND_URL_SERVER}/user/check_admin`, {
-//     method: 'GET',
-//     headers: {
-//       cookie,
-//     },
-//   });
+  const res = await fetch(`${BACKEND_URL_SERVER}/user/check_admin`, {
+    method: 'GET',
+    headers: {
+      cookie,
+    },
+  });
 
-//   if (!res.ok) {
-//     throw new Error('Failed to check admin status', { cause: res });
-//   }
+  if (!res.ok) {
+    throw new Error('Failed to check admin status', { cause: res });
+  }
 
-//   const data = await res.json();
-//   return data.isAdmin;
-// }
+  const data = await res.json();
+  return data.isAdmin;
+}

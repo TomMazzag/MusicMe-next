@@ -5,6 +5,7 @@ import { SongData } from '@MusicMe/types/Song';
 import { useQuery } from '@tanstack/react-query';
 import { ScaleLoader } from 'react-spinners';
 import UpcomingRelease from './UpcomingRelease';
+import Image from 'next/image';
 
 export default function NewReleases() {
   const { data: tracks, isLoading } = useQuery<SongData[]>({
@@ -34,8 +35,10 @@ export default function NewReleases() {
                     {track.releaseDate && new Date(track.releaseDate) > new Date() ? (
                       <UpcomingRelease />
                     ) : (
-                      <img
-                        src={track.imageUrl}
+                      <Image
+                        height={120}
+                        width={120}
+                        src={track.imageUrl || ''}
                         alt={track.name}
                         className="w-30 h-30 rounded-md group-hover:scale-105 transition-transform"
                       />

@@ -8,8 +8,12 @@ import { useQuery } from '@tanstack/react-query';
 import { ScaleLoader } from 'react-spinners';
 import { SongSearchTile } from './SongSearchTile';
 
-interface TrackWithViews extends SpotifyApi.TrackObjectFull {
+interface TrackWithViews {
+  id: string;
+  name: string;
+  imageUrl: string;
   viewCount: number;
+  artists: string[];
 }
 
 export default function TodaysStats() {
@@ -17,7 +21,7 @@ export default function TodaysStats() {
     queryKey: ['song'],
     queryFn: async () =>
       getTopViewedTracks().then((data) => {
-        return data.songsData || [];
+        return data.topSongs || [];
       }),
   });
 
@@ -45,9 +49,9 @@ export default function TodaysStats() {
                   <ProgressionArrowUp />
                   <SongSearchTile
                     data={{
-                      imageUrl: track.album.images[0].url,
+                      imageUrl: track.imageUrl,
                       value1: track.name,
-                      value2: track.artists[0].name,
+                      value2: track.artists.map((artist) => artist).join(', '),
                       trackId: track.id,
                     }}
                   />

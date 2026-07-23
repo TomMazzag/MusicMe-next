@@ -23,7 +23,7 @@ export namespace Profile {
     profilePictureUrl: string;
     username: string;
     isFollowing: boolean;
-    currentUserId: string;
+    currentUserId: string | undefined;
   }
 
   export interface Analytics {

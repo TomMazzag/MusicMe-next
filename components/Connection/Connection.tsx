@@ -1,11 +1,10 @@
 'use client';
 
-
 import { Profile } from '@MusicMe/types/Profile';
 import { useEffect, useState } from 'react';
 import { UserProfileTile } from '../User/UserProfileTile';
 import { ScaleLoader } from 'react-spinners';
-import { useUser } from '@clerk/nextjs';
+import { useUserId } from '@MusicMe/hooks/useUserId';
 
 interface ConnectionProps {
   connectionType: 'followers' | 'following';
@@ -19,7 +18,7 @@ interface User {
 export default function Connection({ connectionType, userId }: ConnectionProps) {
   const [connections, setConnections] = useState([]);
   const [user, setUser] = useState<User>();
-  const currentUserId = useUser().user?.id;
+  const currentUserId = useUserId();
 
   useEffect(() => {
     if (!userId) {
@@ -51,7 +50,7 @@ export default function Connection({ connectionType, userId }: ConnectionProps) 
                   profilePictureUrl={connection.profilePictureUrl}
                   username={connection.username}
                   isFollowing={connection.isFollowing}
-                  currentUserId={currentUserId!}
+                  currentUserId={currentUserId}
                 />
               ))
             ) : (
