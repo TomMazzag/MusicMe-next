@@ -1,5 +1,5 @@
 import { PlatformGenres } from '@MusicMe/types/Genre';
-import { Disc3, Drum, Guitar, House, LucideIcon, MicVocal, PartyPopper, Piano, Speaker, Zap } from 'lucide-react';
+import { Disc3, Drum, Guitar, House, LucideIcon, MicVocal, PartyPopper, Piano, Speaker, Warehouse, Zap } from 'lucide-react';
 import { JSX } from 'react';
 
 
@@ -47,4 +47,7 @@ export const ProfileBadges: Record<PlatformGenres, { component: JSX.Element }> =
     indie: {
         component: <ProfileGenreBadge Icon={Guitar} text="Indie" color="#d46884" />,
     },
+    garage: {
+        component: <ProfileGenreBadge Icon={Warehouse} text="Garage" color="#d46884" />,
+    }
 };

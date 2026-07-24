@@ -6,6 +6,8 @@ import { getSongMB, MUSIC_BRAINZ_SOURCE } from '@MusicMe/lib/musicBrainz';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SongReviews from './components/Review/SongReviews';
+import ReviewInput from './components/Review/ReviewInput';
+import Image from 'next/image';
 
 type Props = {
   params: Promise<{
@@ -30,12 +32,22 @@ export default async function SongPage({ params, searchParams }: Props) {
 
   const song = songResponse.songData;
 
+  const isSpotifyImage = song.imageUrl?.includes('i.scdn.co');
+
   return (
     <>
       <Navbar />
       <div className="flex items-center flex-col justify-between h-[90vh] w-full p-4 text-center md:p-0">
         <div className="flex gap-5 flex-row items-center w-full justify-evenly md:mt-8 mb-2 md:w-[50%]">
-          <img src={song.imageUrl} alt="" className="h-37.5 w-37.5" />
+          <div>
+            <img src={song.imageUrl} alt="" className="h-37.5 w-37.5" />
+            {isSpotifyImage && (
+              <div className="flex flex-col items-center gap-1 mt-2">
+                <p className="text-sm opacity-60">Image provided by</p>
+                <Image src="/SpotifyLogo.svg" alt="Spotify Logo" width={32} height={32} className="w-20 max-h-5" />
+              </div>
+            )}
+          </div>
           <div className="flex flex-col justify-center text-center gap-4 md:gap-4">
             <div>
               <h1 className="text lg:text-xl font-semibold md:text-4xl">{song.name}</h1>
@@ -51,7 +63,7 @@ export default async function SongPage({ params, searchParams }: Props) {
               />
               <div className="flex gap-2 items-center" title="Views today">
                 <div className="min-w-4">
-                <FontAwesomeIcon icon={faEye} size="sm"/>
+                  <FontAwesomeIcon icon={faEye} size="sm" />
                 </div>
                 <p className="lg:text-xl" aria-label="song views">
                   {songResponse.views}
@@ -61,6 +73,7 @@ export default async function SongPage({ params, searchParams }: Props) {
           </div>
         </div>
         <SongReviews songId={song.id} />
+        <ReviewInput songId={song.id} />
       </div>
     </>
   );

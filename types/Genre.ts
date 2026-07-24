@@ -6,4 +6,4 @@ export interface Genre {
     hexColour: string
 }
 
-export type PlatformGenres = 'dnb' | 'house' | 'rnb' | 'dance' | 'country' | 'rock' | 'jazz' | 'electronic' | 'rap' | 'indie';
+export type PlatformGenres = 'dnb' | 'house' | 'rnb' | 'dance' | 'country' | 'rock' | 'jazz' | 'electronic' | 'rap' | 'indie' | 'garage';

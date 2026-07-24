@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       new URL('https://archive.org/**'),
       new URL('https://**.archive.org/**'),
       new URL('https://coverartarchive.org/**'),
+      new URL('https://upload.wikimedia.org/**'),
     ],
   },
 };

@@ -3,10 +3,11 @@
 import { ChartNoAxesColumnIncreasing } from 'lucide-react';
 import { ProgressionArrowUp } from '../components/TopStatProgressionArrows';
 import { TrendingReview } from '@MusicMe/types/Review';
-import { getTopReviews, getTopViewedTracks } from '@MusicMe/lib/discover';
+import { getTopReviews, getTopViewedArtists, getTopViewedTracks } from '@MusicMe/lib/discover';
 import { useQuery } from '@tanstack/react-query';
 import { ScaleLoader } from 'react-spinners';
 import { SongSearchTile } from './SongSearchTile';
+import { Artist } from '@MusicMe/types/Artist';
 
 interface TrackWithViews {
   id: string;
@@ -30,6 +31,14 @@ export default function TodaysStats() {
     queryFn: async () =>
       getTopReviews().then((data) => {
         return data.songData || [];
+      }),
+  });
+
+  const { data: artists, isLoading: artistsLoading } = useQuery<Artist[]>({
+    queryKey: ['artist'],
+    queryFn: async () =>
+      getTopViewedArtists().then((data) => {
+        return data.artistData || [];
       }),
   });
 
@@ -70,7 +79,28 @@ export default function TodaysStats() {
       <div className="bg-base-300 p-4 rounded-lg text-center">
         <h1 className="text text-2xl mb-6">Top viewed artists today</h1>
         <>
-          <p>No data today, check back tomorrow for new data</p>
+          {artistsLoading ? (
+            <>
+              <ScaleLoader color={'#22c55e'} />
+            </>
+          ) : artists && artists.length > 0 ? (
+            <ul className="flex flex-col gap-4 items-center">
+              {artists.map((artist) => (
+                <li key={artist.id}>
+                  <a href={`/artist/${artist.id}`} className="flex items-center gap-4 w-full">
+                    <img src={artist.imageUrl} alt="" className="h-14 min-w-14 rounded" />
+                    <div className="flex flex-col text-start">
+                      <p>{artist.name}</p>
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <>
+              <p>No data today, check back tomorrow for new data</p>
+            </>
+          )}
         </>
       </div>
       <div className="bg-base-300 p-4 rounded-lg text-center">
