@@ -1,3 +1,6 @@
+import { Artist } from './Artist';
+
+/* eslint-disable @typescript-eslint/no-namespace */
 export namespace Profile {
   interface BaseProfile {
     fullName: string;
@@ -9,6 +12,7 @@ export namespace Profile {
     reviewCount: number;
     username: string;
     spotifyId: string;
+    highlightedSong: HighlightedSong | undefined;
   }
 
   export interface User extends BaseProfile {
@@ -36,6 +40,13 @@ export namespace Profile {
       items: SpotifyApi.TrackObjectFull[];
     };
   }
+}
+
+export interface HighlightedSong {
+  id: string;
+  name: string;
+  artists: Pick<Artist, 'id' | 'name'>[];
+  imageUrl: string;
 }
 
 export type ActiveTab = 'Playlists' | 'Liked' | 'Analytics';

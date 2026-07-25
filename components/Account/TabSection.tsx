@@ -7,14 +7,12 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { AnalyticsTab } from './Tabs/Analytics';
+import { Analytics } from '@MusicMe/types/Analytics';
 
 interface TabSectionProps {
   playlists: SpotifyApi.PlaylistObjectFull[] | undefined;
   userId?: string;
-  analytics: {
-    reviewCount: number;
-    likedSongs: number;
-  };
+  analytics: Analytics
 }
 
 export const TabSection = ({ playlists, userId, analytics }: TabSectionProps) => {
@@ -40,6 +38,9 @@ export const TabSection = ({ playlists, userId, analytics }: TabSectionProps) =>
     }
   }, [searchParams]);
 
+  /** User id is only passed when found in the url */
+  const isCurrentUser = userId === undefined
+
   const setActiveTab = (newTab: ActiveTab) => {
     setActiveTabState(newTab);
 
@@ -50,7 +51,7 @@ export const TabSection = ({ playlists, userId, analytics }: TabSectionProps) =>
 
   return (
     <>
-      <div role="tablist" className="tabs tabs-box mb-2 md:mb-10">
+      <div role="tablist" className="tabs tabs-box md:mb-4">
         <a
           role="tab"
           className={`tab ${activeTab === 'Liked' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
@@ -74,10 +75,10 @@ export const TabSection = ({ playlists, userId, analytics }: TabSectionProps) =>
         </a>
       </div>
 
-      <div>
-        <PlaylistsTab playlists={playlists} hidden={activeTab !== 'Playlists'} />
-        <LikedSongsTab likedSongs={likedSongs} isLoading={likedSongsLoading} hidden={activeTab !== 'Liked'} />
-        <AnalyticsTab hidden={activeTab !== 'Analytics'} reviewCount={analytics.reviewCount} likedSongs={analytics.likedSongs} />
+      <div className="mb-12">
+        <PlaylistsTab hidden={activeTab !== 'Playlists'} playlists={playlists} />
+        <LikedSongsTab hidden={activeTab !== 'Liked'} likedSongs={likedSongs} isLoading={likedSongsLoading} />
+        <AnalyticsTab hidden={activeTab !== 'Analytics'} analyticsData={analytics} isCurrentUser={isCurrentUser} />
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { BACKEND_URL, BACKEND_URL_SERVER } from './util';
-import { SongV2 } from '@MusicMe/types/Song';
+import { Song } from '@MusicMe/types/Song';
 import { authenticatedRequest } from './backend';
 
 interface SpotifyTokenResponse {
@@ -40,7 +40,7 @@ export const getPlaylists = async (userId: string) => {
   return publicPlaylists;
 };
 
-export const getSong = async (songId: string): Promise<SongV2> => {
+export const getSong = async (songId: string): Promise<Song> => {
   const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/song/${songId}`, {
     method: 'GET'
   });

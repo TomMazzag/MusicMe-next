@@ -1,6 +1,6 @@
 import { MusicBrainz } from '@MusicMe/types/MusicBrainz';
 import { BACKEND_URL_SERVER } from './util';
-import { SongV2 } from '@MusicMe/types/Song';
+import { Song } from '@MusicMe/types/Song';
 
 export function convertMusicBrainzRecordingData(data: MusicBrainz.ReleaseResponse) {
   return data.releases.map((release) => ({
@@ -32,7 +32,7 @@ function formatReleaseDate(date: string) {
 
 export const MUSIC_BRAINZ_SOURCE = 'mbz';
 
-export const getSongMB = async (songId: string): Promise<SongV2> => {
+export const getSongMB = async (songId: string): Promise<Song> => {
   const response = await fetch(`${BACKEND_URL_SERVER}/song/${songId}/${MUSIC_BRAINZ_SOURCE}`, {
     method: 'GET',
   });

@@ -5,14 +5,6 @@ export interface Song {
   likes: number;
   userHasLiked: boolean;
   views: number;
-  spotifyData: SpotifyApi.TrackObjectFull;
-}
-
-export interface SongV2 {
-  name: string;
-  likes: number;
-  userHasLiked: boolean;
-  views: number;
   songData: SongData
 }
 

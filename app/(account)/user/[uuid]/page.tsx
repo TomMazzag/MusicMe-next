@@ -18,10 +18,18 @@ export default async function UserPage({ params }: Props) {
       <Navbar />
       <div className="flex flex-col gap-5 items-center mt-10">
         <div className="flex mb-8.75 flex-col">
-          <ProfileImageAndNumbers profile={user} isCurrentUser={user.isCurrentUser} isFollowing={user.isFollowing}/>
+          <ProfileImageAndNumbers profile={user} isCurrentUser={user.isCurrentUser} isFollowing={user.isFollowing} />
         </div>
 
-        <TabSection playlists={[]} userId={user.userId} analytics={{ reviewCount: user.reviewCount, likedSongs: user.likedSongCount }}/>
+        <TabSection
+          playlists={[]}
+          userId={user.userId}
+          analytics={{
+            reviewCount: user.reviewCount,
+            likedSongs: user.likedSongCount,
+            highlightedSong: user.highlightedSong,
+          }}
+        />
       </div>
     </>
   );
