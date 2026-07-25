@@ -1,6 +1,6 @@
 import { Profile } from '@MusicMe/types/Profile';
 
-export default function AccountResult({ result }: { result: { items: Profile.Public[] } }) {
+export default function AccountResult({ result }: { result: { items: Profile.User[] } }) {
   return (
     <>
       {result.items.map((user, index: number) => (

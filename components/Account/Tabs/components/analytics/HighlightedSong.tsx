@@ -33,9 +33,9 @@ export const HighlightedSongTile = ({ highlightedSong: initialHighlightedSong, i
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 items-center">
       <h2 className="text-2xl font-bold text-center">Highlighted Song</h2>
-      <a className={clsx('flex', isCurrentUser ? '' : 'grow')} href={`/song/${highlightedSong.id}`}>
+      <a className={clsx('flex', isCurrentUser ? '' : 'grow', 'max-w-60')} href={`/song/${highlightedSong.id}`}>
         <div
           className={clsx(
             'flex items-center gap-3 bg-base-300 w-[280px] overflow-hidden',

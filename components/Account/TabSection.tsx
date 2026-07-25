@@ -75,7 +75,7 @@ export const TabSection = ({ playlists, userId, analytics }: TabSectionProps) =>
         </a>
       </div>
 
-      <div className="mb-12">
+      <div className="mb-12 w-full flex justify-center">
         <PlaylistsTab hidden={activeTab !== 'Playlists'} playlists={playlists} />
         <LikedSongsTab hidden={activeTab !== 'Liked'} likedSongs={likedSongs} isLoading={likedSongsLoading} />
         <AnalyticsTab hidden={activeTab !== 'Analytics'} analyticsData={analytics} isCurrentUser={isCurrentUser} />

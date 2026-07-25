@@ -1,8 +1,9 @@
 import { shortenString } from '@MusicMe/lib/util';
+import clsx from 'clsx';
 
 export const PlaylistsTab = ({ playlists, hidden }: { playlists: SpotifyApi.PlaylistObjectFull[] | undefined; hidden: boolean }) => {
   return playlists && playlists.length > 0 ? (
-    <div className={`grid mb-20 grid-cols-1 md:grid-cols-3 gap-y-5 gap-x-12.5 text-center ${hidden ? 'hidden' : ''}`}>
+    <div className={clsx("grid mb-20 grid-cols-1 md:grid-cols-3 gap-y-5 gap-x-12.5 text-center md:w-[80%]",  `${hidden ? 'hidden' : ''}`)}>
       {playlists.map((playlist, index: number) => (
         <div key={index} className="playlist-tile text-center">
           <a href={playlist.external_urls.spotify} target="_blank">

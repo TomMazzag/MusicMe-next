@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 
 interface ProfileHeaderProps {
-  profile: Profile.Public;
+  profile: Profile.User;
   isCurrentUser: boolean;
   isFollowing?: boolean;
 }

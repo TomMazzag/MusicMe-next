@@ -10,7 +10,7 @@ export interface Review {
     username: string;
     profilePictureUrl: string;
     fullName: string;
-    userId: Profile.Public['userId'];
+    userId: Profile.User['userId'];
   }
 }
 
@@ -20,7 +20,7 @@ export interface TrendingReview {
   username: string;
   profilePictureUrl: string;
   fullName: string;
-  userId: Profile.Public['userId'];
+  userId: Profile.User['userId'];
   song: {
     id: string;
     name: string;

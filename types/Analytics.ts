@@ -4,4 +4,5 @@ export interface Analytics {
   reviewCount: number;
   likedSongs: number;
   highlightedSong: HighlightedSong | undefined;
+  favouriteGenres: string[];
 }

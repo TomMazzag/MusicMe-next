@@ -1,6 +1,6 @@
-# MusicMe Frontend
+# Zenekio
 
-MusicMe is a social media platform creating for sharing music.
+Zenekio is a social media platform creating for sharing music.
 
 ## Getting started
 
@@ -31,10 +31,14 @@ npm run docker:run
 ## Roadmap
 
 - [x] Switch to UUID for profile ids
-- [ ] Feed page
+- [x] Feed page
 - [x] Better analytics - last login, more analytics for song
-- [ ] Option to pick top song
+- [x] Option to pick top song
 - [x] Create publically accessible pages
+- [ ] Add job to be able to calculate most popular genres
+- [ ] Add a new swipe left swipe right section to discover new songs quickly
+- [ ] Add filtering on the likes songs page for users
+- [ ] Add ability to link Spotify account
 
 ## Functionality
 

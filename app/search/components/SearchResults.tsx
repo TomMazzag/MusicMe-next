@@ -16,7 +16,7 @@ interface TrackResults {
   source?: string;
 }
 interface ProfileResults {
-  items: Profile.Public[];
+  items: Profile.User[];
 }
 
 const TEMP_DISABLED_CATEGORIES: Category[] = ['Album', 'Artist'];

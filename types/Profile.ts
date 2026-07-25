@@ -13,13 +13,12 @@ export namespace Profile {
     username: string;
     spotifyId: string;
     highlightedSong: HighlightedSong | undefined;
+    favouriteGenres: string[];
   }
 
   export interface User extends BaseProfile {
     email?: string;
   }
-
-  export interface Public extends BaseProfile {}
 
   export interface Conneciton {
     userId: string;

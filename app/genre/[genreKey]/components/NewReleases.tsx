@@ -1,11 +1,27 @@
+'use client';
+
+import ReleasesList from '@MusicMe/components/Song/ReleasesList';
+import { BACKEND_URL } from '@MusicMe/lib/util';
+import { SongData } from '@MusicMe/types/Song';
+import { useQuery } from '@tanstack/react-query';
 import GenrePageSection from './GenrePageSection';
 
-export default function NewReleases() {
+interface NewReleasesProps {
+  genreKey: string;
+}
+
+export default function NewReleases({ genreKey }: NewReleasesProps) {
+  const { data: tracks, isLoading } = useQuery<SongData[]>({
+    queryKey: ['newReleases', genreKey],
+    queryFn: async () =>
+      fetch(`${BACKEND_URL}/genre/${genreKey}/releases/new`).then(async (data) => {
+        return (await data.json()).releases || [];
+      }),
+  });
+
   return (
     <GenrePageSection id="newReleases" sectionTitle="New Releases">
-      <div className='w-fit hover:scale-105 transition-transform'>
-        <p className="px-4 py-2 rounded-sm bg-accent">New releases section coming soon!</p>
-      </div>
+      <ReleasesList tracks={tracks} isLoading={isLoading} />
     </GenrePageSection>
   );
 }

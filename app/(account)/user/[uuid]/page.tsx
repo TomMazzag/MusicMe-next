@@ -28,6 +28,7 @@ export default async function UserPage({ params }: Props) {
             reviewCount: user.reviewCount,
             likedSongs: user.likedSongCount,
             highlightedSong: user.highlightedSong,
+            favouriteGenres: user.favouriteGenres,
           }}
         />
       </div>
