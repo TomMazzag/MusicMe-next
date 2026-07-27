@@ -1,13 +1,21 @@
 "use client";
 
+import FullScreenLoader from "@MusicMe/components/Util/FullScreenLoader";
 import { MBZImportBody } from "@MusicMe/types/MusicBrainz";
 import TrackImageLoader from "./TrackImageLoader";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export const TrackResult = ({ result }: { result: {items: SpotifyApi.TrackObjectFull[]} & {source?: string} }) => {
   const router = useRouter();
+  const [isImporting, setIsImporting] = useState(false);
 
   const musicBrainzClickHandler = async (result: SpotifyApi.TrackObjectFull) => {
+    if (isImporting) {
+      return;
+    }
+
+    setIsImporting(true);
     const body: MBZImportBody = {
       song: {
         id: result.id,
@@ -23,19 +31,25 @@ export const TrackResult = ({ result }: { result: {items: SpotifyApi.TrackObject
         },
       },
     };
-    const returnedId = await fetch('/api/song/mbz/import', {
-      method: 'POST',
-      body: JSON.stringify(body),
-    });
-    if (!returnedId.ok) {
-      throw new Error('Failed to import song');
+    try {
+      const returnedId = await fetch('/api/song/mbz/import', {
+        method: 'POST',
+        body: JSON.stringify(body),
+      });
+      if (!returnedId.ok) {
+        throw new Error('Failed to import song');
+      }
+      const data = await returnedId.json();
+      router.push(`/song/${data.songId}`);
+    } catch (error) {
+      console.error('Failed to import song from MusicBrainz', error);
+      setIsImporting(false);
     }
-    const data = await returnedId.json();
-    router.push(`/song/${data.songId}`);
   };
 
   return (
     <>
+      {isImporting && <FullScreenLoader />}
       {result.items.map((result, index: number) => (
         <div className="flex items-center justify-center w-[90%] pr-1 md:pr-0" key={index}>
           <div onClick={() => musicBrainzClickHandler(result)} className="flex gap-5 items-center grow cursor-pointer">
