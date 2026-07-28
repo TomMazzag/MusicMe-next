@@ -7,6 +7,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SongReviews from './components/Review/SongReviews';
 import ReviewInput from './components/Review/ReviewInput';
+import SongAverageRating from './components/SongAverageRating';
 import Image from 'next/image';
 
 type Props = {
@@ -69,6 +70,14 @@ export default async function SongPage({ params, searchParams }: Props) {
                   {songResponse.views}
                 </p>
               </div>
+            </div>
+            <div className="flex gap-1">
+              <SongAverageRating
+                songId={song.id}
+                initialAverageRating={songResponse.averageRating}
+                initialReviewCount={songResponse.reviewCount}
+              />{' '}
+              <p className="lg:text-xl opacity-60">({songResponse.reviewCount})</p>
             </div>
           </div>
         </div>

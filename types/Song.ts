@@ -5,6 +5,8 @@ export interface Song {
   likes: number;
   userHasLiked: boolean;
   views: number;
+  averageRating: number;
+  reviewCount: number;
   songData: SongData
 }
 

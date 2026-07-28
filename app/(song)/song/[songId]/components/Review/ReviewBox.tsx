@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Review } from '@MusicMe/types/Review';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface ReviewProps {
   review: Review;
@@ -49,9 +51,16 @@ export const ReviewBox = ({ review }: ReviewProps) => {
 
       <div className="pl-2 mr-[10%]">
         <p>{review.comment}</p>
-        <p>{review.rating} / 5</p>
       </div>
-      <button className="absolute top-[40%] right-[10px] lg:right-[20px]" onClick={toggleLike}>
+
+      <div className="absolute top-[10%] right-[10px] flex items-center gap-1 border-accent border-2 rounded-full px-2 py-1">
+        <p>{review.rating}</p>
+        <span className="text-accent">
+          <FontAwesomeIcon icon={faStar} />
+        </span>
+      </div>
+
+      <button className="absolute top-[60%] right-[10px] lg:right-[20px]" onClick={toggleLike}>
         <i className={likedStatus.liked ? 'fa-solid fa-heart text-[20px]' : 'fa-regular fa-heart text-[20px]'}></i>
         <span className="ml-[4px]">{likedStatus.likeCount}</span>
       </button>

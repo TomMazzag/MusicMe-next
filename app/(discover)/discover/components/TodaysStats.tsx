@@ -112,7 +112,7 @@ export default function TodaysStats() {
         ) : reviews && reviews.length > 0 ? (
           <ul className="flex flex-col gap-4">
             {reviews.map((review) => (
-              <li key={review.song.id}>
+              <li key={review.song.id + review.userId}>
                 <a href={`/song/${review.song.id}`} className="flex items-center gap-4 w-full">
                   <img src={review.song.imageUrl} alt="" className="h-14 min-w-14 rounded" />
                   <div className="flex flex-col text-start">

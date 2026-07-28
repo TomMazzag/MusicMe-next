@@ -8,15 +8,23 @@ interface Params {
 
 export async function POST(req: NextRequest, { params }: Params): Promise<NextResponse> {
   const { songId } = await params;
-  const { comment } = await req.json();
+  const { comment, rating } = await req.json();
 
   if (!songId) {
     return NextResponse.json({ error: 'Missing songId in query parameters' }, { status: 400 });
   }
 
+  if (!rating || rating < 1 || rating > 5) {
+    return NextResponse.json({ error: 'Rating must be between 1 and 5' }, { status: 400 });
+  }
+
+  if (!comment?.trim()) {
+    return NextResponse.json({ error: 'Comment is required' }, { status: 400 });
+  }
+
   const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/review/song/${songId}/new`, {
     method: 'POST',
-    body: JSON.stringify({ comment }),
+    body: JSON.stringify({ comment: comment.trim(), rating }),
     headers: { 'Content-Type': 'application/json' },
   });
 

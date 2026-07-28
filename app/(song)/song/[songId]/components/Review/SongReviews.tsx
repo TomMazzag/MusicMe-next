@@ -27,7 +27,7 @@ export default function SongReviews({ songId }: { songId: string }) {
       {reviewsLoading ? (
         <ScaleLoader color={'#22c55e'} />
       ) : (
-        <div>
+        <div className="flex flex-col gap-4">
           {reviews && reviews.length > 0 ? (
             reviews.map((review) => (
               <ReviewBox review={review} key={review.id} />
