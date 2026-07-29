@@ -38,6 +38,7 @@ export default async function AccountPage() {
           playlists={[]}
           analytics={{
             reviewCount: user.reviewCount,
+            averageRating: user.averageRating,
             likedSongs: user.likedSongCount,
             highlightedSong: user.highlightedSong,
             favouriteGenres: user.favouriteGenres,

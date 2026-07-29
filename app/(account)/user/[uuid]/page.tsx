@@ -26,6 +26,7 @@ export default async function UserPage({ params }: Props) {
           userId={user.userId}
           analytics={{
             reviewCount: user.reviewCount,
+            averageRating: user.averageRating,
             likedSongs: user.likedSongCount,
             highlightedSong: user.highlightedSong,
             favouriteGenres: user.favouriteGenres,

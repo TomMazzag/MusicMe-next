@@ -10,6 +10,7 @@ export namespace Profile {
     likedSongCount: number;
     userId: string;
     reviewCount: number;
+    averageRating: number;
     username: string;
     spotifyId: string;
     highlightedSong: HighlightedSong | undefined;

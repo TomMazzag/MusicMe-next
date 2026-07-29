@@ -13,11 +13,16 @@ export const FavouriteGenresTile = ({ favouriteGenres }: FavouriteGenresTileProp
   const validGenres = favouriteGenres.filter(isPlatformGenre);
 
   if (validGenres.length === 0) {
-    return null;
+    return (
+      <div className="flex flex-col gap-4">
+        <h2 className="text-2xl font-bold text-center">Favourite Genres</h2>
+        <p className="text-center">No favourite genres found</p>
+      </div>
+    );
   }
 
   return (
-    <div className="flex flex-col gap-4 lg:w-[40%] mx-auto">
+    <div className="flex flex-col gap-4">
       <h2 className="text-2xl font-bold text-center">Favourite Genres</h2>
       <div className="flex flex-wrap justify-center gap-3">
         {validGenres.map((genreKey) => (
