@@ -16,7 +16,7 @@ export default function ReleasesList({ tracks, isLoading }: ReleasesListProps) {
   }
 
   if (!tracks?.length) {
-    return <p className="opacity-70 px-2">No new releases this year.</p>;
+    return <p className="opacity-70 px-2">No new releases found.</p>;
   }
 
   return (

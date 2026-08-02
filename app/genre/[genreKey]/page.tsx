@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Navbar } from '@MusicMe/components/Navbar/Navbar';
 import { getGenreByKey } from '@MusicMe/lib/discover';
 import clsx from 'clsx';
@@ -34,7 +35,10 @@ export default async function GenrePage({ params }: Props) {
         <h1 className="text-4xl font-bold">{genre.genreName}</h1>
         <p className="max-w-100 opacity-70">{genre.shortDescription}</p>
         <div>
-          <button className="rounded-lg px-4 py-2 cursor-pointer" style={{ border: `1px solid ${hexColour}` }}>
+          <button
+            className="rounded-lg px-4 py-2 cursor-pointer transition-colors hover:bg-(--genre-hex) hover:text-white border-(--genre-hex) border-[1px]"
+            style={{'--genre-hex': hexColour } as CSSProperties}
+          >
             Follow feed
           </button>
         </div>

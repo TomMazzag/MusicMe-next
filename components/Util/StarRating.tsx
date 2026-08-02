@@ -46,7 +46,9 @@ export default function StarRating({ value = 0, onChange, readOnly = false, size
           ? index + 1 <= (value || 0)
             ? 'full'
             : 'empty'
-          : getStarType(index, value);
+          : value === 0
+            ? 'empty'
+            : getStarType(index, value);
 
         if (isInteractive) {
           const highlighted = starType === 'full';

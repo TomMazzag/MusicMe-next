@@ -77,7 +77,11 @@ export default async function SongPage({ params, searchParams }: Props) {
                 initialAverageRating={songResponse.averageRating}
                 initialReviewCount={songResponse.reviewCount}
               />{' '}
-              <p className="lg:text-xl opacity-60">({songResponse.reviewCount})</p>
+              {songResponse.reviewCount > 0 && (
+                <p className="lg:text-xl opacity-60" aria-label="number of reviews" title="Number of reviews">
+                  ({songResponse.reviewCount})
+                </p>
+              )}
             </div>
           </div>
         </div>
