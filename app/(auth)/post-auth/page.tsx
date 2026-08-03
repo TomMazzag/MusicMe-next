@@ -6,9 +6,9 @@ export default async function PostAuth() {
 
   if (!user) redirect('/');
 
-  const existingUser = user.publicMetadata?.onboardingComplete === true;
+  const existingUser = user.publicMetadata?.onboardingComplete;
 
-  if (existingUser) {
+  if (existingUser === true) {
     redirect('/account');
   } else {
     redirect('/create-account');

@@ -21,7 +21,7 @@ export default function Home() {
             </Show>
             <Show when={'signed-in'}>
               <button className="btn btn-outline btn-primary">
-                <a href="/account">Click here to begin</a>
+                <a href="/post-auth">Click here to begin</a>
               </button>
             </Show>
 
