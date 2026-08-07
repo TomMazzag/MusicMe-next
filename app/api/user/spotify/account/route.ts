@@ -16,7 +16,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   if (!result.ok) {
     console.log('Failed to fetch Spotify profile', { status: result.status, statusText: result.statusText, data });
-    throw new Error('Failed to fetch Spotify profile', { cause: result });
+    return NextResponse.json({ success: false, message: 'Failed to fetch Spotify profile' }, { status: result.status });
   }
 
   return NextResponse.json(data, { status: result.status });

@@ -1,17 +1,35 @@
 'use client';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { General } from './General';
 import { TabChanger } from './TabChanger';
 import { useUser } from '@clerk/nextjs';
 import { Connections } from './Connectionts';
 import { UserResource } from '@clerk/nextjs/types';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-export type Tabs = 'general' | 'connections'
-export type UserDetails = { user: UserResource | null | undefined; isUserLoaded: boolean }
+
+export type Tabs = 'general' | 'connections';
+export type UserDetails = { user: UserResource | null | undefined; isUserLoaded: boolean };
+
+const isValidTab = (tab: string | null): tab is Tabs => tab === 'general' || tab === 'connections';
 
 export const ClientSideContainer = () => {
-  const [tab, setTab] = useState<Tabs>('general');
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get('tab');
+  const [tab, setTab] = useState<Tabs>(isValidTab(initialTab) ? initialTab : 'general');
   const { user, isLoaded: isUserLoaded } = useUser();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
 
   let pageContent;
   switch (tab) {
@@ -32,7 +50,7 @@ export const ClientSideContainer = () => {
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-        <TabChanger tab={tab} setTab={setTab} />
+        <TabChanger tab={tab} setTab={setTab} createQueryString={createQueryString} router={router} pathname={pathname} />
       </div>
     </>
   );

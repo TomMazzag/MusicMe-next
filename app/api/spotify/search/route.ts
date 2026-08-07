@@ -21,7 +21,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   }
 
   const url = `https://api.spotify.com/v1/search?q=${query}&type=${type}`;
-  let encodedURI = encodeURI(url);
+  const encodedURI = encodeURI(url);
 
   const searchRequest = await fetch(encodedURI, {
     method: 'get',

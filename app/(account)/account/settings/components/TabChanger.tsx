@@ -1,10 +1,21 @@
 'use client';
 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { Tabs } from "./ClientSideContainer";
 
-export const TabChanger = ({ tab, setTab }: { tab: Tabs; setTab: (tab: Tabs) => void }) => {
+interface TabChangerProps {
+  tab: Tabs;
+  setTab: (tab: Tabs) => void;
+  createQueryString: (name: string, value: string) => string;
+  router: AppRouterInstance;
+  pathname: string;
+}
+
+export const TabChanger = ({ tab, setTab, createQueryString, router, pathname }: TabChangerProps) => {
   const updateTab = (tab: Tabs) => {
     setTab(tab);
+    createQueryString('tab', tab);
+    router.push(`${pathname}?${createQueryString('tab', tab)}`);
   };
 
   return (
