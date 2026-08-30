@@ -30,8 +30,12 @@ export default function SearchBar({ category, query, updateSearchParameter, setI
           >
             <a>Song</a>
           </li>
-          <li>
-            <a className="cursor-not-allowed">Artist</a>
+          <li
+            onClick={() => {
+              updateSearchParameter('category', 'Artist');
+            }}
+          >
+            <a>Artist</a>
           </li>
           <li>
             <a className="cursor-not-allowed">Album</a>

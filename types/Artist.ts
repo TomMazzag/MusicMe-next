@@ -4,3 +4,10 @@ export interface Artist {
   imageUrl: string;
   rating: number;
 }
+
+export interface SearchArtist {
+  id: string;
+  name: string;
+  imageUrl?: string;
+  yearFounded?: number | null;
+}

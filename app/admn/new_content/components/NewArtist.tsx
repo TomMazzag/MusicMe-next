@@ -16,6 +16,7 @@ interface FormData {
   name: string;
   image: string;
   yearFounded: number | null;
+  platforms?: { spotifyId?: string };
 }
 
 export default function NewArtist({ genres }: Props) {
@@ -62,6 +63,7 @@ export default function NewArtist({ genres }: Props) {
         imageUrl: formData.image,
         yearFounded: formData.yearFounded,
         genres: formData.selectedGenres,
+        platforms: formData.platforms,
       }),
     });
     setIsSubmitting(false);
@@ -85,6 +87,7 @@ export default function NewArtist({ genres }: Props) {
                     ...formData,
                     name: artist.name,
                     image: artist.images[0]?.url || '',
+                    platforms: { spotifyId: artist.id },
                   });
                 }}
               >
