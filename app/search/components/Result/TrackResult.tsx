@@ -1,16 +1,18 @@
-"use client";
+'use client';
 
-import FullScreenLoader from "@MusicMe/components/Util/FullScreenLoader";
-import { MBZImportBody } from "@MusicMe/types/MusicBrainz";
-import TrackImageLoader from "./TrackImageLoader";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import FullScreenLoader from '@MusicMe/components/Util/FullScreenLoader';
+import { SearchTrackItem } from '@MusicMe/lib/songSearch';
+import { MBZImportBody } from '@MusicMe/types/MusicBrainz';
+import TrackImageLoader from './TrackImageLoader';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
-export const TrackResult = ({ result }: { result: {items: SpotifyApi.TrackObjectFull[]} & {source?: string} }) => {
+export const TrackResult = ({ result }: { result: { items: SearchTrackItem[] } }) => {
   const router = useRouter();
   const [isImporting, setIsImporting] = useState(false);
 
-  const musicBrainzClickHandler = async (result: SpotifyApi.TrackObjectFull) => {
+  const musicBrainzClickHandler = async (track: SearchTrackItem) => {
     if (isImporting) {
       return;
     }
@@ -18,19 +20,20 @@ export const TrackResult = ({ result }: { result: {items: SpotifyApi.TrackObject
     setIsImporting(true);
     const body: MBZImportBody = {
       song: {
-        id: result.id,
-        name: result.name,
-        imageUrl: result.album.images[0].url,
-        releaseDate: result.album.release_date ? result.album.release_date : null,
-        artists: result.artists.map((artist) => ({
+        id: track.id,
+        name: track.name,
+        imageUrl: track.album.images[0].url,
+        releaseDate: track.album.release_date ? track.album.release_date : null,
+        artists: track.artists.map((artist) => ({
           id: artist.id,
           name: artist.name,
         })),
         platforms: {
-          musicBrainzId: result.id,
+          musicBrainzId: track.id,
         },
       },
     };
+
     try {
       const returnedId = await fetch('/api/song/mbz/import', {
         method: 'POST',
@@ -47,24 +50,39 @@ export const TrackResult = ({ result }: { result: {items: SpotifyApi.TrackObject
     }
   };
 
+  const clickHandler = (track: SearchTrackItem) => {
+    if (track.source === 'db') {
+      router.push(`/song/${track.id}`);
+      return;
+    }
+
+    if (track.source === 'mbz') {
+      void musicBrainzClickHandler(track);
+    }
+  };
+
   return (
     <>
       {isImporting && <FullScreenLoader />}
-      {result.items.map((result, index: number) => (
-        <div className="flex items-center justify-center w-[90%] pr-1 md:pr-0" key={index}>
-          <div onClick={() => musicBrainzClickHandler(result)} className="flex gap-5 items-center grow cursor-pointer">
-            <TrackImageLoader imageUrl={result.album.images[0].url} id={result.id} />
+      {result.items.map((track) => (
+        <div className="flex items-center justify-center w-[90%] pr-1 md:pr-0" key={`${track.source}-${track.id}`}>
+          <div onClick={() => clickHandler(track)} className="flex gap-5 items-center grow cursor-pointer">
+            {track.source === 'mbz' ? (
+              <TrackImageLoader imageUrl={track.album.images[0].url} id={track.id} />
+            ) : (
+              <Image height={120} width={120} className="h-30 w-30" src={track.album.images[0].url} alt="" />
+            )}
             <div className="grow">
-              <h3>{result.name}</h3>
-              <p className="opacity-55">{result.artists[0].name}</p>
+              <h3>{track.name}</h3>
+              <p className="opacity-55">{track.artists.map((artist) => artist.name).join(', ')}</p>
             </div>
             <div className="px-5 text-center hidden md:block">
               <i className="fa-solid fa-share"></i>
               <p>Repost</p>
             </div>
           </div>
-          {result?.external_urls?.spotify && (
-            <a href={result.external_urls.spotify} target="_blank">
+          {track.external_urls?.spotify && (
+            <a href={track.external_urls.spotify} target="_blank">
               <i className="fa-brands fa-spotify fa-2xl px-2"></i>
             </a>
           )}

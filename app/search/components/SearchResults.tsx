@@ -8,14 +8,14 @@ import ArtistResult from './Result/ArtistResult';
 import { useDebouncedValue } from '@MusicMe/lib/debounce';
 import { Profile } from '@MusicMe/types/Profile';
 import { SearchArtist } from '@MusicMe/types/Artist';
+import { SearchTrackItem } from '@MusicMe/lib/songSearch';
 
 interface SearchResultsParams {
   category: Category;
   query: string;
 }
 interface TrackResults {
-  items: SpotifyApi.TrackObjectFull[];
-  source?: string;
+  items: SearchTrackItem[];
 }
 interface ProfileResults {
   items: Profile.User[];
