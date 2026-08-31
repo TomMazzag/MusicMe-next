@@ -53,7 +53,14 @@ export default async function SongPage({ params, searchParams }: Props) {
             <div>
               <h1 className="text lg:text-xl font-semibold md:text-4xl">{song.name}</h1>
               <h2 className="text lg:text-xl opacity-60 md:text-3xl">
-                {song.artists.map((artist) => artist.name).join(', ')}
+                {song.artists.map((artist, index) => (
+                  <span key={artist.id}>
+                    {index > 0 && ', '}
+                    <a href={`/artist/${artist.id}`} className="hover:underline">
+                      {artist.name}
+                    </a>
+                  </span>
+                ))}
               </h2>
             </div>
             <div className="flex justify-center w-full gap-3">

@@ -25,7 +25,7 @@ interface ArtistBadgeProps {
 
 function ArtistBage({ artist, genreHexColour }: ArtistBadgeProps) {
   return (
-    <div className="flex flex-col items-center gap-2 hover:underline cursor-not-allowed shrink-0">
+    <a className="flex flex-col items-center gap-2 hover:underline shrink-0" href={`/artist/${artist.id}`}>
       <img
         src={artist.imageUrl}
         alt={`Image of ${artist.name}`}
@@ -33,6 +33,6 @@ function ArtistBage({ artist, genreHexColour }: ArtistBadgeProps) {
       />
       <h3 className="opacity-70 text-sm">{artist.name}</h3>
       <p style={{ color: genreHexColour }}>{artist.rating}</p>
-    </div>
+    </a>
   );
 }
