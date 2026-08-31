@@ -59,7 +59,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         return NextResponse.json({ items: dbTracks }, { status: 200 });
       }
 
-      return NextResponse.json({ message: 'Error searching for songs' }, { status: 503 });
+      const errorMessage = await musicBrainzReq.text();
+
+      return NextResponse.json({ message: 'Error searching for songs', errorMessage }, { status: 503 });
     }
 
     const data = (await musicBrainzReq.json()) as MusicBrainz.ReleaseResponse;
