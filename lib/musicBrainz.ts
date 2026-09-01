@@ -6,7 +6,7 @@ export function convertMusicBrainzRecordingData(data: MusicBrainz.ReleaseRespons
   return data.releases.map((release) => ({
     album: {
       release_date: formatReleaseDate(release.date),
-      images: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/LP_Vinyl_Symbol_Icon.png' }],
+      images: [{ url: '' }],
     },
     name: release.title,
     artists: [{ name: release['artist-credit'][0].name, id: release['artist-credit'][0].artist.id }],

@@ -1,7 +1,6 @@
 import { SongData } from '@MusicMe/types/Song';
 
-export const DEFAULT_TRACK_IMAGE =
-  'https://upload.wikimedia.org/wikipedia/commons/c/c1/LP_Vinyl_Symbol_Icon.png';
+export const DEFAULT_TRACK_IMAGE = '';
 
 export type SearchTrackSource = 'db' | 'mbz' | 'spotify';
 
@@ -44,6 +43,22 @@ export function dedupeExternalTracks(tracks: SearchTrackItem[], dbSongs: SongDat
     const artistName = track.artists[0]?.name ?? '';
     return !dbKeys.has(getTrackDedupeKey(track.name, artistName));
   });
+}
+
+export function dedupeAgainstTracks(tracks: SearchTrackItem[], existing: SearchTrackItem[]): SearchTrackItem[] {
+  const existingKeys = new Set(existing.map((track) => getTrackDedupeKey(track.name, track.artists[0]?.name ?? '')));
+
+  return tracks.filter((track) => {
+    const artistName = track.artists[0]?.name ?? '';
+    return !existingKeys.has(getTrackDedupeKey(track.name, artistName));
+  });
+}
+
+export function mergeTrackSearchResults(
+  dbTracks: SearchTrackItem[],
+  externalTracks: SearchTrackItem[],
+): SearchTrackItem[] {
+  return [...dbTracks, ...dedupeAgainstTracks(externalTracks, dbTracks)];
 }
 
 export function mapDbSongToSearchTrack(song: SongData): SearchTrackItem {

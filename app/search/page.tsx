@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { ScaleLoader } from 'react-spinners';
 
 export const metadata: Metadata = {
-  title: 'MusicMe | Search',
+  title: 'Zenekio | Search',
   description: 'Search for new tracks, follow friends or find new Artists!',
 };
 

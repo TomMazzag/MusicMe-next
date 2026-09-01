@@ -1,4 +1,5 @@
 import { Navbar } from '@MusicMe/components/Navbar/Navbar';
+import BlankTrack from '@MusicMe/components/Track/BlankTrack';
 import { getArtistById } from '@MusicMe/lib/artist';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -86,9 +87,7 @@ export default async function ArtistPage({ params }: Props) {
                         className="w-14 h-14 rounded-md object-cover shrink-0 group-hover:scale-105 transition-transform"
                       />
                     ) : (
-                      <div className="w-14 h-14 rounded-md bg-base-200 flex items-center justify-center shrink-0">
-                        <i className="fa-solid fa-music opacity-40" />
-                      </div>
+                      <BlankTrack className="w-14 h-14" />
                     )}
                     <div className="min-w-0">
                       <p className="font-medium truncate">{song.name}</p>

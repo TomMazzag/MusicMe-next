@@ -1,3 +1,4 @@
+import BlankTrack from '@MusicMe/components/Track/BlankTrack';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -5,17 +6,20 @@ export default function TrackImageLoader({ imageUrl, id }: { imageUrl: string; i
   const [image, setImage] = useState<string>(imageUrl);
   useEffect(() => {
     const fetchImage = async () => {
-        try {
-            const image = await fetch(`https://coverartarchive.org/release/${id}/front`);
-            if (image.ok) {
-              setImage(image.url);
-            }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (_err) {
-            // Image doesnt exist, skip
+      try {
+        const image = await fetch(`https://coverartarchive.org/release/${id}/front`);
+        if (image.ok) {
+          setImage(image.url);
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_err) {
+        // Image doesnt exist, skip
+      }
     };
     fetchImage();
   }, [id]);
+  if (image === '') {
+    return <BlankTrack className="h-30 w-30 rounded-none" />;
+  }
   return <Image height={120} width={120} className="h-30 w-30" src={image} alt="" />;
 }
