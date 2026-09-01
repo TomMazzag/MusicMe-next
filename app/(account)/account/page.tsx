@@ -1,3 +1,4 @@
+import { SignInButton } from '@clerk/nextjs';
 import { currentUser } from '@clerk/nextjs/server';
 import { ProfileImageAndNumbers } from '@MusicMe/components/Account/ProfilePicAndUserStats';
 import { TabSection } from '@MusicMe/components/Account/TabSection';
@@ -8,16 +9,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Zenekio | Account',
-  robots: {
-    index: false,
-    follow: false,
-  },
+  description: 'View your account and manage your settings',
 };
 
 export default async function AccountPage() {
   const clerkUser = await currentUser();
   if (!clerkUser) {
-    return;
+    return (
+      <>
+        <Navbar />
+        <div className="flex flex-col gap-5 items-center justify-center h-[calc(100vh-64px)]">
+          <h1 className="text-2xl font-bold">Please login to view your account</h1>
+
+          <SignInButton forceRedirectUrl="/post-auth" mode="modal">
+            <button className="btn btn-outline btn-primary">Login</button>
+          </SignInButton>
+        </div>
+      </>
+    );
   }
   const user = await getAccountDetailsUsersAccount();
   // const playlists = await getPlaylists(user.spotifyId);

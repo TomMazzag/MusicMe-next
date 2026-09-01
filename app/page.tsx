@@ -24,15 +24,6 @@ export default function Home() {
                 <a href="/post-auth">Click here to begin</a>
               </button>
             </Show>
-
-            <div className="w-full mt-8">
-              <p className="pb-2 opacity-75">
-                Dont have an account? <br></br> Sign up for the beta below!
-              </p>
-              <a href="/register" className="text-accent">
-                <button className="btn btn-outline btn-accent w-full">Sign up for the beta</button>
-              </a>
-            </div>
           </div>
           <div className="flex gap-8">
             <HomepageLink link="/about" title="About" />
