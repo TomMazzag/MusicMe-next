@@ -34,7 +34,7 @@ export const AnalyticsTab = ({
             <p className="text-center">No highlighted song found</p>
           </div>
         )}
-        <FavouriteGenresTile favouriteGenres={favouriteGenres} />
+        <FavouriteGenresTile favouriteGenres={favouriteGenres} isCurrentUser={isCurrentUser} />
       </div>
 
       <div className="lg:px-8 items-center px-4 md:px-0">

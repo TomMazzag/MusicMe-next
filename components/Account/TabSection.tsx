@@ -8,11 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 import { AnalyticsTab } from './Tabs/Analytics';
 import { Analytics } from '@MusicMe/types/Analytics';
-import {
-  LIKED_SONGS_CLIENT_SORT_THRESHOLD,
-  LikedSongSort,
-  LikedSongsResponse,
-} from '@MusicMe/types/LikedSong';
+import { LIKED_SONGS_CLIENT_SORT_THRESHOLD, LikedSongSort, LikedSongsResponse } from '@MusicMe/types/LikedSong';
 import { parseLikedSongSort, sortLikedSongs } from '@MusicMe/lib/likedSongs';
 
 interface TabSectionProps {
@@ -56,7 +52,7 @@ export const TabSection = ({ playlists, userId, analytics }: TabSectionProps) =>
   }, [likedSongsData?.likedSongs, likedSort, serverSortEnabled]);
 
   const paramTab = searchParams.get('activeTab') as ActiveTab | null;
-  const [activeTab, setActiveTabState] = useState<ActiveTab>(paramTab ?? 'Liked');
+  const [activeTab, setActiveTabState] = useState<ActiveTab>(paramTab ?? 'Analytics');
 
   useEffect(() => {
     const param = searchParams.get('activeTab') as ActiveTab | null;
@@ -87,6 +83,13 @@ export const TabSection = ({ playlists, userId, analytics }: TabSectionProps) =>
       <div role="tablist" className="tabs tabs-box md:mb-4">
         <a
           role="tab"
+          className={`tab ${activeTab === 'Analytics' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
+          onClick={() => setActiveTab('Analytics')}
+        >
+          Analytics
+        </a>
+        <a
+          role="tab"
           className={`tab ${activeTab === 'Liked' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
           onClick={() => setActiveTab('Liked')}
         >
@@ -98,13 +101,6 @@ export const TabSection = ({ playlists, userId, analytics }: TabSectionProps) =>
           onClick={() => setActiveTab('Playlists')}
         >
           Playlists
-        </a>
-        <a
-          role="tab"
-          className={`tab ${activeTab === 'Analytics' ? 'tab-active [--tab-bg:#00cdb7]' : ''}`}
-          onClick={() => setActiveTab('Analytics')}
-        >
-          Analytics
         </a>
       </div>
 

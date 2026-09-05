@@ -4,6 +4,8 @@ import WhatIsZenekio from './components/WhatIsZenekio';
 import WhyUsePlatform from './components/WhyUsePlatform';
 import Footer from './components/Footer';
 import FutureGoals from './components/FutureGoals';
+import { Navbar } from '@MusicMe/components/Navbar/Navbar';
+import Naming from './components/Naming';
 
 export const metadata: Metadata = {
   description:
@@ -38,29 +40,12 @@ export default function AboutPage() {
         }}
       />
       <div className="flex flex-col min-h-screen">
-        <nav className="navbar border-b-2 border-accent">
-          <div className="flex-1">
-            <a href="/" className="btn btn-ghost text-xl md:text-4xl">
-              Zenekio
-            </a>
-          </div>
-          <ul className="flex-none gap-2 inline-flex list-none">
-            <li>
-              <a href="/" className="btn btn-sm md:btn-md btn-ghost md:text-xl">
-                Login
-              </a>
-            </li>
-            <li>
-              <a href="/register" className="btn btn-sm md:btn-md btn-ghost md:text-xl">
-                Sign up for the beta
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <Navbar />
 
         <WhatIsZenekio />
         <WhyUsePlatform />
         <FutureGoals />
+        <Naming />
 
         <div className="flex justify-center my-5">
           <a href="/discover">

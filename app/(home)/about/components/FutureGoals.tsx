@@ -14,7 +14,7 @@ export default function FutureGoals() {
           <li>Song suggestions using AI/ML</li>
         </ul>
       </TextTile>
-      <ImageTile src={'/discover.webp'} width={3802} height={1064} />
+      <ImageTile src={'/todaysStats.webp'} width={3802} height={1064} />
     </div>
   );
 }
