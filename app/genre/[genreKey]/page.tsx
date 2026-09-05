@@ -5,12 +5,26 @@ import clsx from 'clsx';
 import TopArtists from './components/TopArtists';
 import NewReleases from './components/NewReleases';
 import Promoters from './components/Promoters';
+import { Metadata } from 'next';
 
 type Props = {
   params: Promise<{
     genreKey: string;
   }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { genreKey } = await params;
+  const { genre } = await getGenreByKey(genreKey);
+  
+  return {
+    title: `Zenekio | ${genre.genreName}`,
+    description: `Discover the latest songs in the genre of ${genre.genreName}`,
+    alternates: {
+      canonical: `/genre/${genreKey}`,
+    },
+  };
+}
 
 export default async function GenrePage({ params }: Props) {
   const { genreKey } = await params;
@@ -37,7 +51,7 @@ export default async function GenrePage({ params }: Props) {
         <div>
           <button
             className="rounded-lg px-4 py-2 cursor-pointer transition-colors hover:bg-(--genre-hex) hover:text-white border-(--genre-hex) border-[1px]"
-            style={{'--genre-hex': hexColour } as CSSProperties}
+            style={{ '--genre-hex': hexColour } as CSSProperties}
           >
             Follow feed
           </button>

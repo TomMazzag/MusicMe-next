@@ -8,8 +8,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/about',
     '/account',
     '/discover',
-    '/create-account',
-    '/register'
+    '/feed',
+    '/genre/dnb',
+    '/genre/electronic',
+    '/genre/garage',
+    '/genre/dance',
+    '/genre/house',
+    '/genre/indie',
+    '/genre/jazz',
+    '/genre/rnb',
+    '/genre/country',
+    '/genre/rap',
+    '/genre/rock',
   ];
 
   const staticRoutesSitemap = routes.map((route) => ({
