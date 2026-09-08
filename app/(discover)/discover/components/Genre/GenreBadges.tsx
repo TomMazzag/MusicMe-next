@@ -1,5 +1,5 @@
-import { PlatformGenres } from '@MusicMe/types/Genre';
-import { Disc3, Drum, Guitar, House, LucideIcon, MicVocal, PartyPopper, Piano, Speaker, Warehouse, Zap } from 'lucide-react';
+import { Genre, PlatformGenres } from '@MusicMe/types/Genre';
+import { Disc3, Drum, Guitar, House, LucideIcon, MicVocal, Music, PartyPopper, Piano, Speaker, Warehouse, Zap } from 'lucide-react';
 import { JSX } from 'react';
 
 
@@ -10,11 +10,16 @@ interface BadgeProps {
     text: string;
     color: `#${string}`;
 }
-const ProfileGenreBadge = ({ Icon, text, color }: BadgeProps) => (
+export const ProfileGenreBadge = ({ Icon, text, color }: BadgeProps) => (
     <div className={BASE_STYLING} style={{ borderColor: color, color }}>
         <Icon size={16} /> {text}
     </div>
 );
+
+export const GenreBadge = ({ genre }: { genre: Genre }) => {
+    const GenreBadge = ProfileBadges[genre.genreKey]?.component;
+    return GenreBadge ?? <ProfileGenreBadge Icon={Music} text={genre.genreName} color={genre.hexColour as `#${string}`} />;
+}
 
 export const ProfileBadges: Record<PlatformGenres, { component: JSX.Element }> = {
     dnb: {
@@ -49,5 +54,11 @@ export const ProfileBadges: Record<PlatformGenres, { component: JSX.Element }> =
     },
     garage: {
         component: <ProfileGenreBadge Icon={Warehouse} text="Garage" color="#d46884" />,
-    }
+    },
+    techno: {
+        component: <ProfileGenreBadge Icon={Zap} text="Techno" color="#08ff00" />,
+    },
+    pop: {
+        component: <ProfileGenreBadge Icon={Music} text="Pop" color="#08ff00" />,
+    },
 };

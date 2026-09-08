@@ -4,7 +4,7 @@ import { CreateAccountFormData, UpdateFormDataFunction } from '../page';
 import { getAllGenres } from '@MusicMe/lib/discover';
 import { useQuery } from '@tanstack/react-query';
 import { ScaleLoader } from 'react-spinners';
-import { ProfileBadges } from '@MusicMe/app/(discover)/discover/components/Genre/GenreBadges';
+import { GenreBadge } from '@MusicMe/app/(discover)/discover/components/Genre/GenreBadges';
 import clsx from 'clsx';
 
 interface ThirdStageProps {
@@ -49,7 +49,7 @@ export default function ThirdStage({ formData, updateFormData }: ThirdStageProps
               onClick={() => toggleGenre(genre.genreKey)}
               key={genre.genreKey}
             >
-              <div className="flex justify-center">{ProfileBadges[genre.genreKey].component}</div>
+              <div className="flex justify-center"><GenreBadge genre={genre} /></div>
             </button>
           ))}
       </div>

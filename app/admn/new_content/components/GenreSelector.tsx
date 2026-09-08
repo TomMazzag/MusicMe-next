@@ -1,4 +1,4 @@
-import { ProfileBadges } from '@MusicMe/app/(discover)/discover/components/Genre/GenreBadges';
+import { GenreBadge } from '@MusicMe/app/(discover)/discover/components/Genre/GenreBadges';
 import { Genre } from '@MusicMe/types/Genre';
 import clsx from 'clsx';
 
@@ -23,7 +23,7 @@ export default function GenreSelector({ genres, formData, toggleGenre }: GenreSe
             onClick={() => toggleGenre(genre.genreKey)}
             key={genre.genreKey}
           >
-            <div className="flex justify-center">{ProfileBadges[genre.genreKey].component}</div>
+            <div className="flex justify-center"><GenreBadge genre={genre} /></div>
           </button>
         ))}
     </div>
