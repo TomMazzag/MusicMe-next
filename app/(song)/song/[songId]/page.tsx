@@ -1,38 +1,46 @@
 import { Navbar } from '@MusicMe/components/Navbar/Navbar';
-import { addSongView } from '@MusicMe/lib/song';
-import { getSong } from '@MusicMe/lib/spotify';
+import { addSongView, buildSongMetadata } from '@MusicMe/lib/song';
+import { getSong } from '@MusicMe/lib/song.server';
 import SongLikes from './components/SongLikes';
-import { getSongMB, MUSIC_BRAINZ_SOURCE } from '@MusicMe/lib/musicBrainz';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SongReviews from './components/Review/SongReviews';
 import ReviewInput from './components/Review/ReviewInput';
 import SongAverageRating from './components/SongAverageRating';
 import Image from 'next/image';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: Promise<{
     songId: string;
   }>;
-  searchParams?: Promise<{
-    [key: string]: string | string[] | undefined;
-  }>;
 };
 
-export default async function SongPage({ params, searchParams }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { songId } = await params;
-  const source = (await searchParams)?.source;
-  await addSongView(songId);
-  let songResponse;
+  const songResponse = await getSong(songId);
 
-  if (source && source === MUSIC_BRAINZ_SOURCE) {
-    songResponse = await getSongMB(songId);
-  } else {
-    songResponse = await getSong(songId);
+  if (!songResponse) {
+    return { title: 'Song not found' };
+  }
+
+  return buildSongMetadata(songResponse, songId);
+}
+
+export default async function SongPage({ params }: Props) {
+  const { songId } = await params;
+
+  await addSongView(songId);
+
+  const songResponse = await getSong(songId);
+
+  if (!songResponse) {
+    notFound();
   }
 
   const song = songResponse.songData;
-
+  const coverAlt = `${song.name} cover art`;
   const isSpotifyImage = song.imageUrl?.includes('i.scdn.co');
 
   return (
@@ -41,7 +49,7 @@ export default async function SongPage({ params, searchParams }: Props) {
       <div className="flex items-center flex-col justify-between h-[90vh] w-full p-4 text-center md:p-0">
         <div className="flex gap-5 flex-row items-center w-full justify-evenly md:mt-8 mb-2 md:w-[50%]">
           <div>
-            <img src={song.imageUrl} alt="" className="h-37.5 w-37.5" />
+            <img src={song.imageUrl} alt={coverAlt} className="h-37.5 w-37.5" />
             {isSpotifyImage && (
               <div className="flex flex-col items-center gap-1 mt-2">
                 <p className="text-sm opacity-60">Image provided by</p>

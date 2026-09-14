@@ -5,7 +5,7 @@ import { clerkMiddleware } from '@clerk/nextjs/server';
 // const PROTECTED_PATHS = ['/account'];
 const SPOTIFY_EXPIRES_COOKIE_NAME = 'spotify_expires_at';
 
-const ADMIN_PATHS = ['/admn'];
+const ADMIN_PATHS = ['/admn', '/stats'];
 
 export default clerkMiddleware(async (_auth, req) => {
   const { pathname } = req.nextUrl;

@@ -1,7 +1,5 @@
 import { cookies } from 'next/headers';
-import { BACKEND_URL, BACKEND_URL_SERVER } from './util';
-import { Song } from '@MusicMe/types/Song';
-import { authenticatedRequest } from './backend';
+import { BACKEND_URL } from './util';
 
 interface SpotifyTokenResponse {
   access_token: string;
@@ -38,14 +36,4 @@ export const getPlaylists = async (userId: string) => {
 
   const publicPlaylists = data.items.filter((item: SpotifyApi.PlaylistObjectFull) => item.public === true);
   return publicPlaylists;
-};
-
-export const getSong = async (songId: string): Promise<Song> => {
-  const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/song/${songId}`, {
-    method: 'GET'
-  });
-
-  const data = await response.json();
-
-  return data;
 };
