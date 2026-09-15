@@ -26,11 +26,17 @@ interface ArtistBadgeProps {
 function ArtistBage({ artist, genreHexColour }: ArtistBadgeProps) {
   return (
     <a className="flex flex-col items-center gap-2 hover:underline shrink-0" href={`/artist/${artist.id}`}>
-      <img
-        src={artist.imageUrl}
-        alt={`Image of ${artist.name}`}
-        className="rounded-full w-20 h-20 lg:w-30 lg:h-30 object-cover"
-      />
+      {artist.imageUrl ? (
+        <img
+          src={artist.imageUrl}
+          alt={`Image of ${artist.name}`}
+          className="rounded-full w-20 h-20 lg:w-30 lg:h-30 object-cover"
+        />
+      ) : (
+        <div className="rounded-full w-20 h-20 lg:w-30 lg:h-30 bg-base-200 flex items-center justify-center shrink-0">
+          <i className="fa-solid fa-user text-6xl opacity-40" />
+        </div>
+      )}
       <h3 className="opacity-70 text-sm">{artist.name}</h3>
       <p style={{ color: genreHexColour }}>{artist.rating}</p>
     </a>

@@ -58,9 +58,9 @@ export default async function GenrePage({ params }: Props) {
         </div>
       </div>
       <div className="flex flex-col gap-6 p-4 mb-4 w-full">
-        {promoters.length > 0 && <Promoters promoters={promoters} />}
         <TopArtists artists={artists} genreHexColour={hexColour} />
         <NewReleases genreKey={genreKey} />
+        {promoters.length > 0 && <Promoters promoters={promoters} />}
       </div>
     </>
   );

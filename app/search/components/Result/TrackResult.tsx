@@ -6,11 +6,23 @@ import { MBZImportBody } from '@MusicMe/types/MusicBrainz';
 import TrackImageLoader from './TrackImageLoader';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+
+const getTrackKey = (track: SearchTrackItem) => `${track.source}-${track.id}`;
 
 export const TrackResult = ({ result }: { result: { items: SearchTrackItem[] } }) => {
   const router = useRouter();
   const [isImporting, setIsImporting] = useState(false);
+  const [trackImages, setTrackImages] = useState<Record<string, string>>({});
+
+  const getTrackImageUrl = useCallback(
+    (track: SearchTrackItem) => trackImages[getTrackKey(track)] ?? track.album.images[0]?.url ?? '',
+    [trackImages],
+  );
+
+  const handleImageLoaded = useCallback((trackKey: string, url: string) => {
+    setTrackImages((prev) => ({ ...prev, [trackKey]: url }));
+  }, []);
 
   const musicBrainzClickHandler = async (track: SearchTrackItem) => {
     if (isImporting) {
@@ -22,7 +34,7 @@ export const TrackResult = ({ result }: { result: { items: SearchTrackItem[] } }
       song: {
         id: track.id,
         name: track.name,
-        imageUrl: track.album.images[0].url,
+        imageUrl: getTrackImageUrl(track),
         releaseDate: track.album.release_date ? track.album.release_date : null,
         artists: track.artists.map((artist) => ({
           id: artist.id,
@@ -68,9 +80,14 @@ export const TrackResult = ({ result }: { result: { items: SearchTrackItem[] } }
         <div className="flex items-center justify-center w-[90%] pr-1 md:pr-0" key={`${track.source}-${track.id}`}>
           <div onClick={() => clickHandler(track)} className="flex gap-5 items-center grow cursor-pointer">
             {track.source === 'mbz' ? (
-              <TrackImageLoader imageUrl={track.album.images[0].url} id={track.id} />
+              <TrackImageLoader
+                trackKey={getTrackKey(track)}
+                imageUrl={getTrackImageUrl(track)}
+                id={track.id}
+                onImageLoaded={handleImageLoaded}
+              />
             ) : (
-              <Image height={120} width={120} className="h-30 w-30" src={track.album.images[0].url} alt="" />
+              <Image height={120} width={120} className="h-30 w-30" src={getTrackImageUrl(track)} alt="" />
             )}
             <div className="grow">
               <h3>{track.name}</h3>
