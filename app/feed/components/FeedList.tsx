@@ -5,6 +5,8 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { ScaleLoader } from 'react-spinners';
 import { FeedItemTile } from './FeedItemTile';
+import { groupFeedItems, isFeedItemGroup } from './groupFeedItems';
+import { FeedItemList } from './FeedItemList';
 
 export function FeedList() {
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -46,6 +48,7 @@ export function FeedList() {
   }
 
   const items = data.pages.flatMap((page) => page.items);
+  const entries = groupFeedItems(items);
 
   return (
     <div className="flex flex-col gap-6 max-w-2xl mx-auto w-full">
@@ -53,11 +56,18 @@ export function FeedList() {
         <p className="text-center py-16 opacity-70">No new songs yet this year.</p>
       ) : (
         <ul className="flex flex-col gap-4">
-          {items.map((item) => (
-            <li key={item.id}>
-              <FeedItemTile item={item} />
-            </li>
-          ))}
+          {entries.map((entry) => {
+            if (isFeedItemGroup(entry)) {
+              const groupKey = `${entry[0].artist}-${entry[0].releaseDate}-${entry[0].id}`;
+              return <FeedItemList items={entry} key={groupKey} />;
+            }
+
+            return (
+              <li key={entry.id}>
+                <FeedItemTile item={entry} />
+              </li>
+            );
+          })}
         </ul>
       )}
 
