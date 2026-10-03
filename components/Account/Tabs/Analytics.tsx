@@ -13,7 +13,7 @@ interface AnalyticsTabProps {
 
 export const AnalyticsTab = ({
   hidden,
-  analyticsData: { reviewCount, averageRating, likedSongs, highlightedSong, favouriteGenres },
+  analyticsData: { reviewCount, averageRating, likedSongs, highlightedSong, favouriteGenres, followedArtistsCount },
   isCurrentUser,
 }: AnalyticsTabProps) => {
   return (
@@ -42,6 +42,7 @@ export const AnalyticsTab = ({
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-8 mx-auto max-w-150">
           <StatsTile heading="Songs liked" statValue={String(likedSongs)} />
           <StatsTile heading="Total Reviews" statValue={String(reviewCount)} />
+          <StatsTile heading="Followed Artists" statValue={String(followedArtistsCount)} />
           <div className="flex items-center flex-col bg-base-300 rounded-2xl md:rounded-md p-4 px-2 gap-2">
             <h1 className="text-xl">Average Rating</h1>
             {reviewCount > 0 ? (

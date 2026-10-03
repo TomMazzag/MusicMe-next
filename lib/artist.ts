@@ -1,8 +1,9 @@
 import { ArtistDetail } from '@MusicMe/types/Artist';
 import { BACKEND_URL_SERVER } from './util';
+import { authenticatedRequest } from './backend';
 
 export const getArtistById = async (artistId: string): Promise<ArtistDetail | null> => {
-  const response = await fetch(`${BACKEND_URL_SERVER}/artist/${artistId}`, { method: 'GET' });
+  const response = await authenticatedRequest(`${BACKEND_URL_SERVER}/artist/${artistId}`, { method: 'GET' });
 
   if (response.status === 404) {
     return null;

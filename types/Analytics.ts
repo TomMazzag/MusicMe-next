@@ -6,4 +6,5 @@ export interface Analytics {
   likedSongs: number;
   highlightedSong: HighlightedSong | undefined;
   favouriteGenres: string[];
+  followedArtistsCount: number;
 }

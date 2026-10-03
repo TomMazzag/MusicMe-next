@@ -51,6 +51,7 @@ export default async function AccountPage() {
             likedSongs: user.likedSongCount,
             highlightedSong: user.highlightedSong,
             favouriteGenres: user.favouriteGenres,
+            followedArtistsCount: user.followedArtistsCount,
           }}
         />
       </div>

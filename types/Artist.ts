@@ -30,6 +30,7 @@ export interface ArtistDetail {
   name: string;
   imageUrl?: string;
   yearFounded?: number | null;
+  isFollowing?: boolean;
   genres: ArtistGenre[];
   songs: ArtistSong[];
 }

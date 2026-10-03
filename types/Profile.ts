@@ -7,6 +7,7 @@ export namespace Profile {
     profilePictureUrl: string;
     followers: number;
     following: number;
+    followedArtistsCount: number;
     likedSongCount: number;
     userId: string;
     reviewCount: number;
@@ -27,8 +28,29 @@ export namespace Profile {
     profilePictureUrl: string;
     username: string;
     isFollowing: boolean;
+    createdAt: string;
     currentUserId: string | undefined;
   }
+
+  export interface FollowingFriend {
+    type: 'friend';
+    userId: string;
+    fullName: string;
+    profilePictureUrl: string;
+    username: string;
+    isFollowing: boolean;
+    createdAt: string;
+  }
+
+  export interface FollowingArtist {
+    type: 'artist';
+    id: string;
+    name: string;
+    imageUrl?: string | null;
+    createdAt: string;
+  }
+
+  export type FollowingItem = FollowingFriend | FollowingArtist;
 
   export interface Analytics {
     message: string;

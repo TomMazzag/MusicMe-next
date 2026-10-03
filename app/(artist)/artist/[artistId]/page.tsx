@@ -1,3 +1,4 @@
+import { FollowArtistButton } from '@MusicMe/components/Artist/FollowArtistButton';
 import { Navbar } from '@MusicMe/components/Navbar/Navbar';
 import BlankTrack from '@MusicMe/components/Track/BlankTrack';
 import { getArtistById } from '@MusicMe/lib/artist';
@@ -67,6 +68,7 @@ export default async function ArtistPage({ params }: Props) {
                 ))}
               </div>
             )}
+            <FollowArtistButton artistId={artist.id} isFollowing={artist.isFollowing ?? false} />
           </div>
         </div>
 
