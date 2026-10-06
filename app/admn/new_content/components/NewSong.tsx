@@ -5,6 +5,7 @@ import InputField from '@MusicMe/components/Input/InputField';
 import { faCalendar, faIdBadge, faImage, faRankingStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useQuery } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '@MusicMe/components/Buttons';
 
 interface ArtistsInput {
   id: string;
@@ -57,7 +58,7 @@ export default function NewSong() {
 
   async function handleSubmit() {
     setIsSubmitting(true);
-    const { name, image, releaseDate, selectedGenres, artists, platforms} = formData
+    const { name, image, releaseDate, selectedGenres, artists, platforms } = formData;
     await fetch('/api/admin/song/new', {
       method: 'POST',
       headers: {
@@ -69,7 +70,7 @@ export default function NewSong() {
         releaseDate,
         genres: selectedGenres,
         artistsIds: artists,
-        platforms
+        platforms,
       }),
     });
     setIsSubmitting(false);
@@ -130,13 +131,9 @@ export default function NewSong() {
           className="input input-bordered w-full border-accent"
         />
       </div>
-      <button
-        className="border border-accent px-4 py-2 rounded-md hover:bg-accent transition-colors"
-        onClick={handleSubmit}
-        disabled={isSubmitting}
-      >
+      <Button onClick={handleSubmit} disabled={isSubmitting}>
         Create Song
-      </button>
+      </Button>
     </>
   );
 }

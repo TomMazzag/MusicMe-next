@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { Profile } from '../../types/Profile';
+import { FollowEntityButton } from '../Buttons';
 
 export const UserProfileTile = ({
   userId,
@@ -36,12 +37,7 @@ export const UserProfileTile = ({
         </div>
       </a>
       {currentUserId !== userId && (
-        <button
-          className={`btn btn-sm self-center px-6 border-primary hover:bg-primary hover:text-primary-content rounded-md w-22 ${!isFollowing && 'btn-primary'}`}
-          onClick={followUser}
-        >
-          {following ? 'Following' : 'Follow'}
-        </button>
+        <FollowEntityButton isFollowing={following} onClick={followUser} className="self-center" />
       )}
     </div>
   );

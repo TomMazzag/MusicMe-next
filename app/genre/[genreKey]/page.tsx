@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react';
 import { Navbar } from '@MusicMe/components/Navbar/Navbar';
 import { getGenreByKey } from '@MusicMe/lib/discover';
 import clsx from 'clsx';
@@ -6,6 +5,7 @@ import TopArtists from './components/TopArtists';
 import NewReleases from './components/NewReleases';
 import Promoters from './components/Promoters';
 import { Metadata } from 'next';
+import { Button } from '@MusicMe/components/Buttons';
 
 type Props = {
   params: Promise<{
@@ -16,7 +16,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { genreKey } = await params;
   const { genre } = await getGenreByKey(genreKey);
-  
+
   return {
     title: `Zenekio | ${genre.genreName}`,
     description: `Discover the latest songs in the genre of ${genre.genreName}`,
@@ -49,12 +49,9 @@ export default async function GenrePage({ params }: Props) {
         <h1 className="text-4xl font-bold">{genre.genreName}</h1>
         <p className="max-w-100 opacity-70">{genre.shortDescription}</p>
         <div>
-          <button
-            className="rounded-lg px-4 py-2 cursor-pointer transition-colors hover:bg-(--genre-hex) hover:text-white border-(--genre-hex) border-[1px]"
-            style={{ '--genre-hex': hexColour } as CSSProperties}
-          >
+          <Button className="rounded-lg hover:bg-(--hex-colour) border-(--hex-colour) border" hexColour={hexColour}>
             Follow feed
-          </button>
+          </Button>
         </div>
       </div>
       <div className="flex flex-col gap-6 p-4 mb-4 w-full">

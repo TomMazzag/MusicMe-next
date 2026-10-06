@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import FutureGoals from './components/FutureGoals';
 import { Navbar } from '@MusicMe/components/Navbar/Navbar';
 import Naming from './components/Naming';
+import { Button } from '@MusicMe/components/Buttons';
 
 export const metadata: Metadata = {
   description:
@@ -49,9 +50,7 @@ export default function AboutPage() {
 
         <div className="flex justify-center my-5">
           <a href="/discover">
-            <button className="border-2 border-accent rounded-md px-4 py-2 hover:bg-accent hover:text-base-100 transition-colors duration-300 hover:cursor-pointer">
-              Take a look at our discover page
-            </button>
+            <Button>Take a look at our discover page</Button>
           </a>
         </div>
 

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import InputField from '@MusicMe/components/Input/InputField';
 import { faCalendar, faImage, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useQuery } from '@tanstack/react-query';
+import { Button } from '@MusicMe/components/Buttons';
 
 interface Props {
   genres: Genre[] | undefined;
@@ -123,13 +124,9 @@ export default function NewArtist({ genres }: Props) {
         />
       </div>
       <GenreSelector genres={genres} toggleGenre={toggleGenre} formData={formData} />
-      <button
-        className="border border-accent px-4 py-2 rounded-md hover:bg-accent transition-colors"
-        onClick={handleSubmit}
-        disabled={isSubmitting}
-      >
+      <Button onClick={handleSubmit} disabled={isSubmitting}>
         Create Artist
-      </button>
+      </Button>
     </>
   );
 }

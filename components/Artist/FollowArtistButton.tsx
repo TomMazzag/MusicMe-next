@@ -3,14 +3,9 @@
 import { useAuth, useClerk } from '@clerk/nextjs';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import { FollowEntityButton } from '../Buttons';
 
-export const FollowArtistButton = ({
-  isFollowing,
-  artistId,
-}: {
-  isFollowing: boolean;
-  artistId: string;
-}) => {
+export const FollowArtistButton = ({ isFollowing, artistId }: { isFollowing: boolean; artistId: string }) => {
   const [following, setFollowing] = useState(isFollowing);
   const { isSignedIn } = useAuth();
   const { openSignIn } = useClerk();
@@ -43,14 +38,5 @@ export const FollowArtistButton = ({
     followArtistMutation.mutate();
   };
 
-  return (
-    <button
-      type="button"
-      className={`btn btn-sm w-full md:w-auto min-w-[120px] border-accent ${!following && 'btn-accent'}`}
-      onClick={handleFollow}
-      disabled={followArtistMutation.isPending}
-    >
-      {following ? 'Following' : 'Follow'}
-    </button>
-  );
+  return <FollowEntityButton isFollowing={following} onClick={handleFollow} className="md:w-auto min-w-30" />;
 };

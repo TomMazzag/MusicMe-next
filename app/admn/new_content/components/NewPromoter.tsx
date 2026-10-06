@@ -6,6 +6,7 @@ import { useState } from 'react';
 import InputField from '@MusicMe/components/Input/InputField';
 import { faCalendar, faImage, faLink, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useMutation } from '@tanstack/react-query';
+import { Button } from '@MusicMe/components/Buttons';
 
 interface Props {
   genres: Genre[] | undefined;
@@ -62,7 +63,7 @@ export default function NewPromoter({ genres }: Props) {
           imageUrl: formData.image,
           yearFounded: formData.yearFounded,
           genres: formData.selectedGenres,
-          websiteUrl: formData.websiteUrl
+          websiteUrl: formData.websiteUrl,
         }),
       });
 
@@ -86,7 +87,7 @@ export default function NewPromoter({ genres }: Props) {
   return (
     <>
       {createPromoterMutation.isError && (
-        <div className='flex flex-col gap-2 text-center'>
+        <div className="flex flex-col gap-2 text-center">
           <p className="text-red-500">An error occurred while creating the promoter.</p>
           {createPromoterMutation.isError &&
             createPromoterMutation.error?.errors?.map((err) => (
@@ -126,13 +127,12 @@ export default function NewPromoter({ genres }: Props) {
         />
       </div>
       <GenreSelector genres={genres} toggleGenre={toggleGenre} formData={formData} />
-      <button
-        className="border border-accent px-4 py-2 rounded-md hover:bg-accent transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+      <Button
         onClick={handleSubmit}
         disabled={createPromoterMutation.isPending || formData.selectedGenres.length === 0}
       >
         Create Promoter
-      </button>
+      </Button>
     </>
   );
 }

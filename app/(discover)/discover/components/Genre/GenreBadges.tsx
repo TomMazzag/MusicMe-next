@@ -3,7 +3,7 @@ import { Disc3, Drum, Guitar, House, LucideIcon, MicVocal, Music, PartyPopper, P
 import { JSX } from 'react';
 
 
-const BASE_STYLING = 'flex items-center gap-2 border rounded-lg p-1 px-2 w-[100px] text-sm text-bold cursor-pointer ';
+const BASE_STYLING = 'flex items-center gap-2 border rounded-lg p-1 px-2 min-w-[100px] text-sm text-bold cursor-pointer ';
 
 interface BadgeProps {
     Icon: LucideIcon;
