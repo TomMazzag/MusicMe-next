@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction, useState } from 'react';
 import InputField from '@MusicMe/components/Input/InputField';
-import { faCalendar, faIdBadge, faImage, faRankingStar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faIdBadge, faImage, faPlus, faRankingStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useQuery } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@MusicMe/components/Buttons';
@@ -26,7 +26,7 @@ const initialFormData: FormData = {
   name: '',
   image: '',
   releaseDate: null,
-  artists: [],
+  artists: [{ id: '' }],
 };
 
 export default function NewSong() {
@@ -48,14 +48,6 @@ export default function NewSong() {
     staleTime: 1000 * 60 * 60 * 24,
   });
 
-  //   function toggleGenre(genreKey: string) {
-  //     if (formData.selectedGenres.includes(genreKey)) {
-  //       setFormData({ ...formData, selectedGenres: formData.selectedGenres.filter((key) => key !== genreKey) });
-  //     } else {
-  //       setFormData({ ...formData, selectedGenres: [...formData.selectedGenres, genreKey] });
-  //     }
-  //   }
-
   async function handleSubmit() {
     setIsSubmitting(true);
     const { name, image, releaseDate, selectedGenres, artists, platforms } = formData;
@@ -69,13 +61,22 @@ export default function NewSong() {
         imageUrl: image,
         releaseDate,
         genres: selectedGenres,
-        artistsIds: artists,
+        artistsIds: artists
+          .filter((artist) => artist.id.trim() !== '')
+          .map((artist) => ({ id: artist.id, position: artist.position })),
         platforms,
       }),
     });
     setIsSubmitting(false);
     setFormData(initialFormData);
     setSongSearch('');
+  }
+
+  function addArtist() {
+    setFormData((current) => ({
+      ...current,
+      artists: [...current.artists, { id: '' }],
+    }));
   }
 
   return (
@@ -120,7 +121,15 @@ export default function NewSong() {
           currentState={formData.image}
           setState={(image) => setFormData({ ...formData, image })}
         />
-        <ArtistInputField formData={formData} setFormData={setFormData} />
+        {formData.artists.map((_, index) => (
+          <ArtistInputField
+            key={index}
+            index={index}
+            formData={formData}
+            setFormData={setFormData}
+            onAddArtist={addArtist}
+          />
+        ))}
         <label className="label">
           <FontAwesomeIcon icon={faCalendar} className="mr-2" />
           <span className="label-text">Release date</span>
@@ -141,23 +150,48 @@ export default function NewSong() {
 interface ArtistInputFieldProps {
   formData: FormData;
   setFormData: Dispatch<SetStateAction<FormData>>;
+  index: number;
+  onAddArtist: () => void;
 }
 
-export function ArtistInputField({ formData, setFormData }: ArtistInputFieldProps) {
+export function ArtistInputField({ formData, setFormData, index, onAddArtist }: ArtistInputFieldProps) {
+  const artist = formData.artists[index];
+  const isLast = index === formData.artists.length - 1;
+
+  function updateArtist(patch: Partial<ArtistsInput>) {
+    setFormData((current) => {
+      const artists = [...current.artists];
+      artists[index] = { ...artists[index], ...patch };
+      return { ...current, artists };
+    });
+  }
+
   return (
-    <div className="grid grid-cols-[80%_20%] gap-2">
-      <InputField
-        label="Artist id"
-        icon={faIdBadge}
-        currentState={formData.artists[0]?.id || ''}
-        setState={(updatedData) => setFormData({ ...formData, artists: [{ id: updatedData }] })}
-      />
-      <InputField
-        label="Pos"
-        icon={faRankingStar}
-        currentState={formData.artists[0]?.position ? String(formData.artists[0]?.position) : ''}
-        setState={(updatedData) => console.log(updatedData)}
-      />
+    <div className="relative">
+      <div className="grid grid-cols-[80%_20%] gap-2">
+        <InputField
+          label="Artist id"
+          icon={faIdBadge}
+          currentState={artist?.id || ''}
+          setState={(id) => updateArtist({ id })}
+        />
+        <InputField
+          label="Pos"
+          icon={faRankingStar}
+          type="number"
+          currentState={artist?.position != null ? String(artist.position) : ''}
+          setState={(value) => {
+            const position = value === '' ? undefined : Number(value);
+            if (position !== undefined && Number.isNaN(position)) return;
+            updateArtist({ position });
+          }}
+        />
+      </div>
+      {isLast && (
+        <Button onClick={onAddArtist} className="absolute bottom-0 left-full ml-4 px-2 py-1.5 border">
+          <FontAwesomeIcon icon={faPlus} />
+        </Button>
+      )}
     </div>
   );
 }
