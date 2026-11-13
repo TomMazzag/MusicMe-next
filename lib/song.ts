@@ -3,10 +3,10 @@ import { BACKEND_URL_SERVER } from './util';
 import type { Metadata } from 'next';
 
 export function buildSongMetadata(songResponse: Song, songId: string): Metadata {
-  const { songData, reviewCount, likes } = songResponse;
+  const { songData, reviewCount, likes, views } = songResponse;
   const artistNames = songData.artists.map((artist) => artist.name).join(', ');
   const title = `${songData.name} by ${artistNames}`;
-  const description = `Listen to ${songData.name} by ${artistNames} on Zenekio. ${reviewCount} reviews, ${likes} likes.`;
+  const description = `Read reviews about ${songData.name} by ${artistNames} on Zenekio (Released ${songData.releaseDate}). ${views} views, ${likes} likes, ${reviewCount} reviews.`;
 
   return {
     title,
@@ -49,7 +49,7 @@ export async function addSongView(songId: string) {
     credentials: 'include',
   });
 
-    if (!response.ok) {
-        console.log('Failed to add song view', { status: response.status, statusText: response.statusText });
-    }
+  if (!response.ok) {
+    console.log('Failed to add song view', { status: response.status, statusText: response.statusText });
+  }
 }

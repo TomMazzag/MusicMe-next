@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `Zenekio | ${genre.genreName}`,
-    description: `Discover the latest songs in the genre of ${genre.genreName}`,
+    description: `Discover the latest ${genre.genreName} releases, top artists and promoters on Zenekio`,
     alternates: {
       canonical: `/genre/${genreKey}`,
     },

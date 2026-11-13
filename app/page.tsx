@@ -25,9 +25,11 @@ export default function Home() {
               </button>
             </Show>
           </div>
-          <div className="flex gap-8">
+          <div className="flex gap-4 md:gap-8 md:flex-row flex-col text-center">
             <HomepageLink link="/about" title="About" />
             <HomepageLink link="/discover" title="Discover" />
+            <HomepageLink link="/feed" title="Feed" />
+            <HomepageLink link="/account" title="Account" />
             <HomepageLink link="/search" title="Search" />
           </div>
         </div>

@@ -14,6 +14,18 @@ export interface Review {
   }
 }
 
+export interface UserReview {
+  id: number;
+  comment: string;
+  rating: number;
+  song: {
+    id: string;
+    name: string;
+    imageUrl: string;
+    artist: string;
+  };
+}
+
 export interface TrendingReview {
   comment: string;
   rating: number;

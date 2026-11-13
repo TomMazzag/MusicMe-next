@@ -6,7 +6,7 @@ import { BASE_URL } from '@MusicMe/lib/util';
 
 const TITLE = 'Zenekio';
 const DESCRIPTION =
-  'Zenekio: A social media platform for sharing music taste, discovering new tunes, and connecting with fellow music lovers. Join the beta today!';
+  'Zenekio: A social media platform for sharing music taste, discovering new tunes, and connecting with fellow music lovers. Explore the platform today!';
 
 export const metadata: Metadata = {
   title: TITLE,
