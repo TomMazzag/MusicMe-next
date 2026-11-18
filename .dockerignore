@@ -1,0 +1,10 @@
+.git
+*.md
+node_modules
+**/node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.next
+.vercel
