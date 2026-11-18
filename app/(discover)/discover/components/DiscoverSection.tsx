@@ -1,4 +1,4 @@
-import { Title } from '@MusicMe/components/Util/TextComponents';
+import { Title } from '@MusicMe/components/Text';
 import { JSX } from 'react';
 
 
