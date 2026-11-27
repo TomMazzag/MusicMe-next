@@ -30,6 +30,11 @@ export const Navbar = async () => {
       </div>
       <div className="flex-none gap-2 hidden md:inline-flex">
         <div className="flex-1">
+          <a href="/polls" className="btn btn-ghost text-xl">
+            Polls
+          </a>
+        </div>
+        <div className="flex-1">
           <a href="/feed" className="btn btn-ghost text-xl">
             Feed
           </a>

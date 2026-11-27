@@ -20,6 +20,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/genre/country',
     '/genre/rap',
     '/genre/rock',
+    '/polls',
+    '/polls/create'
   ];
 
   const staticRoutesSitemap = routes.map((route) => ({

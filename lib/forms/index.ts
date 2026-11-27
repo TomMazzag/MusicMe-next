@@ -6,5 +6,6 @@ export {
   type ApiZodIssue,
   type ApplyApiErrorsResult,
 } from './apiErrors';
+export { parseDatetimeLocal, toDatetimeLocalValue } from './datetimeLocal';
 export { getFormErrorMessage } from './errors';
 export { useZodForm } from './useZodForm';
