@@ -54,8 +54,6 @@ export default function OptionsField({ setValue, register, errors, control, disa
     pendingOptionIndexRef.current = null;
   };
 
-  console.log(errors);
-
   return (
     <div className={cn('form-control w-full', className)}>
       <label className="label" htmlFor={OPTIONS_FIELD_NAME}>

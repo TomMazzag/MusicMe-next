@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@MusicMe/components/Buttons';
-import { FormInputField } from '@MusicMe/components/Form';
+import { FormDateTimeField, FormInputField } from '@MusicMe/components/Form';
 import FormSelectField from '@MusicMe/components/Form/FormSelectField';
 import { useZodForm } from '@MusicMe/lib/forms';
 import { createPollSchema, CreatePollValues } from '@MusicMe/types/Poll';
@@ -15,7 +15,7 @@ const defaultValues: CreatePollValues = {
   startsAt: new Date(),
   endsAt: undefined,
   showResults: 'always',
-  options: [{songId: '', position: 0}],
+  options: [{ songId: '', position: 0 }],
 };
 
 export default function CreatePollForm() {
@@ -33,15 +33,29 @@ export default function CreatePollForm() {
     mode: 'onSubmit',
   });
 
-  const onValidSubmit = handleSubmit(async (values) => {
-    await new Promise((r) => setTimeout(r, 400));
-  });
+  const onValidSubmit = (intent: 'create' | 'draft') =>
+    handleSubmit(async (values) => {
+      const isPublished = intent === 'create';
+      await fetch('/api/polls/create', {
+        method: 'POST',
+        body: JSON.stringify({ ...values, isPublished }),
+      }).then(async (res) => {
+        if (res.ok) {
+          const data = await res.json();
+          console.log(data);
+          return reset();
+        }
+        return res.json().then((data) => {
+          throw new Error(data.error);
+        });
+      });
+    });
 
   return (
     <form
-      onSubmit={onValidSubmit}
       className="card bg-base-200 border border-base-300 p-6 flex flex-col gap-4 w-[50vw]"
       noValidate
+      onSubmit={(e) => e.preventDefault()}
     >
       <FormInputField
         name="title"
@@ -94,15 +108,17 @@ export default function CreatePollForm() {
 
       <OptionsField register={register} errors={errors} control={control} setValue={setValue} />
 
-      <div>Start date</div>
-      <div>End date</div>
+      <div className="grid grid-cols-2 gap-2">
+        <FormDateTimeField name="startsAt" label="Start date" control={control} errors={errors} />
+        <FormDateTimeField name="endsAt" label="End date (optional)" control={control} errors={errors} optional />
+      </div>
 
       <div className="flex flex-wrap gap-2 pt-2">
-        <Button type="submit" disabled={isSubmitting} onClick={() => reset()} variant="subdued">
+        <Button type="button" disabled={isSubmitting} variant="subdued" onClick={onValidSubmit('draft')}>
           Save as draft
         </Button>
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Creating poll...' : 'Create poll'}
+        <Button type="button" disabled={isSubmitting} onClick={onValidSubmit('create')}>
+          {isSubmitting ? 'Creating poll' : 'Create poll'}
         </Button>
       </div>
     </form>
